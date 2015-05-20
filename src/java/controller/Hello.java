@@ -10,5 +10,5 @@ package controller;
  * @author lion
  */
 public class Hello {
-    
+    int a;
 }
