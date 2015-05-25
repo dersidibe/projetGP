@@ -11,4 +11,5 @@ package controller;
  */
 public class Hello {
     int a;
+    int b;
 }
