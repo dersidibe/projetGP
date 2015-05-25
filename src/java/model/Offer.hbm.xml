@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 25, 2015 11:24:23 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Offer" table="offer" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="account" class="model.Account" fetch="select">
+            <column name="account_id" not-null="true" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="content" not-null="true" />
+        </property>
+        <property name="mode" type="int">
+            <column name="mode" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="29" not-null="true" />
+        </property>
+        <property name="modifier" type="string">
+            <column name="modifier" />
+        </property>
+        <property name="modifiedDate" type="timestamp">
+            <column name="modified_date" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 25, 2015 11:24:23 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Message" table="message" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="model.MessageId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="accountId1" type="int">
+                <column name="account_id_1" />
+            </key-property>
+            <key-property name="accountId2" type="int">
+                <column name="account_id_2" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="accountByAccountId1" class="model.Account" update="false" insert="false" fetch="select">
+            <column name="account_id_1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="accountByAccountId2" class="model.Account" update="false" insert="false" fetch="select">
+            <column name="account_id_2" not-null="true" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="content" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="29" not-null="true" />
+        </property>
+        <property name="modifiedDate" type="timestamp">
+            <column name="modified_date" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>
