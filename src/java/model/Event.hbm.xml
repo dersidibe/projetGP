@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 25, 2015 11:24:23 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated May 26, 2015 10:01:35 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Event" table="event" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -14,10 +14,10 @@
         <property name="content" type="string">
             <column name="content" not-null="true" />
         </property>
-        <property name="mode" type="int">
+        <property name="mode" type="short">
             <column name="mode" not-null="true" />
         </property>
-        <property name="status" type="int">
+        <property name="status" type="short">
             <column name="status" not-null="true" />
         </property>
         <property name="startDate" type="timestamp">
@@ -36,6 +36,12 @@
             <column name="modified_date" length="29" />
         </property>
         <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="event_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Comment" />
+        </set>
+        <set name="comments_1" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="event_id" not-null="true" />
             </key>

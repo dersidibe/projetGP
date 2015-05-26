@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 25, 2015 11:24:23 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated May 26, 2015 10:01:35 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Account" table="account" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -23,10 +23,13 @@
         <property name="image" type="string">
             <column name="image" length="1000" />
         </property>
-        <property name="type" type="int">
+        <property name="type" type="short">
             <column name="type" not-null="true" />
         </property>
-        <property name="status" type="int">
+        <property name="promotion" type="java.lang.Integer">
+            <column name="promotion" />
+        </property>
+        <property name="status" type="short">
             <column name="status" not-null="true" />
         </property>
         <property name="email" type="string">
@@ -38,7 +41,7 @@
         <property name="nationality" type="string">
             <column name="nationality" />
         </property>
-        <property name="sex" type="java.lang.Integer">
+        <property name="sex" type="java.lang.Boolean">
             <column name="sex" />
         </property>
         <property name="occupation" type="string">
@@ -50,13 +53,25 @@
         <property name="modifiedDate" type="timestamp">
             <column name="modified_date" length="29" />
         </property>
-        <property name="jobStartTime" type="java.lang.Integer">
-            <column name="job_start_time" />
+        <property name="jobStartTime" type="timestamp">
+            <column name="job_start_time" length="29" />
         </property>
-        <property name="jobEndTime" type="java.lang.Integer">
-            <column name="job_end_time" />
+        <property name="jobEndTime" type="timestamp">
+            <column name="job_end_time" length="29" />
         </property>
         <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="account_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Comment" />
+        </set>
+        <set name="events" table="event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="account_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Event" />
+        </set>
+        <set name="comments_1" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id" not-null="true" />
             </key>
@@ -68,19 +83,37 @@
             </key>
             <one-to-many class="model.Offer" />
         </set>
+        <set name="offers_1" table="offer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="account_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Offer" />
+        </set>
         <set name="messagesForAccountId1" table="message" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id_1" not-null="true" />
             </key>
             <one-to-many class="model.Message" />
         </set>
-        <set name="events" table="event" inverse="true" lazy="true" fetch="select">
+        <set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="account_id_2" not-null="true" />
+            </key>
+            <one-to-many class="model.Message" />
+        </set>
+        <set name="messagesForAccountId1_1" table="message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="account_id_1" not-null="true" />
+            </key>
+            <one-to-many class="model.Message" />
+        </set>
+        <set name="events_1" table="event" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id" not-null="true" />
             </key>
             <one-to-many class="model.Event" />
         </set>
-        <set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
+        <set name="messagesForAccountId2_1" table="message" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id_2" not-null="true" />
             </key>

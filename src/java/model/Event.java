@@ -1,5 +1,5 @@
 package model;
-// Generated May 25, 2015 11:24:21 AM by Hibernate Tools 4.3.1
+// Generated May 26, 2015 10:01:32 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,20 +15,21 @@ public class Event  implements java.io.Serializable {
      private int id;
      private Account account;
      private String content;
-     private int mode;
-     private int status;
+     private short mode;
+     private short status;
      private Date startDate;
      private Date endDate;
      private Date createdDate;
      private String modifier;
      private Date modifiedDate;
      private Set comments = new HashSet(0);
+     private Set comments_1 = new HashSet(0);
 
     public Event() {
     }
 
 	
-    public Event(int id, Account account, String content, int mode, int status, Date startDate, Date endDate, Date createdDate) {
+    public Event(int id, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate) {
         this.id = id;
         this.account = account;
         this.content = content;
@@ -38,7 +39,7 @@ public class Event  implements java.io.Serializable {
         this.endDate = endDate;
         this.createdDate = createdDate;
     }
-    public Event(int id, Account account, String content, int mode, int status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments) {
+    public Event(int id, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments, Set comments_1) {
        this.id = id;
        this.account = account;
        this.content = content;
@@ -50,6 +51,7 @@ public class Event  implements java.io.Serializable {
        this.modifier = modifier;
        this.modifiedDate = modifiedDate;
        this.comments = comments;
+       this.comments_1 = comments_1;
     }
    
     public int getId() {
@@ -73,18 +75,18 @@ public class Event  implements java.io.Serializable {
     public void setContent(String content) {
         this.content = content;
     }
-    public int getMode() {
+    public short getMode() {
         return this.mode;
     }
     
-    public void setMode(int mode) {
+    public void setMode(short mode) {
         this.mode = mode;
     }
-    public int getStatus() {
+    public short getStatus() {
         return this.status;
     }
     
-    public void setStatus(int status) {
+    public void setStatus(short status) {
         this.status = status;
     }
     public Date getStartDate() {
@@ -128,6 +130,13 @@ public class Event  implements java.io.Serializable {
     
     public void setComments(Set comments) {
         this.comments = comments;
+    }
+    public Set getComments_1() {
+        return this.comments_1;
+    }
+    
+    public void setComments_1(Set comments_1) {
+        this.comments_1 = comments_1;
     }
 
 
