@@ -1,5 +1,5 @@
-package model;
-// Generated May 26, 2015 10:01:32 PM by Hibernate Tools 4.3.1
+package com.model;
+// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
 
 
 
@@ -9,25 +9,25 @@ package model;
 public class MessageId  implements java.io.Serializable {
 
 
-     private int id;
+     private int idMessage;
      private int accountId1;
      private int accountId2;
 
     public MessageId() {
     }
 
-    public MessageId(int id, int accountId1, int accountId2) {
-       this.id = id;
+    public MessageId(int idMessage, int accountId1, int accountId2) {
+       this.idMessage = idMessage;
        this.accountId1 = accountId1;
        this.accountId2 = accountId2;
     }
    
-    public int getId() {
-        return this.id;
+    public int getIdMessage() {
+        return this.idMessage;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMessage(int idMessage) {
+        this.idMessage = idMessage;
     }
     public int getAccountId1() {
         return this.accountId1;
@@ -51,7 +51,7 @@ public class MessageId  implements java.io.Serializable {
 		 if ( !(other instanceof MessageId) ) return false;
 		 MessageId castOther = ( MessageId ) other; 
          
-		 return (this.getId()==castOther.getId())
+		 return (this.getIdMessage()==castOther.getIdMessage())
  && (this.getAccountId1()==castOther.getAccountId1())
  && (this.getAccountId2()==castOther.getAccountId2());
    }
@@ -59,7 +59,7 @@ public class MessageId  implements java.io.Serializable {
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + this.getId();
+         result = 37 * result + this.getIdMessage();
          result = 37 * result + this.getAccountId1();
          result = 37 * result + this.getAccountId2();
          return result;

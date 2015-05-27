@@ -1,5 +1,5 @@
-package model;
-// Generated May 26, 2015 10:01:32 PM by Hibernate Tools 4.3.1
+package com.model;
+// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Comment  implements java.io.Serializable {
 
 
-     private CommentId id;
+     private int idComment;
      private Account account;
      private Event event;
      private String content;
@@ -19,20 +19,20 @@ public class Comment  implements java.io.Serializable {
     public Comment() {
     }
 
-    public Comment(CommentId id, Account account, Event event, String content, Date createdDate) {
-       this.id = id;
+    public Comment(int idComment, Account account, Event event, String content, Date createdDate) {
+       this.idComment = idComment;
        this.account = account;
        this.event = event;
        this.content = content;
        this.createdDate = createdDate;
     }
    
-    public CommentId getId() {
-        return this.id;
+    public int getIdComment() {
+        return this.idComment;
     }
     
-    public void setId(CommentId id) {
-        this.id = id;
+    public void setIdComment(int idComment) {
+        this.idComment = idComment;
     }
     public Account getAccount() {
         return this.account;

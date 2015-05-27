@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package com.controller;
 
 /**
  *
- * @author lion
+ * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class Hello {
-    int a;
-    int b;
+public class MessageController {
+    
 }

@@ -1,5 +1,5 @@
-package model;
-// Generated May 26, 2015 10:01:32 PM by Hibernate Tools 4.3.1
+package com.model;
+// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Event  implements java.io.Serializable {
 
 
-     private int id;
+     private int idEvent;
      private Account account;
      private String content;
      private short mode;
@@ -23,14 +23,13 @@ public class Event  implements java.io.Serializable {
      private String modifier;
      private Date modifiedDate;
      private Set comments = new HashSet(0);
-     private Set comments_1 = new HashSet(0);
 
     public Event() {
     }
 
 	
-    public Event(int id, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate) {
-        this.id = id;
+    public Event(int idEvent, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate) {
+        this.idEvent = idEvent;
         this.account = account;
         this.content = content;
         this.mode = mode;
@@ -39,8 +38,8 @@ public class Event  implements java.io.Serializable {
         this.endDate = endDate;
         this.createdDate = createdDate;
     }
-    public Event(int id, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments, Set comments_1) {
-       this.id = id;
+    public Event(int idEvent, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments) {
+       this.idEvent = idEvent;
        this.account = account;
        this.content = content;
        this.mode = mode;
@@ -51,15 +50,14 @@ public class Event  implements java.io.Serializable {
        this.modifier = modifier;
        this.modifiedDate = modifiedDate;
        this.comments = comments;
-       this.comments_1 = comments_1;
     }
    
-    public int getId() {
-        return this.id;
+    public int getIdEvent() {
+        return this.idEvent;
     }
     
-    public void setId(int id) {
-        this.id = id;
+    public void setIdEvent(int idEvent) {
+        this.idEvent = idEvent;
     }
     public Account getAccount() {
         return this.account;
@@ -130,13 +128,6 @@ public class Event  implements java.io.Serializable {
     
     public void setComments(Set comments) {
         this.comments = comments;
-    }
-    public Set getComments_1() {
-        return this.comments_1;
-    }
-    
-    public void setComments_1(Set comments_1) {
-        this.comments_1 = comments_1;
     }
 
 

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27 mai 2015 21:29:31 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.model.Comment" table="comment" schema="public" optimistic-lock="version">
+        <id name="idComment" type="int">
+            <column name="id_comment" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="account" class="com.model.Account" fetch="select">
+            <column name="account_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="event" class="com.model.Event" fetch="select">
+            <column name="event_id" not-null="true" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="content" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="29" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

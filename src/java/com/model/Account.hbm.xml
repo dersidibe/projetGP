@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 26, 2015 10:01:35 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 27 mai 2015 21:29:31 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Account" table="account" schema="public" optimistic-lock="version">
-        <id name="id" type="int">
-            <column name="id" />
+    <class name="com.model.Account" table="account" schema="public" optimistic-lock="version">
+        <id name="idAccount" type="int">
+            <column name="id_account" />
             <generator class="assigned" />
         </id>
         <property name="firstName" type="string">
@@ -36,10 +36,10 @@
             <column name="email" not-null="true" unique="true" />
         </property>
         <property name="birthday" type="timestamp">
-            <column name="birthday" length="29" />
+            <column name="birthday" length="29" not-null="true" />
         </property>
         <property name="nationality" type="string">
-            <column name="nationality" />
+            <column name="nationality" not-null="true" />
         </property>
         <property name="sex" type="java.lang.Boolean">
             <column name="sex" />
@@ -59,65 +59,35 @@
         <property name="jobEndTime" type="timestamp">
             <column name="job_end_time" length="29" />
         </property>
-        <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+        <set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="account_id" not-null="true" />
+                <column name="account_id_2" not-null="true" />
             </key>
-            <one-to-many class="model.Comment" />
+            <one-to-many class="com.model.Message" />
         </set>
         <set name="events" table="event" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id" not-null="true" />
             </key>
-            <one-to-many class="model.Event" />
-        </set>
-        <set name="comments_1" table="comment" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="model.Comment" />
-        </set>
-        <set name="offers" table="offer" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="model.Offer" />
-        </set>
-        <set name="offers_1" table="offer" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="model.Offer" />
+            <one-to-many class="com.model.Event" />
         </set>
         <set name="messagesForAccountId1" table="message" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id_1" not-null="true" />
             </key>
-            <one-to-many class="model.Message" />
+            <one-to-many class="com.model.Message" />
         </set>
-        <set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_2" not-null="true" />
-            </key>
-            <one-to-many class="model.Message" />
-        </set>
-        <set name="messagesForAccountId1_1" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_1" not-null="true" />
-            </key>
-            <one-to-many class="model.Message" />
-        </set>
-        <set name="events_1" table="event" inverse="true" lazy="true" fetch="select">
+        <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="account_id" not-null="true" />
             </key>
-            <one-to-many class="model.Event" />
+            <one-to-many class="com.model.Comment" />
         </set>
-        <set name="messagesForAccountId2_1" table="message" inverse="true" lazy="true" fetch="select">
+        <set name="offers" table="offer" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="account_id_2" not-null="true" />
+                <column name="account_id" not-null="true" />
             </key>
-            <one-to-many class="model.Message" />
+            <one-to-many class="com.model.Offer" />
         </set>
     </class>
 </hibernate-mapping>

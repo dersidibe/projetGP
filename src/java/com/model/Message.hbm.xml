@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 26, 2015 10:01:35 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 27 mai 2015 21:29:31 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Message" table="message" schema="public" optimistic-lock="version">
-        <composite-id name="id" class="model.MessageId">
-            <key-property name="id" type="int">
-                <column name="id" />
+    <class name="com.model.Message" table="message" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="com.model.MessageId">
+            <key-property name="idMessage" type="int">
+                <column name="id_message" />
             </key-property>
             <key-property name="accountId1" type="int">
                 <column name="account_id_1" />
@@ -15,11 +15,11 @@
                 <column name="account_id_2" />
             </key-property>
         </composite-id>
-        <many-to-one name="accountByAccountId1" class="model.Account" update="false" insert="false" fetch="select">
-            <column name="account_id_1" not-null="true" />
-        </many-to-one>
-        <many-to-one name="accountByAccountId2" class="model.Account" update="false" insert="false" fetch="select">
+        <many-to-one name="accountByAccountId2" class="com.model.Account" update="false" insert="false" fetch="select">
             <column name="account_id_2" not-null="true" />
+        </many-to-one>
+        <many-to-one name="accountByAccountId1" class="com.model.Account" update="false" insert="false" fetch="select">
+            <column name="account_id_1" not-null="true" />
         </many-to-one>
         <property name="content" type="string">
             <column name="content" not-null="true" />

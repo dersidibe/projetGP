@@ -7,10 +7,10 @@
     <property name="hibernate.connection.url">jdbc:postgresql://localhost/DBPGP</property>
     <property name="hibernate.connection.username">etudiant</property>
     <property name="hibernate.connection.password">etudiant</property>
-    <mapping resource="model/Message.hbm.xml"/>
-    <mapping resource="model/Event.hbm.xml"/>
-    <mapping resource="model/Account.hbm.xml"/>
-    <mapping resource="model/Offer.hbm.xml"/>
-    <mapping resource="model/Comment.hbm.xml"/>
+    <mapping resource="com/model/Offer.hbm.xml"/>
+    <mapping resource="com/model/Account.hbm.xml"/>
+    <mapping resource="com/model/Message.hbm.xml"/>
+    <mapping resource="com/model/Comment.hbm.xml"/>
+    <mapping resource="com/model/Event.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

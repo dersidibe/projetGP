@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package com.controller;
 
 /**
  *
- * @author colsi
+ * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class Try {
+public class OfferController {
     
 }
