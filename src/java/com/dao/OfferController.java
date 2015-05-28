@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller;
+package com.dao;
 
 /**
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class MessageController {
+public class OfferController {
     
 }

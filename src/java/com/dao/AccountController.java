@@ -3,39 +3,58 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller;
+package com.dao;
 
-import com.dao.CommentDao;
-import com.model.Comment;
-import com.utils.HibernateUtil;
+import com.dao.AccountDao;
 import java.util.List;
+import com.model.Account;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import com.utils.HibernateUtil;
 
 /**
  *
- * @author SIDIBE Der (dersidibe@gmail.com)
+ * @author Der
  */
-public class CommentController extends CommentDao{
+public class AccountController extends AccountDao{
+
+     private Session session = null;
+     
+     public AccountController(){
+         
+         this.session = HibernateUtil.getSessionFactory().openSession();
+     }
     
-    private Session session = null;
-    
-    public CommentController(){
-    
-        this.session = HibernateUtil.getSessionFactory().openSession();
+    @Override
+    public List<Account> getAccountsList() {
+        
+        Transaction transaction = null;
+        try{
+            
+            transaction.begin();
+            List<Account> listAccount = session.createQuery("from Account").list();
+            transaction.commit();
+            return listAccount;
+            
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return null;
+        
     }
 
     @Override
-    public List<Comment> getComments() {
+    public Account getAccount(int id) {
         
         Transaction transaction = null;
         try{
             
             transaction.begin();
-            List<Comment> list = session.createQuery("from Comment").list();
+            Account listAccount = (Account) session.get(Account.class, id);
             transaction.commit();
-            return list;
+            return listAccount;
             
         }catch(HibernateException e){
             e.printStackTrace();
@@ -45,64 +64,28 @@ public class CommentController extends CommentDao{
     }
 
     @Override
-    public Comment getCommentById(int id) {
+    public Integer insertAccount(Account account) {
         
         Transaction transaction = null;
-        try{
-            
-            transaction.begin();
-            Comment comment = (Comment) session.get(Comment.class, id);
-            transaction.commit();
-            return comment;
-            
-        }catch(HibernateException e){
-            e.printStackTrace();
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public List<Comment> getCommentsByEvent(int idEvent) {
-        Transaction transaction = null;
-        try{
-            
-            transaction.begin();
-            String query = "from Comment as c where c.event.idEvent ="+idEvent;
-            List<Comment> list = session.createQuery(query).list();
-            transaction.commit();
-            return list;
-            
-        }catch(HibernateException e){
-            e.printStackTrace();
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public Integer insertComment(Comment comment) {
-        
-        Transaction transaction = null;
-        Integer commentId = null;
+        Integer accountId = null;
         try {
             transaction = session.beginTransaction();
-            commentId = (Integer) session.save(comment);
+            accountId = (Integer) session.save(account);
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-        return commentId;
+        return accountId;
     }
 
     @Override
-    public boolean deleteComment(Comment comment) {
+    public boolean deleteAccount(Account account) {
         
         Transaction transaction = null;
         boolean result =  false;
         try {
             transaction = session.beginTransaction();
-            session.delete(comment);
+            session.delete(account);
             transaction.commit();
             result =  true;
         } catch (HibernateException e) {
@@ -112,20 +95,20 @@ public class CommentController extends CommentDao{
     }
 
     @Override
-    public boolean updateComment(Comment comment) {
-       
+    public boolean updateAccount(Account account) {
+        
         Transaction transaction = null;
         boolean result =  false;
         try {
             transaction = session.beginTransaction();
-            session.update(comment);
+            session.update(account);
             transaction.commit();
             result = true;
         } catch (HibernateException e) {
             e.printStackTrace();
         }
         return result;
+   
     }
-
-
+    
 }
