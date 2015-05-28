@@ -5,7 +5,6 @@
  */
 package com.dao;
 
-import com.dao.AccountDao;
 import java.util.List;
 import com.model.Account;
 import org.hibernate.HibernateException;
@@ -30,18 +29,19 @@ public class AccountController extends AccountDao{
     public List<Account> getAccountsList() {
         
         Transaction transaction = null;
+        List<Account> listAccount = null;
+        
         try{
             
-            transaction.begin();
-            List<Account> listAccount = session.createQuery("from Account").list();
+            transaction = session.beginTransaction();
+            listAccount = session.createQuery("from Account").list();
             transaction.commit();
-            return listAccount;
             
         }catch(HibernateException e){
             e.printStackTrace();
         }
         
-        return null;
+        return listAccount;
         
     }
 
@@ -49,18 +49,20 @@ public class AccountController extends AccountDao{
     public Account getAccount(int id) {
         
         Transaction transaction = null;
+        Account listAccount = null;
+        
         try{
             
-            transaction.begin();
-            Account listAccount = (Account) session.get(Account.class, id);
+            transaction = session.beginTransaction();
+            listAccount = (Account) session.get(Account.class, id);
             transaction.commit();
-            return listAccount;
             
         }catch(HibernateException e){
+            
             e.printStackTrace();
         }
         
-        return null;
+        return listAccount;
     }
 
     @Override
@@ -68,13 +70,18 @@ public class AccountController extends AccountDao{
         
         Transaction transaction = null;
         Integer accountId = null;
+        
         try {
+            
             transaction = session.beginTransaction();
             accountId = (Integer) session.save(account);
             transaction.commit();
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
+        
         return accountId;
     }
 
@@ -83,14 +90,19 @@ public class AccountController extends AccountDao{
         
         Transaction transaction = null;
         boolean result =  false;
+        
         try {
+            
             transaction = session.beginTransaction();
             session.delete(account);
             transaction.commit();
             result =  true;
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
+        
         return result;
     }
 
@@ -99,12 +111,16 @@ public class AccountController extends AccountDao{
         
         Transaction transaction = null;
         boolean result =  false;
+        
         try {
+            
             transaction = session.beginTransaction();
             session.update(account);
             transaction.commit();
             result = true;
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
         return result;

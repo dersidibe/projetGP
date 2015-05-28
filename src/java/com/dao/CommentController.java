@@ -5,7 +5,6 @@
  */
 package com.dao;
 
-import com.dao.CommentDao;
 import com.model.Comment;
 import com.utils.HibernateUtil;
 import java.util.List;
@@ -30,14 +29,17 @@ public class CommentController extends CommentDao{
     public List<Comment> getComments() {
         
         Transaction transaction = null;
+        List<Comment> list = null;
+        
         try{
             
             transaction.begin();
-            List<Comment> list = session.createQuery("from Comment").list();
+            list = session.createQuery("from Comment").list();
             transaction.commit();
             return list;
             
         }catch(HibernateException e){
+            
             e.printStackTrace();
         }
         
@@ -48,36 +50,41 @@ public class CommentController extends CommentDao{
     public Comment getCommentById(int id) {
         
         Transaction transaction = null;
+        Comment comment = null;
+        
         try{
             
-            transaction.begin();
-            Comment comment = (Comment) session.get(Comment.class, id);
+            transaction = session.beginTransaction();
+            comment = (Comment) session.get(Comment.class, id);
             transaction.commit();
-            return comment;
             
         }catch(HibernateException e){
+            
             e.printStackTrace();
         }
         
-        return null;
+        return comment;
     }
     
     @Override
     public List<Comment> getCommentsByEvent(int idEvent) {
+        
         Transaction transaction = null;
+        List<Comment> list = null;
+        
         try{
             
-            transaction.begin();
+           transaction = session.beginTransaction();
             String query = "from Comment as c where c.event.idEvent ="+idEvent;
-            List<Comment> list = session.createQuery(query).list();
+            list = session.createQuery(query).list();
             transaction.commit();
-            return list;
             
         }catch(HibernateException e){
+            
             e.printStackTrace();
         }
         
-        return null;
+        return list;
     }
     
     @Override
@@ -85,11 +92,15 @@ public class CommentController extends CommentDao{
         
         Transaction transaction = null;
         Integer commentId = null;
+        
         try {
+            
             transaction = session.beginTransaction();
             commentId = (Integer) session.save(comment);
             transaction.commit();
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
         return commentId;
@@ -100,14 +111,19 @@ public class CommentController extends CommentDao{
         
         Transaction transaction = null;
         boolean result =  false;
+        
         try {
+            
             transaction = session.beginTransaction();
             session.delete(comment);
             transaction.commit();
             result =  true;
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
+        
         return result;
     }
 
@@ -116,12 +132,16 @@ public class CommentController extends CommentDao{
        
         Transaction transaction = null;
         boolean result =  false;
+        
         try {
+            
             transaction = session.beginTransaction();
             session.update(comment);
             transaction.commit();
             result = true;
+            
         } catch (HibernateException e) {
+            
             e.printStackTrace();
         }
         return result;
