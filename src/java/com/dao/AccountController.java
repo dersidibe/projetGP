@@ -16,115 +16,113 @@ import com.utils.HibernateUtil;
  *
  * @author Der
  */
-public class AccountController extends AccountDao{
+public class AccountController extends AccountDao {
 
-     private Session session = null;
-     
-     public AccountController(){
-         
-         this.session = HibernateUtil.getSessionFactory().openSession();
-     }
-    
+    private Session session = null;
+
+    public AccountController() {
+
+        this.session = HibernateUtil.getSessionFactory().openSession();
+    }
+
     @Override
     public List<Account> getAccountsList() {
-        
+
         Transaction transaction = null;
         List<Account> listAccount = null;
-        
-        try{
-            
+
+        try {
+
             transaction = session.beginTransaction();
             listAccount = session.createQuery("from Account").list();
             transaction.commit();
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
-        
+
         return listAccount;
-        
+
     }
 
     @Override
     public Account getAccount(int id) {
-        
+
         Transaction transaction = null;
         Account listAccount = null;
-        
-        try{
-            
+
+        try {
+
             transaction = session.beginTransaction();
             listAccount = (Account) session.get(Account.class, id);
             transaction.commit();
-            
-        }catch(HibernateException e){
-            
+
+        } catch (HibernateException e) {
+
             e.printStackTrace();
         }
-        
+
         return listAccount;
     }
 
     @Override
     public Integer insertAccount(Account account) {
-        
+
         Transaction transaction = null;
         Integer accountId = null;
-        
+
         try {
-            
+
             transaction = session.beginTransaction();
             accountId = (Integer) session.save(account);
             transaction.commit();
-            
+
         } catch (HibernateException e) {
-            
+
             e.printStackTrace();
         }
-        
+
         return accountId;
     }
 
     @Override
     public boolean deleteAccount(Account account) {
-        
+
         Transaction transaction = null;
-        boolean result =  false;
-        
+        boolean result = false;
+
         try {
-            
+
             transaction = session.beginTransaction();
             session.delete(account);
             transaction.commit();
-            result =  true;
-            
+            result = true;
+
         } catch (HibernateException e) {
-            
+
             e.printStackTrace();
         }
-        
+
         return result;
     }
 
     @Override
     public boolean updateAccount(Account account) {
-        
+
         Transaction transaction = null;
-        boolean result =  false;
-        
+        boolean result = false;
+
         try {
-            
+
             transaction = session.beginTransaction();
             session.update(account);
             transaction.commit();
             result = true;
-            
+
         } catch (HibernateException e) {
-            
+
             e.printStackTrace();
         }
         return result;
-   
     }
-    
 }

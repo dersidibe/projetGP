@@ -16,27 +16,27 @@ import org.hibernate.Transaction;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class EventController extends EventDao{
+public class EventController extends EventDao {
 
-    private Session session =null;
-   
-    public EventController(){
-        
+    private Session session = null;
+
+    public EventController() {
+
         this.session = HibernateUtil.getSessionFactory().openSession();
     }
-    
+
     @Override
     public List<Event> getEvents() {
-        
-        Transaction transaction =null;
+
+        Transaction transaction = null;
         List<Event> list = null;
-        try{
-            
+        try {
+
             transaction = session.beginTransaction();
             list = session.createQuery("from Event").list();
             transaction.commit();
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return list;
@@ -44,99 +44,98 @@ public class EventController extends EventDao{
 
     @Override
     public List<Event> getEvents(int idUser) {
-        
-       Transaction transaction =null;
-       List<Event> list = null;
-        try{
+
+        Transaction transaction = null;
+        List<Event> list = null;
+        try {
             transaction = session.beginTransaction();
-            String query = "from Event as ev where ev.account.idAccount ="+idUser;
+            String query = "from Event as ev where ev.account.idAccount =" + idUser;
             list = session.createQuery(query).list();
             transaction.commit();
-            
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
-        return list;        
+        return list;
     }
 
     @Override
     public Event getEvent(int id) {
-        
+
         Transaction transaction = null;
         Event event = null;
-        try{
-        
+        try {
+
             transaction = session.beginTransaction();
-            event = (Event)session.get(Event.class,id);
+            event = (Event) session.get(Event.class, id);
             transaction.commit();
-            
-        }catch(HibernateException e){
-            
+
+        } catch (HibernateException e) {
+
             e.printStackTrace();
         }
         return event;
-        
+
     }
 
     @Override
     public Integer insertEvent(Event event) {
-        
+
         Transaction transaction = null;
         Integer idEvent = null;
-        
-        try{
-            
+
+        try {
+
             transaction = session.beginTransaction();
-            idEvent = (Integer)session.save(event);
+            idEvent = (Integer) session.save(event);
             transaction.commit();
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
-        
+
         return idEvent;
     }
 
     @Override
     public boolean deleteEvent(Event event) {
-        
+
         Transaction transaction = null;
         boolean result = false;
-        
-        try{
-            
+
+        try {
+
             transaction = session.beginTransaction();
             session.delete(event);
             transaction.commit();
             result = true;
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
-        
-        return result;       
-        
+
+        return result;
+
     }
 
     @Override
     public boolean updateEvent(Event event) {
-        
+
         Transaction transaction = null;
         boolean result = false;
-        
-        try{
-            
+
+        try {
+
             transaction = session.beginTransaction();
             session.update(event);
             transaction.commit();
             result = true;
-            
-        }catch(HibernateException e){
+
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
-        
-        return result;      
+
+        return result;
     }
-    
+
 }

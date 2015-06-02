@@ -13,16 +13,16 @@ import java.util.List;
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
 public abstract class CommentDao {
-   
+
     public abstract List<Comment> getComments();
-    
+
     public abstract List<Comment> getCommentsByEvent(int idEvent);
-    
+
     public abstract Comment getCommentById(int id);
 
     public abstract Integer insertComment(Comment comment);
 
     public abstract boolean deleteComment(Comment comment);
 
-    public abstract boolean updateComment(Comment comment);    
+    public abstract boolean updateComment(Comment comment);
 }

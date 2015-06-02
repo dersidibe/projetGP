@@ -13,17 +13,17 @@ import java.util.List;
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
 public abstract class EventDao {
-  
+
     public abstract List<Event> getEvents();
-    
+
     public abstract List<Event> getEvents(int idUser);
-    
+
     public abstract Event getEvent(int id);
-    
+
     public abstract Integer insertEvent(Event event);
 
     public abstract boolean deleteEvent(Event event);
 
-    public abstract boolean updateEvent(Event event);        
-    
+    public abstract boolean updateEvent(Event event);
+
 }
