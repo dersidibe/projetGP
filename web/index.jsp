@@ -5,7 +5,9 @@ they are not accessible except through controller process.
 This JSP is here to provide a redirect to the dispatcher
 servlet but should be the only JSP outside of WEB-INF.
 --%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -20,6 +22,10 @@ servlet but should be the only JSP outside of WEB-INF.
         <script type="text/javascript" src="js/coin-slider.min.js"></script>
     </head>
     <body>
+         <form:form modelAttribute="account" method="post" commandName="account" action="login.html">
+                                        <form:input path="username"/>
+                                        <form:password path="password"/>
+                                    </form:form>
         <div class="main">
             <div class="header">
                 <div class="header_resize">
@@ -97,26 +103,22 @@ servlet but should be the only JSP outside of WEB-INF.
                             <h2 class="star"><span>Offers</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
-                                <li><a href="http://www.dreamtemplate.com/">DreamTemplate</a><br />
-                                    Over 6,000+ Premium Web Templates</li>
-                                <li><a href="http://www.templatesold.com/">TemplateSOLD</a><br />
-                                    Premium WordPress &amp; Joomla Themes</li>
-                                <li><a href="http://www.imhosted.com/">ImHosted.com</a><br />
-                                    Affordable Web Hosting Provider</li>
-                                <li><a href="http://www.megastockphotos.com/">MegaStockPhotos</a><br />
-                                    Unlimited Amazing Stock Photos</li>
-                                <li><a href="http://www.evrsoft.com/">Evrsoft</a><br />
-                                    Website Builder Software &amp; Tools</li>
-                                <li><a href="http://www.csshub.com/">CSS Hub</a><br />
-                                    Premium CSS Templates</li>
+                                <li>
+                                    <a href="http://www.dreamtemplate.com/">DreamTemplate</a><br/>
+                                    Over 6,000+ Premium Web Templates
+                                </li>
                             </ul>
                         </div>
                         <div class="gadget">
                             <h2 class="star"><span>Login</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
-                                <li>Username<br /></li>
-                                <li>Password<br /></li>
+                                <li>
+                                    <form:form method="post" action="login.html">
+                                        <form:input path="username"/>
+                                        <form:password path="password"/>
+                                    </form:form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -126,8 +128,14 @@ servlet but should be the only JSP outside of WEB-INF.
             <div class="fbg">
                 <div class="fbg_resize">
                     <div class="col c1">
-                        <h2><span>Image</span> Gallery</h2>
-                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
+                        <h2><span>Images</span> l'IFI</h2>
+                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    </div>
                     <div class="col c2">
                         <h2><span>Services</span> Overview</h2>
                         <p>Curabitur sed urna id nunc pulvinar semper. Nunc sit amet tortor sit amet lacus sagittis posuere cursus vitae nunc.Etiam venenatis, turpis at eleifend porta, nisl nulla bibendum justo.</p>
@@ -139,20 +147,22 @@ servlet but should be the only JSP outside of WEB-INF.
                     </div>
                     <div class="col c3">
                         <h2><span>Contact</span> Us</h2>
-                        <p>Nullam quam lorem, tristique non vestibulum nec, consectetur in risus. Aliquam a quam vel leo gravida gravida eu porttitor dui.</p>
-                        <p class="contact_info"> <span>Address:</span> 1458 TemplateAccess, USA<br />
+                        <p>Viện tin học pháp ngữ</p>
+                        <p>Institution Fancophonie International</p>
+                        <p class="contact_info"> <span>Address:</span> 144 Xuân Thủy, Cầu Giấy, Hà Nội<br />
                             <span>Telephone:</span> +123-1234-5678<br />
                             <span>FAX:</span> +458-4578<br />
                             <span>Others:</span> +301 - 0125 - 01258<br />
-                            <span>E-mail:</span> <a href="#">mail@yoursitename.com</a> </p>
+                            <span>E-mail:</span> <a href="#">pbduong.p19@ifi.edu.vn</a></br>
+                            <span>E-mail:</span><a href="#">sidibe.p19@ifi.edu.vn</a> </p>
                     </div>
                     <div class="clr"></div>
                 </div>
             </div>
             <div class="footer">
                 <div class="footer_resize">
-                    <p class="lf">&copy; Copyright <a href="#">MyWebSite</a>.</p>
-                    <p class="rf">Design by Dream <a href="http://www.dreamtemplate.com/">Web Templates</a></p>
+                    <p class="lf">&copy; Copyright <a href="#">L'IFI</a>.</p>
+                    <p class="rf">Design by : <a href="http://www.dreamtemplate.com/">Der-Duong</a></p>
                     <div style="clear:both;"></div>
                 </div>
             </div>
