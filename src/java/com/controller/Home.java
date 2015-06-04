@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author lion
  */
 @Controller
-@RequestMapping(value = "/welcome")
-public class Welcome {
+@RequestMapping(value = "/index")
+public class Home {
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute(value="account")Account account, ModelMap mm) {
-        mm.put("account1", account);
-        return "welcome";
-    }
-    
-    @RequestMapping(value="/createAccount", method = RequestMethod.POST)
-    public String createAccount(){
-        return "welcome";
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String showForm(ModelMap mm) {
+        mm.addAttribute("account", new Account());
+        return "index";
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String login(@ModelAttribute("account") Account account, ModelMap mm) {
+        mm.put("account", account);
+        return "index";
+    }
 }

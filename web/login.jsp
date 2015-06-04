@@ -1,6 +1,6 @@
 <%-- 
-    Document   : createAccount
-    Created on : Jun 2, 2015, 11:23:42 PM
+    Document   : welcome
+    Created on : Jun 5, 2015, 1:02:08 AM
     Author     : lion
 --%>
 
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        Username ${account.username}
+        Password ${account.password}
     </body>
 </html>
