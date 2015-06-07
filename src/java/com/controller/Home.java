@@ -5,7 +5,9 @@
  */
 package com.controller;
 
+import com.dao.AccountController;
 import com.model.Account;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,18 +19,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author lion
  */
 @Controller
-@RequestMapping(value = "/index")
+//@RequestMapping(value = "/index")
+@RequestMapping(value = "")
 public class Home {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    private AccountController accountController;
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
-        return "index";
+        return "login";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String login(@ModelAttribute("account") Account account, ModelMap mm) {
-        mm.put("account", account);
+    @RequestMapping(value = "/welcome", method = RequestMethod.POST)
+    public String login(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
+        accountController = new AccountController();
+        Account ac = accountController.getAccount(account.getUsername(), account.getPassword());
+        if (ac != null) {
+            session.setAttribute("username", ac.getUsername());
+            return "index";
+        }
+        return "login";
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String showForm(HttpSession session) {
+        session.invalidate();
         return "index";
     }
 }

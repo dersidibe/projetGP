@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.utils.HibernateUtil;
+import org.hibernate.Query;
 
 /**
  *
@@ -49,12 +50,12 @@ public class AccountController extends AccountDao {
     public Account getAccount(int id) {
 
         Transaction transaction = null;
-        Account listAccount = null;
+        Account account = null;
 
         try {
 
             transaction = session.beginTransaction();
-            listAccount = (Account) session.get(Account.class, id);
+            account = (Account) session.get(Account.class, id);
             transaction.commit();
 
         } catch (HibernateException e) {
@@ -62,7 +63,28 @@ public class AccountController extends AccountDao {
             e.printStackTrace();
         }
 
-        return listAccount;
+        return account;
+    }
+
+    public Account getAccount(String username, String password) {
+
+        Transaction transaction = null;
+        List<Account> account = null;
+
+        try {
+            transaction = session.beginTransaction();
+            String stringQuery = "from Account as a where a.username = :usr and a.password = :pwd ";
+            Query  query = session.createQuery(stringQuery);
+            query.setString("usr",username);
+            query.setString("pwd",password);
+            account = query.list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        if(account.size() > 0)
+            return account.get(0);
+        else return null;
     }
 
     @Override
