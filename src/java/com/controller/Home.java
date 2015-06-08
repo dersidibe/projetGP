@@ -7,6 +7,7 @@ package com.controller;
 
 import com.dao.AccountController;
 import com.model.Account;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,15 @@ public class Home {
 
     private AccountController accountController;
 
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String listMember(ModelMap mm) {
+        accountController = new AccountController();
+        List <Account> accounts = accountController.getAccountsList();
+        mm.put("accounts", accounts);
+        return "index";
+    }
+    
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
