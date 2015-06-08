@@ -1,5 +1,5 @@
 package com.model;
-// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
+// Generated Jun 8, 2015 4:53:33 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -30,17 +30,22 @@ public class Account  implements java.io.Serializable {
      private Date modifiedDate;
      private Date jobStartTime;
      private Date jobEndTime;
-     private Set messagesForAccountId2 = new HashSet(0);
      private Set events = new HashSet(0);
+     private Set messagesForAccountId2 = new HashSet(0);
+     private Set events_1 = new HashSet(0);
      private Set messagesForAccountId1 = new HashSet(0);
+     private Set messagesForAccountId1_1 = new HashSet(0);
      private Set comments = new HashSet(0);
+     private Set messagesForAccountId2_1 = new HashSet(0);
+     private Set comments_1 = new HashSet(0);
      private Set offers = new HashSet(0);
+     private Set offers_1 = new HashSet(0);
 
     public Account() {
     }
 
 	
-    public Account(int idAccount, String firstName, String lastName, String username, String password, short type, short status, String email, Date birthday, String nationality, Date createdDate) {
+    public Account(int idAccount, String firstName, String lastName, String username, String password, short type, short status, String email, Date createdDate) {
         this.idAccount = idAccount;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,11 +54,9 @@ public class Account  implements java.io.Serializable {
         this.type = type;
         this.status = status;
         this.email = email;
-        this.birthday = birthday;
-        this.nationality = nationality;
         this.createdDate = createdDate;
     }
-    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, Boolean sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set messagesForAccountId2, Set events, Set messagesForAccountId1, Set comments, Set offers) {
+    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, Boolean sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set events, Set messagesForAccountId2, Set events_1, Set messagesForAccountId1, Set messagesForAccountId1_1, Set comments, Set messagesForAccountId2_1, Set comments_1, Set offers, Set offers_1) {
        this.idAccount = idAccount;
        this.firstName = firstName;
        this.lastName = lastName;
@@ -72,11 +75,16 @@ public class Account  implements java.io.Serializable {
        this.modifiedDate = modifiedDate;
        this.jobStartTime = jobStartTime;
        this.jobEndTime = jobEndTime;
-       this.messagesForAccountId2 = messagesForAccountId2;
        this.events = events;
+       this.messagesForAccountId2 = messagesForAccountId2;
+       this.events_1 = events_1;
        this.messagesForAccountId1 = messagesForAccountId1;
+       this.messagesForAccountId1_1 = messagesForAccountId1_1;
        this.comments = comments;
+       this.messagesForAccountId2_1 = messagesForAccountId2_1;
+       this.comments_1 = comments_1;
        this.offers = offers;
+       this.offers_1 = offers_1;
     }
    
     public int getIdAccount() {
@@ -205,6 +213,13 @@ public class Account  implements java.io.Serializable {
     public void setJobEndTime(Date jobEndTime) {
         this.jobEndTime = jobEndTime;
     }
+    public Set getEvents() {
+        return this.events;
+    }
+    
+    public void setEvents(Set events) {
+        this.events = events;
+    }
     public Set getMessagesForAccountId2() {
         return this.messagesForAccountId2;
     }
@@ -212,12 +227,12 @@ public class Account  implements java.io.Serializable {
     public void setMessagesForAccountId2(Set messagesForAccountId2) {
         this.messagesForAccountId2 = messagesForAccountId2;
     }
-    public Set getEvents() {
-        return this.events;
+    public Set getEvents_1() {
+        return this.events_1;
     }
     
-    public void setEvents(Set events) {
-        this.events = events;
+    public void setEvents_1(Set events_1) {
+        this.events_1 = events_1;
     }
     public Set getMessagesForAccountId1() {
         return this.messagesForAccountId1;
@@ -226,6 +241,13 @@ public class Account  implements java.io.Serializable {
     public void setMessagesForAccountId1(Set messagesForAccountId1) {
         this.messagesForAccountId1 = messagesForAccountId1;
     }
+    public Set getMessagesForAccountId1_1() {
+        return this.messagesForAccountId1_1;
+    }
+    
+    public void setMessagesForAccountId1_1(Set messagesForAccountId1_1) {
+        this.messagesForAccountId1_1 = messagesForAccountId1_1;
+    }
     public Set getComments() {
         return this.comments;
     }
@@ -233,12 +255,33 @@ public class Account  implements java.io.Serializable {
     public void setComments(Set comments) {
         this.comments = comments;
     }
+    public Set getMessagesForAccountId2_1() {
+        return this.messagesForAccountId2_1;
+    }
+    
+    public void setMessagesForAccountId2_1(Set messagesForAccountId2_1) {
+        this.messagesForAccountId2_1 = messagesForAccountId2_1;
+    }
+    public Set getComments_1() {
+        return this.comments_1;
+    }
+    
+    public void setComments_1(Set comments_1) {
+        this.comments_1 = comments_1;
+    }
     public Set getOffers() {
         return this.offers;
     }
     
     public void setOffers(Set offers) {
         this.offers = offers;
+    }
+    public Set getOffers_1() {
+        return this.offers_1;
+    }
+    
+    public void setOffers_1(Set offers_1) {
+        this.offers_1 = offers_1;
     }
 
 

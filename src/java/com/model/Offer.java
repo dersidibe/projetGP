@@ -1,5 +1,5 @@
 package com.model;
-// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
+// Generated Jun 8, 2015 4:53:33 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,6 +12,7 @@ public class Offer  implements java.io.Serializable {
 
      private int idOffer;
      private Account account;
+     private String title;
      private String content;
      private int mode;
      private Date createdDate;
@@ -22,16 +23,18 @@ public class Offer  implements java.io.Serializable {
     }
 
 	
-    public Offer(int idOffer, Account account, String content, int mode, Date createdDate) {
+    public Offer(int idOffer, Account account, String title, String content, int mode, Date createdDate) {
         this.idOffer = idOffer;
         this.account = account;
+        this.title = title;
         this.content = content;
         this.mode = mode;
         this.createdDate = createdDate;
     }
-    public Offer(int idOffer, Account account, String content, int mode, Date createdDate, String modifier, Date modifiedDate) {
+    public Offer(int idOffer, Account account, String title, String content, int mode, Date createdDate, String modifier, Date modifiedDate) {
        this.idOffer = idOffer;
        this.account = account;
+       this.title = title;
        this.content = content;
        this.mode = mode;
        this.createdDate = createdDate;
@@ -52,6 +55,13 @@ public class Offer  implements java.io.Serializable {
     
     public void setAccount(Account account) {
         this.account = account;
+    }
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
     }
     public String getContent() {
         return this.content;

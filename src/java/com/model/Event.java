@@ -1,5 +1,5 @@
 package com.model;
-// Generated 27 mai 2015 21:29:29 by Hibernate Tools 4.3.1
+// Generated Jun 8, 2015 4:53:33 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -14,6 +14,7 @@ public class Event  implements java.io.Serializable {
 
      private int idEvent;
      private Account account;
+     private String title;
      private String content;
      private short mode;
      private short status;
@@ -23,14 +24,16 @@ public class Event  implements java.io.Serializable {
      private String modifier;
      private Date modifiedDate;
      private Set comments = new HashSet(0);
+     private Set comments_1 = new HashSet(0);
 
     public Event() {
     }
 
 	
-    public Event(int idEvent, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate) {
+    public Event(int idEvent, Account account, String title, String content, short mode, short status, Date startDate, Date endDate, Date createdDate) {
         this.idEvent = idEvent;
         this.account = account;
+        this.title = title;
         this.content = content;
         this.mode = mode;
         this.status = status;
@@ -38,9 +41,10 @@ public class Event  implements java.io.Serializable {
         this.endDate = endDate;
         this.createdDate = createdDate;
     }
-    public Event(int idEvent, Account account, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments) {
+    public Event(int idEvent, Account account, String title, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments, Set comments_1) {
        this.idEvent = idEvent;
        this.account = account;
+       this.title = title;
        this.content = content;
        this.mode = mode;
        this.status = status;
@@ -50,6 +54,7 @@ public class Event  implements java.io.Serializable {
        this.modifier = modifier;
        this.modifiedDate = modifiedDate;
        this.comments = comments;
+       this.comments_1 = comments_1;
     }
    
     public int getIdEvent() {
@@ -65,6 +70,13 @@ public class Event  implements java.io.Serializable {
     
     public void setAccount(Account account) {
         this.account = account;
+    }
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
     }
     public String getContent() {
         return this.content;
@@ -128,6 +140,13 @@ public class Event  implements java.io.Serializable {
     
     public void setComments(Set comments) {
         this.comments = comments;
+    }
+    public Set getComments_1() {
+        return this.comments_1;
+    }
+    
+    public void setComments_1(Set comments_1) {
+        this.comments_1 = comments_1;
     }
 
 
