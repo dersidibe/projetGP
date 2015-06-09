@@ -32,16 +32,18 @@ public class Home {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String listMemberEvent(ModelMap mm) {
         accountController = new AccountController();
-        eventController = new EventController();
         List<Account> accounts = accountController.getAccountsList();
+        accounts = accounts.subList(0, Math.min(5, accounts.size()));
+        mm.put("accounts", accounts);
+        
+        eventController = new EventController();
         List<Event> events = eventController.getEvents();
         events = events.subList(0, Math.min(5, events.size()));
-        accounts = accounts.subList(0, Math.min(5, accounts.size()));
-        for (int i = 0; i < events.size(); i++) {
-            events.get(i).setContent(events.get(i).getContent().substring(0, 50));
-        }
+//        for (int i = 0; i < events.size(); i++) {
+//            events.get(i).setContent(events.get(i).getContent().substring(0, 50));
+//        }
+        
         mm.put("events", events);
-        mm.put("accounts", accounts);
         return "index";
     }
     
