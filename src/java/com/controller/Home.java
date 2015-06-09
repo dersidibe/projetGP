@@ -6,7 +6,9 @@
 package com.controller;
 
 import com.dao.AccountController;
+import com.dao.EventController;
 import com.model.Account;
+import com.model.Event;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -23,24 +25,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //@RequestMapping(value = "/index")
 @RequestMapping(value = "")
 public class Home {
-
+    
     private AccountController accountController;
-
+    private EventController eventController;
+    
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String listMember(ModelMap mm) {
+    public String listMemberEvent(ModelMap mm) {
         accountController = new AccountController();
-        List <Account> accounts = accountController.getAccountsList();
+        eventController = new EventController();
+        List<Account> accounts = accountController.getAccountsList();
+        List<Event> events = eventController.getEvents();
+        events = events.subList(0, Math.min(5, events.size()));
+        accounts = accounts.subList(0, Math.min(5, accounts.size()));
+        for (int i = 0; i < events.size(); i++) {
+            events.get(i).setContent(events.get(i).getContent().substring(0, 50));
+        }
+        mm.put("events", events);
         mm.put("accounts", accounts);
         return "index";
     }
-    
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
         return "login";
     }
-
+    
     @RequestMapping(value = "/welcome", method = RequestMethod.POST)
     public String login(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
         accountController = new AccountController();

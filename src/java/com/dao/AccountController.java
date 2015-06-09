@@ -35,7 +35,7 @@ public class AccountController extends AccountDao {
         try {
 
             transaction = session.beginTransaction();
-            listAccount = session.createQuery("from Account").list();
+            listAccount = session.createQuery("from Account order by created_date").list();
             transaction.commit();
 
         } catch (HibernateException e) {

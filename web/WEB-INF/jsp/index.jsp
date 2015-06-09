@@ -78,6 +78,24 @@
                                 <input name="button_search" src="images/search.gif" class="button_search" type="image" />
                             </form>
                         </div>
+                        <div class="gadget">
+                            <h2 class="star"><span>Login</span></h2>
+                            <div class="clr"></div>
+                            <ul class="ex_menu">
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.username == null}">
+                                            <a href="<%=request.getContextPath()%>/login.htm">Login</a>
+                                        </c:when>
+                                        <c:when test="${sessionScope.username != null}">
+                                            Salut: ${sessionScope.username} <br>
+                                            <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
+                                        </c:when>
+                                    </c:choose> 
+                                    <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="clr"></div>
                         <div class="gadget">
                             <h2 class="star"><span>Les nouvaux membres</span></h2>
@@ -94,35 +112,11 @@
                             <h2 class="star"><span>Les nouveaux événements</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
-                                <li><a href="http://www.dreamtemplate.com/">DreamTemplate</a><br />
-                                    Over 6,000+ Premium Web Templates</li>
-                                <li><a href="http://www.templatesold.com/">TemplateSOLD</a><br />
-                                    Premium WordPress &amp; Joomla Themes</li>
-                                <li><a href="http://www.imhosted.com/">ImHosted.com</a><br />
-                                    Affordable Web Hosting Provider</li>
-                                <li><a href="http://www.megastockphotos.com/">MegaStockPhotos</a><br />
-                                    Unlimited Amazing Stock Photos</li>
-                                <li><a href="http://www.evrsoft.com/">Evrsoft</a><br />
-                                    Website Builder Software &amp; Tools</li>
-                                <li><a href="http://www.csshub.com/">CSS Hub</a><br />
-                                    Premium CSS Templates</li>
-                            </ul>
-                        </div>
-                        <div class="gadget">
-                            <h2 class="star"><span>Login</span></h2>
-                            <div class="clr"></div>
-                            <ul class="ex_menu">
-                                <li>
-                                    <c:choose>
-                                        <c:when test="${sessionScope.username == null}">
-                                            <a href="<%=request.getContextPath()%>/login.htm">Login</a>
-                                        </c:when>
-                                        <c:when test="${sessionScope.username != null}">
-                                            Salut: ${sessionScope.username} <br>
-                                            <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
-                                        </c:when>
-                                    </c:choose> 
-                                </li>
+                                <c:forEach var="event" items="${events}">
+                                    <li><a href="http://www.dreamtemplate.com/">${event.title}</a><br>
+                                        ${event.content}...
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>

@@ -33,7 +33,7 @@ public class EventController extends EventDao {
         try {
 
             transaction = session.beginTransaction();
-            list = session.createQuery("from Event").list();
+            list = session.createQuery("from Event order by created_date").list();
             transaction.commit();
 
         } catch (HibernateException e) {
