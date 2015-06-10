@@ -16,11 +16,11 @@ import org.hibernate.Transaction;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class CommentController extends CommentDao{
+public class CommentIpl extends CommentDao{
     
     private Session session = null;
     
-    public CommentController(){
+    public CommentIpl(){
     
         this.session = HibernateUtil.getSessionFactory().openSession();
     }

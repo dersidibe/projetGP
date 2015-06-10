@@ -16,11 +16,11 @@ import org.hibernate.Transaction;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class EventController extends EventDao {
+public class EventIpl extends EventDao {
 
     private Session session = null;
 
-    public EventController() {
+    public EventIpl() {
 
         this.session = HibernateUtil.getSessionFactory().openSession();
     }

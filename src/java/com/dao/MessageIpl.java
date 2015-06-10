@@ -1,6 +1,6 @@
 package com.dao;
 
-import com.model.Offer;
+import com.model.Message;
 import com.utils.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -11,66 +11,48 @@ import org.hibernate.Transaction;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class OfferController extends OfferDao {
+public class MessageIpl extends MessageDao{
 
-    private Session session =null;
+    private Session session = null;
     
-    public OfferController(){
-        
+    public MessageIpl(){
+    
         this.session = HibernateUtil.getSessionFactory().openSession();
     }
     
     @Override
-    public List<Offer> getOffres() {
+    public List<Message> getMessages(int idUser) {
         
         Transaction transaction = null;
-        List<Offer> list = null;
+        List<Message> list = null;
         
         try{
         
-           transaction = session.beginTransaction();
-           list = session.createQuery("from Offer").list();
-           transaction.commit();
-            
-        }catch(HibernateException e){
-            
-            e.printStackTrace();
-        }
-        
-        return list;
-    }
-
-    @Override
-    public List<Offer> getOffresByIdUser(int idUser) {
-        
-        Transaction transaction = null;
-        List<Offer> list = null;
-        
-        try{
-            
             transaction = session.beginTransaction();
-            String query = "from Offer as o where o.account.idAccount="+idUser;
+            String query = "from Message as m where m.accountByAccountId1.idAccount="+idUser;
             list = session.createQuery(query).list();
             transaction.commit();
-            
+        
         }catch(HibernateException e){
-            
+        
             e.printStackTrace();
         }
         
         return list;
+        
     }
 
     @Override
-    public Offer getEvent(int id) {
+    public List<Message> getMessagesByIdUsers(int idUser1, int idUser2) {
         
         Transaction transaction = null;
-        Offer offre = null;
+        List<Message> list = null;
         
         try{
-            
+        
             transaction = session.beginTransaction();
-            offre = (Offer)session.get(Offer.class, id);
+            String query = "from Message as m where m.accountByAccountId1.idAccount="+idUser1+"and m.accountByAccountId2.idAccount="+idUser2;
+            list = session.createQuery(query).list();
             transaction.commit();
         
         }catch(HibernateException e){
@@ -78,31 +60,33 @@ public class OfferController extends OfferDao {
             e.printStackTrace();
         }
         
-        return offre;
+        return list;        
+        
     }
+  
 
     @Override
-    public Integer insertOffer(Offer offre) {
+    public Integer insertMessage(Message message) {
         
         Transaction transaction = null;
-        Integer idOffer = null;
+        Integer idMesg = null;
         
         try{
         
             transaction = session.beginTransaction();
-            idOffer = (Integer)session.save(offre);
+            idMesg = (Integer)session.save(message);
             transaction.commit();
-            
+        
         }catch(HibernateException e){
         
             e.printStackTrace();
         }
         
-        return idOffer;
+        return idMesg;
     }
 
     @Override
-    public boolean deleteOffer(Offer offre) {
+    public boolean deleteMessage(Message message) {
         
         Transaction transaction = null;
         boolean result = false;
@@ -110,29 +94,7 @@ public class OfferController extends OfferDao {
         try{
         
             transaction = session.beginTransaction();
-            session.delete(offre);
-            transaction.commit();
-            result = true;
-            
-        }catch(HibernateException e){
-        
-            e.printStackTrace();
-        }
-        
-        
-        return result;
-    }
-
-    @Override
-    public boolean updateOffer(Offer offre) {
-        
-        Transaction transaction = null;
-        boolean result = false;
-        
-        try{
-        
-            transaction = session.beginTransaction();
-            session.update(offre);
+            session.delete(message);
             transaction.commit();
             result = true;
             
@@ -144,5 +106,28 @@ public class OfferController extends OfferDao {
         
         return result;        
     }
-    
+
+    @Override
+    public boolean updateMessage(Message message) {
+
+        Transaction transaction = null;
+        boolean result = false;
+        
+        try{
+        
+            transaction = session.beginTransaction();
+            session.update(message);
+            transaction.commit();
+            result = true;
+            
+        }catch(HibernateException e){
+        
+            e.printStackTrace();
+        }
+        
+        
+        return result;        
+    }
+
+ 
 }
