@@ -78,7 +78,7 @@
                                             <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
                                         </c:when>
                                         <c:when test="${sessionScope.username != null}">
-                                            Salut: <a href="#">${sessionScope.username}</a> <br>
+                                            Salut: <a href="#">${sessionScope.username.getUsername}</a> <br>
                                             <a href="">Créer un évent</a> <br>
                                             <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
                                         </c:when>

@@ -9,9 +9,14 @@ import com.dao.AccountController;
 import com.dao.EventController;
 import com.model.Account;
 import com.model.Event;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +63,7 @@ public class Home {
         accountController = new AccountController();
         Account ac = accountController.getAccount(account.getUsername(), account.getPassword());
         if (ac != null) {
-            session.setAttribute("username", ac.getUsername());
+            session.setAttribute("username", ac);
             return "index";
         }
         return "login";
@@ -69,4 +74,41 @@ public class Home {
         session.invalidate();
         return "index";
     }
+    
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String submitForm(ModelMap mm) {
+        mm.addAttribute("account", new Account());
+        return "signup";
+    } 
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String signup(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
+        accountController = new AccountController();
+        Account ac = new Account();
+        //Account ac = accountController.getAccount(account.getUsername(), account.getPassword());
+       
+        return "signup";
+    }    
+    public void initModelList(Model model) {
+	        List<String> promotion = new ArrayList<String>();
+                
+                for(int i = 0; i<18; i++){
+                    i++;
+                    promotion.add(""+i);
+                }
+	        model.addAttribute("promo", promotion);
+    } 
+    protected Map referenceData(HttpServletRequest request) throws Exception {
+  
+        Map promotions = new HashMap();
+        List<String> promoList = new ArrayList<String>();
+        promoList.add("Gardening");
+        promoList.add("Listening Music");
+        promoList.add("Writing Technical Tutorials");
+        promotions.put("hobbiesList", promoList);
+  
+        return promotions;
+  
+    }    
+    
 }
