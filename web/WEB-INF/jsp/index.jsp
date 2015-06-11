@@ -85,13 +85,18 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.current_account == null}">
                                             <a href="<%=request.getContextPath()%>/login.htm">Login</a>
-                                            <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
+                                            <a href="<%=request.getContextPath()%>/account/signup.htm">Sign up</a>
+                                        </c:when>
+                                        <c:when test="${sessionScope.username != null}">
+                                            Salut: <a href="#">${sessionScope.username.getUsername}</a> <br>
+                                            <a href="">Créer un évent</a> <br>
                                         </c:when>
                                         <c:when test="${sessionScope.current_account != null}">
                                             Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
                                             <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
                                             <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Create offer</a> <br>
                                             <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
+
                                             <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
                                         </c:when>
                                     </c:choose> 
