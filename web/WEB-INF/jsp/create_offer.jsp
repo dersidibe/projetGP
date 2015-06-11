@@ -52,9 +52,9 @@
             <div class="content_resize">
                 <div class="mainbar">
                     <div class="article">
-                        <h2><span>Create </span> an event</h2>
+                        <h2><span>Create </span> an offer</h2>
                         <div class="clr"></div>
-                        <form:form action="do_creation_event.htm" method="post" commandName="event">
+                        <form:form action="do_creation_offer.htm" method="post" commandName="offer">
                             <ol>
                                 <li>
                                     Name:
@@ -63,10 +63,6 @@
                                 <li>
                                     Mode:
                                     <form:input path="mode"/>
-                                </li>
-                                <li>
-                                    Status:
-                                    <form:input path="status"/>
                                 </li>
                                 <li>
                                     Your Message
@@ -99,7 +95,7 @@
                                         <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
                                     </c:when>
                                     <c:when test="${sessionScope.current_account != null}">
-                                        Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
+                                        Salut : <a href="#">${sessionScope.current_account.username}</a> <br>
                                         <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
                                         <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
                                         <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
