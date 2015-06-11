@@ -8,6 +8,8 @@ package com.controller;
 import com.dao.EventIpl;
 import com.model.Account;
 import com.model.Event;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,9 +30,17 @@ public class EventCtr {
     @RequestMapping(value = "/create_event", method = RequestMethod.GET)
     public String createEvent(ModelMap mm, HttpSession session) {
         Event event = new Event();
-        Account account = (Account)session.getAttribute("current_account");
-        if(account == null)
+        Account account = (Account) session.getAttribute("current_account");
+
+        if (account == null) {
             return "redirect_index";
+        }
+        
+        List<String> statuses = new ArrayList<String>();
+        statuses.add("active");
+        statuses.add("inactive");
+        mm.addAttribute("statuses", statuses);
+        
         event.setAccount(account);
         mm.addAttribute("event", event);
         return "create_event";
@@ -42,5 +52,5 @@ public class EventCtr {
 //        event.setAccount((Account)session.getAttribute("current_account"));
         evenIpl.insertEvent(event);
         return "redirect_index";
-    }    
+    }
 }

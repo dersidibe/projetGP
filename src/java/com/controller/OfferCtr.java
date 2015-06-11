@@ -44,8 +44,8 @@ public class OfferCtr {
         offerIpl = new OfferIpl();
         offer.setAccount((Account) session.getAttribute("current_account"));
         offer.setCreatedDate(new Date());
-
-        offerIpl.insertOffer(offer);
-        return "redirect_index";
+        Integer result = offerIpl.insertOffer(offer);
+        mm.put("result", result);
+        return "create_offer";
     }
 }

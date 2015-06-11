@@ -55,27 +55,49 @@
                         <h2><span>Create </span> an event</h2>
                         <div class="clr"></div>
                         <form:form action="do_creation_event.htm" method="post" commandName="event">
-                            <ol>
-                                <li>
-                                    Name:
-                                    <form:input path="title"/>
-                                </li>
-                                <li>
-                                    Mode:
-                                    <form:input path="mode"/>
-                                </li>
-                                <li>
-                                    Status:
-                                    <form:input path="status"/>
-                                </li>
-                                <li>
-                                    Your Message
-                                    <form:textarea path="content"></form:textarea>
-                                    </li>
-                                    <li>
-                                        <input type="submit" value="create"/>
-                                    </li>
-                                </ol>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Name:
+                                    </td>
+                                    <td>
+                                        <form:input path="title"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mode:
+                                    </td>
+                                    <td>
+                                        <form:radiobutton path="mode" value="1"/>Only one
+                                        <form:radiobutton path="mode" value="3"/>Public
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Status:
+                                    </td>
+                                    <td>
+                                        <form:select path="status">
+                                            <form:option value="" label="...." />
+                                            <form:options items="${statuses}" />
+                                        </form:select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Your Message:
+                                    </td>
+                                    <td>
+                                        <form:textarea path="content"></form:textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" value="create"/>
+                                        </td>
+                                    </tr>
+                                </table>
                         </form:form>
                     </div>
                 </div>

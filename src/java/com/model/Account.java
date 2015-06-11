@@ -24,7 +24,7 @@ public class Account  implements java.io.Serializable {
      private String email;
      private Date birthday;
      private String nationality;
-     private Boolean sex;
+     private char sex;
      private String occupation;
      private Date createdDate;
      private Date modifiedDate;
@@ -56,7 +56,7 @@ public class Account  implements java.io.Serializable {
         this.email = email;
         this.createdDate = createdDate;
     }
-    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, Boolean sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set events, Set messagesForAccountId2, Set events_1, Set messagesForAccountId1, Set messagesForAccountId1_1, Set comments, Set messagesForAccountId2_1, Set comments_1, Set offers, Set offers_1) {
+    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, char sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set events, Set messagesForAccountId2, Set events_1, Set messagesForAccountId1, Set messagesForAccountId1_1, Set comments, Set messagesForAccountId2_1, Set comments_1, Set offers, Set offers_1) {
        this.idAccount = idAccount;
        this.firstName = firstName;
        this.lastName = lastName;
@@ -171,11 +171,11 @@ public class Account  implements java.io.Serializable {
     public void setNationality(String nationality) {
         this.nationality = nationality;
     }
-    public Boolean getSex() {
+    public char getSex() {
         return this.sex;
     }
     
-    public void setSex(Boolean sex) {
+    public void setSex(char sex) {
         this.sex = sex;
     }
     public String getOccupation() {
