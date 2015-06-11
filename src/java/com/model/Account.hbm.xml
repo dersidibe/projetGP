@@ -3,121 +3,121 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 8, 2015 4:53:35 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.model.Account" table="account" schema="public" optimistic-lock="version">
-        <id name="idAccount" type="int">
-            <column name="id_account" />
-            <generator class="assigned" />
-        </id>
-        <property name="firstName" type="string">
-            <column name="first_name" not-null="true" />
-        </property>
-        <property name="lastName" type="string">
-            <column name="last_name" not-null="true" />
-        </property>
-        <property name="username" type="string">
-            <column name="username" not-null="true" unique="true" />
-        </property>
-        <property name="password" type="string">
-            <column name="password" not-null="true" />
-        </property>
-        <property name="image" type="string">
-            <column name="image" length="1000" />
-        </property>
-        <property name="type" type="short">
-            <column name="type" not-null="true" />
-        </property>
-        <property name="promotion" type="java.lang.Integer">
-            <column name="promotion" />
-        </property>
-        <property name="status" type="short">
-            <column name="status" not-null="true" />
-        </property>
-        <property name="email" type="string">
-            <column name="email" not-null="true" unique="true" />
-        </property>
-        <property name="birthday" type="timestamp">
-            <column name="birthday" length="29" />
-        </property>
-        <property name="nationality" type="string">
-            <column name="nationality" />
-        </property>
-        <property name="sex" type="java.lang.Boolean">
-            <column name="sex" />
-        </property>
-        <property name="occupation" type="string">
-            <column name="occupation" />
-        </property>
-        <property name="createdDate" type="timestamp">
-            <column name="created_date" length="29" not-null="true" />
-        </property>
-        <property name="modifiedDate" type="timestamp">
-            <column name="modified_date" length="29" />
-        </property>
-        <property name="jobStartTime" type="timestamp">
-            <column name="job_start_time" length="29" />
-        </property>
-        <property name="jobEndTime" type="timestamp">
-            <column name="job_end_time" length="29" />
-        </property>
-        <set name="events" table="event" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Event" />
-        </set>
-        <set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_2" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Message" />
-        </set>
-        <set name="events_1" table="event" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Event" />
-        </set>
-        <set name="messagesForAccountId1" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_1" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Message" />
-        </set>
-        <set name="messagesForAccountId1_1" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_1" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Message" />
-        </set>
-        <set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Comment" />
-        </set>
-        <set name="messagesForAccountId2_1" table="message" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id_2" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Message" />
-        </set>
-        <set name="comments_1" table="comment" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Comment" />
-        </set>
-        <set name="offers" table="offer" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Offer" />
-        </set>
-        <set name="offers_1" table="offer" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="account_id" not-null="true" />
-            </key>
-            <one-to-many class="com.model.Offer" />
-        </set>
-    </class>
+<class name="com.model.Account" table="account" schema="public" optimistic-lock="version">
+<id name="idAccount" type="int">
+<column name="id_account" />
+<generator class="assigned" />
+</id>
+<property name="firstName" type="string">
+<column name="first_name" not-null="true" />
+</property>
+<property name="lastName" type="string">
+<column name="last_name" not-null="true" />
+</property>
+<property name="username" type="string">
+<column name="username" not-null="true" unique="true" />
+</property>
+<property name="password" type="string">
+<column name="password" not-null="true" />
+</property>
+<property name="image" type="string">
+<column name="image" length="1000" />
+</property>
+<property name="type" type="short">
+<column name="type" not-null="true" />
+</property>
+<property name="promotion" type="java.lang.Integer">
+<column name="promotion" />
+</property>
+<property name="status" type="short">
+<column name="status" not-null="true" />
+</property>
+<property name="email" type="string">
+<column name="email" not-null="true" unique="true" />
+</property>
+<property name="birthday" type="timestamp">
+<column name="birthday" length="29" />
+</property>
+<property name="nationality" type="string">
+<column name="nationality" />
+</property>
+<property name="sex" type="character">
+<column name="sex" />
+</property>
+<property name="occupation" type="string">
+<column name="occupation" />
+</property>
+<property name="createdDate" type="timestamp">
+<column name="created_date" length="29" not-null="true" />
+</property>
+<property name="modifiedDate" type="timestamp">
+<column name="modified_date" length="29" />
+</property>
+<property name="jobStartTime" type="timestamp">
+<column name="job_start_time" length="29" />
+</property>
+<property name="jobEndTime" type="timestamp">
+<column name="job_end_time" length="29" />
+</property>
+<set name="events" table="event" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Event" />
+</set>
+<set name="messagesForAccountId2" table="message" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id_2" not-null="true" />
+</key>
+<one-to-many class="com.model.Message" />
+</set>
+<set name="events_1" table="event" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Event" />
+</set>
+<set name="messagesForAccountId1" table="message" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id_1" not-null="true" />
+</key>
+<one-to-many class="com.model.Message" />
+</set>
+<set name="messagesForAccountId1_1" table="message" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id_1" not-null="true" />
+</key>
+<one-to-many class="com.model.Message" />
+</set>
+<set name="comments" table="comment" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Comment" />
+</set>
+<set name="messagesForAccountId2_1" table="message" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id_2" not-null="true" />
+</key>
+<one-to-many class="com.model.Message" />
+</set>
+<set name="comments_1" table="comment" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Comment" />
+</set>
+<set name="offers" table="offer" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Offer" />
+</set>
+<set name="offers_1" table="offer" inverse="true" lazy="true" fetch="select">
+<key>
+<column name="account_id" not-null="true" />
+</key>
+<one-to-many class="com.model.Offer" />
+</set>
+</class>
 </hibernate-mapping>

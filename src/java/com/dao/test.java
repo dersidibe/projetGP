@@ -6,6 +6,12 @@
 package com.dao;
 
 import com.model.Account;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -15,9 +21,23 @@ public class test {
 
     public static void main(String[] args) {
 
-        AccountIpl accountController = new AccountIpl();
-        Account ac = accountController.getAccount("duong", "123");
-        System.out.print(ac.getUsername() + "  " + ac.getEmail());
+//       // AccountIpl accountController = new AccountIpl();
+//       // Account ac = accountController.getAccount("duong", "123");
+//        System.out.print("  " +date());
+        
+//               DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//       //get current date time with Date()
+//       Date date = new Date();
+//       System.out.println(dateFormat.format(date));
+//
+//       //get current date time with Calendar()
+//       Calendar cal = Calendar.getInstance();
+//       System.out.println(cal.getTime());
+        
+        java.util.Date utilDate = new Date();
+        java.sql.Timestamp times;
+        times = new Timestamp(System.currentTimeMillis());
+        System.out.println("date="+times);
     }
 
 }
