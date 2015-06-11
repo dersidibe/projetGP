@@ -5,7 +5,10 @@
  */
 package com.dao;
 
+import com.dao.AccountIpl;
+import com.dao.OfferIpl;
 import com.model.Event;
+import com.model.Offer;
 import com.model.Offer;
 import java.util.Date;
 /**

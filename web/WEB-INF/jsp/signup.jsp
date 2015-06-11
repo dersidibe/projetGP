@@ -5,13 +5,13 @@
     <head>
         <title>SunlightParticles | Contact</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
-        <script type="text/javascript" src="js/cufon-yui.js"></script>
-        <script type="text/javascript" src="js/cufon-aller.js"></script>
-        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        <script type="text/javascript" src="js/coin-slider.min.js"></script>
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../css/coin-slider.css" />
+        <script type="text/javascript" src="../js/cufon-yui.js"></script>
+        <script type="text/javascript" src="../js/cufon-aller.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../js/script.js"></script>
+        <script type="text/javascript" src="../js/coin-slider.min.js"></script>
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
@@ -19,7 +19,9 @@
         <script>
             var $j = jQuery.noConflict();
             $j(document).ready(function () {
-                $j("#datepicker").datepicker();
+                $j("#datepicker1").datepicker();
+                $j("#datepicker2").datepicker();
+                $j("#datepicker3").datepicker();
             });
         </script>
     </head>
@@ -54,8 +56,8 @@
                         <div class="article">
                             <h2><span>Sign Up</span></h2>
                             <div class="clr"></div>
-
-                            <form:form action="si" method="post" commandName="account">
+                            <c:set var="root" value="${pageContext.request.contextPath}"/>
+                            <form:form action="register.htm" method="post" commandName="account">
                                 <table border="0">
                                
                                     <tr>
@@ -85,14 +87,18 @@
                                         <td><form:input path="nationality" /></td>
                                     </tr>
                                     <tr>
+                                        <td>Profession:</td>
+                                        <td><form:input path="occupation" /></td>
+                                    </tr>                                    
+                                    <tr>
                                         <td>Birthday (mm/dd/yyyy):</td>
-                                        <td><form:input path="birthday" id="datepicker" /></td>
+                                        <td><form:input path="birthday" id="datepicker1" /></td>
                                     </tr>                                    
                                     <tr>
                                         <td>Sex:</td>
                                         <td>
-                                            <form:radiobutton path="sex" value="0"/>M
-                                            <form:radiobutton path="sex" value="1"/>F 
+                                            <form:radiobutton path="sex" value="M"/>M
+                                            <form:radiobutton path="sex" value="F"/>F 
                                         </td>
                                     </tr> 
                                     <tr>
@@ -104,27 +110,27 @@
                                     </tr>                                         
 
                                      <tr>
-                                        <td>Si vous êtes ancien étudiant</td>
+                                        <td><b>Si vous êtes ancien étudiant</b></td>
                                      </tr>     
                                      <tr>
-                                         <td>Promotion</td>
+                                         <td>Promotion: </td>
                                          <td>
                                             <form:select path="promotion">
                                                 <form:option value="" label="...." />
-                                                <form:options items="${promoList}" />
+                                                <form:options items="${promo}" />
                                             </form:select>
                                          </td>
                                     </tr> 
                                     <tr>
-                                        <td>Si vous êtes ancien travailleur</td>
+                                        <td><b>Si vous êtes ancien travailleur</b></td>
                                     </tr>  
                                     <tr>
                                         <td>Date de début de la collaboration:</td>
-                                        <td><form:input path="jobStartTime" id="datepicker" /></td>
+                                        <td><form:input path="jobStartTime" id="datepicker2" /></td>
                                     </tr>      
                                     <tr>
                                         <td>Date de fin de la collaboration:</td>
-                                        <td><form:input path="jobEndTime" id="datepicker" /></td>
+                                        <td><form:input path="jobEndTime" id="datepicker3" /></td>
                                     </tr>                                          
                                     <tr>
                                         <td ><input type="submit" value="Valider" /></td>
