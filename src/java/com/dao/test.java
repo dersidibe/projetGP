@@ -15,7 +15,7 @@ public class test {
 
     public static void main(String[] args) {
 
-        AccountController accountController = new AccountController();
+        AccountIpl accountController = new AccountIpl();
         Account ac = accountController.getAccount("duong", "123");
         System.out.print(ac.getUsername() + "  " + ac.getEmail());
     }

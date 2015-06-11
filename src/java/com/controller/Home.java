@@ -5,11 +5,14 @@
  */
 package com.controller;
 
-import com.dao.AccountController;
-import com.dao.EventController;
+import com.dao.AccountIpl;
+import com.dao.EventIpl;
 import com.model.Account;
 import com.model.Event;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,27 +24,27 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 
 /**
  *
  * @author lion
  */
 @Controller
-//@RequestMapping(value = "/index")
 @RequestMapping(value = "")
 public class Home {
     
-    private AccountController accountController;
-    private EventController eventController;
+    private AccountIpl accountController;
+    private EventIpl eventController;
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String listMemberEvent(ModelMap mm) {
-        accountController = new AccountController();
+        accountController = new AccountIpl();
         List<Account> accounts = accountController.getAccountsList();
         accounts = accounts.subList(0, Math.min(5, accounts.size()));
         mm.put("accounts", accounts);
         
-        eventController = new EventController();
+        eventController = new EventIpl();
         List<Event> events = eventController.getEvents();
         events = events.subList(0, Math.min(5, events.size()));
 //        for (int i = 0; i < events.size(); i++) {
@@ -60,11 +63,12 @@ public class Home {
     
     @RequestMapping(value = "/welcome", method = RequestMethod.POST)
     public String login(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
-        accountController = new AccountController();
+        accountController = new AccountIpl();
         Account ac = accountController.getAccount(account.getUsername(), account.getPassword());
         if (ac != null) {
-            session.setAttribute("username", ac);
-            return "index";
+            session.setAttribute("current_account", ac);
+            return "redirect_index";
+
         }
         return "login";
     }
@@ -72,43 +76,7 @@ public class Home {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String showForm(HttpSession session) {
         session.invalidate();
-        return "index";
+        return "redirect_index";
     }
-    
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String submitForm(ModelMap mm) {
-        mm.addAttribute("account", new Account());
-        return "signup";
-    } 
-    
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String signup(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
-        accountController = new AccountController();
-        Account ac = new Account();
-        //Account ac = accountController.getAccount(account.getUsername(), account.getPassword());
-       
-        return "signup";
-    }    
-    public void initModelList(Model model) {
-	        List<String> promotion = new ArrayList<String>();
-                
-                for(int i = 0; i<18; i++){
-                    i++;
-                    promotion.add(""+i);
-                }
-	        model.addAttribute("promo", promotion);
-    } 
-    protected Map referenceData(HttpServletRequest request) throws Exception {
-  
-        Map promotions = new HashMap();
-        List<String> promoList = new ArrayList<String>();
-        promoList.add("Gardening");
-        promoList.add("Listening Music");
-        promoList.add("Writing Technical Tutorials");
-        promotions.put("hobbiesList", promoList);
-  
-        return promotions;
-  
-    }    
     
 }

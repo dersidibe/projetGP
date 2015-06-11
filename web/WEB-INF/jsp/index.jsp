@@ -15,8 +15,18 @@
         <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/coin-slider.min.js"></script>
+        <link rel="stylesheet" href="http://www.formmail-maker.com/var/demo/jquery-popup-form/colorbox.css" />
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+        <script src="http://www.formmail-maker.com/var/demo/jquery-popup-form/jquery.colorbox-min.js"></script>
     </head>
-
+    <style>
+         #cboxOverlay{ background:#666666; }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".iframe").colorbox({iframe: true, fastIframe: false, width: "450px", height: "480px", transition: "fade", scrolling: false});
+        });
+    </script>
     <body>
         <div class="main">
             <div class="header">
@@ -31,7 +41,7 @@
                         </ul>
                     </div>
                     <div class="logo">
-                        <h1><a href="index.html"><span>Sunlight</span>Particles <small>Company Slogan Here</small></a></h1>
+                        <h1><a href="index.html"><span>Les anciens l'IFI<small>Le temp passé</small></a></h1>
                     </div>
                     <div class="clr"></div>
                     <div class="slider">
@@ -73,13 +83,19 @@
                             <ul class="ex_menu">
                                 <li>
                                     <c:choose>
-                                        <c:when test="${sessionScope.username == null}">
+                                        <c:when test="${sessionScope.current_account == null}">
                                             <a href="<%=request.getContextPath()%>/login.htm">Login</a>
-                                            <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
+                                            <a href="<%=request.getContextPath()%>/account/signup.htm">Sign up</a>
                                         </c:when>
                                         <c:when test="${sessionScope.username != null}">
                                             Salut: <a href="#">${sessionScope.username.getUsername}</a> <br>
                                             <a href="">Créer un évent</a> <br>
+                                        </c:when>
+                                        <c:when test="${sessionScope.current_account != null}">
+                                            Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
+                                            <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
+                                            <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
+
                                             <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
                                         </c:when>
                                     </c:choose> 
@@ -149,5 +165,43 @@
             </div>
         </div>
         <div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div>
+        <div id="signup" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+            <div id="signup-ct">
+                <div id="signup-header">
+                    <h2>Create a new account</h2>
+                    <p>It's simple, and free.</p>
+                    <a href="#" class="modal_close"></a>
+                </div>
+
+                <form action="">
+
+                    <div class="txt-fld">
+                        <label for="">Username</label>
+                        <input type="text" name="" class="good_input" id="">
+
+                    </div>
+                    <div class="txt-fld">
+                        <label for="">Email address</label>
+                        <input type="text" name="" id="">
+                    </div>
+                    <div class="txt-fld">
+                        <label for="">Password</label>
+                        <input type="text" name="" id="">
+
+                    </div>
+                    <div class="btn-fld">
+                        <button type="submit">Sign Up »</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
     </body>
 </html>

@@ -17,11 +17,11 @@ import org.hibernate.Query;
  *
  * @author Der
  */
-public class AccountController extends AccountDao {
+public class AccountIpl extends AccountDao {
 
     private Session session = null;
 
-    public AccountController() {
+    public AccountIpl() {
 
         this.session = HibernateUtil.getSessionFactory().openSession();
     }
