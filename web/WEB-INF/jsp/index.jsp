@@ -20,7 +20,7 @@
         <script src="http://www.formmail-maker.com/var/demo/jquery-popup-form/jquery.colorbox-min.js"></script>
     </head>
     <style>
-         #cboxOverlay{ background:#666666; }
+        #cboxOverlay{ background:#666666; }
     </style>
     <script>
         $(document).ready(function () {
@@ -94,6 +94,7 @@
                                         <c:when test="${sessionScope.current_account != null}">
                                             Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
                                             <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
+                                            <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Create offer</a> <br>
                                             <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
 
                                             <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>

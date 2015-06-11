@@ -9,7 +9,6 @@ import com.dao.AccountIpl;
 import com.model.Account;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,40 +19,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
+
 @Controller
 @RequestMapping(value = "/account")
 public class AccountCtr {
-    private AccountIpl accountController;
-    
-    @RequestMapping(value = "signup", method = RequestMethod.GET)
+
+    private AccountIpl accountIpl;
+
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String submitForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
-        
         List<String> promotion = new ArrayList<String>();
-                
-        for(int i = 1; i<=18; i++){
-          
-              promotion.add(""+i);
+        for (int i = 1; i <= 18; i++) {
+
+            promotion.add("" + i);
         }
-	mm.addAttribute("promo", promotion);        
+        mm.addAttribute("promo", promotion);
         return "signup";
-    } 
-    
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String signup(@ModelAttribute("account") Account account, ModelMap mm, HttpSession session) {
-        
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String signup(@ModelAttribute("account") Account account, ModelMap mm) {
         java.sql.Timestamp date = new java.sql.Timestamp(System.currentTimeMillis());
-        accountController = new AccountIpl();
+        accountIpl = new AccountIpl();
         account.setCreatedDate(date);
         account.setModifiedDate(date);
-        
-        Integer id = accountController.insertAccount(account);
-        if(id != null){
-            
-            return "redirect_index";        
+        Integer id = accountIpl.insertAccount(account);
+        if (id != null) {
+            return "redirect_index";
         }
-       
-        return "index";
-    }   
-    
+        return "signup";
+    }
 }

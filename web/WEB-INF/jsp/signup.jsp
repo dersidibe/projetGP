@@ -56,7 +56,7 @@
                         <div class="article">
                             <h2><span>Sign Up</span></h2>
                             <div class="clr"></div>
-                            <c:set var="root" value="${pageContext.request.contextPath}"/>
+                            
                             <form:form action="register.htm" method="post" commandName="account">
                                 <table border="0">
                                
@@ -131,7 +131,7 @@
                                     <tr>
                                         <td>Date de fin de la collaboration:</td>
                                         <td><form:input path="jobEndTime" id="datepicker3" /></td>
-                                    </tr>                                          
+                                    </tr>                                
                                     <tr>
                                         <td ><input type="submit" value="Valider" /></td>
                                     </tr>

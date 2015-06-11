@@ -8,6 +8,8 @@ package com.controller;
 import com.dao.EventIpl;
 import com.model.Account;
 import com.model.Event;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,18 +25,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/event")
 public class EventCtr {
 
-    private EventIpl evenController;
+    private EventIpl evenIpl;
 
     @RequestMapping(value = "/create_event", method = RequestMethod.GET)
-    public String createEvent(ModelMap mm) {
-        mm.addAttribute("event", new Event());
+    public String createEvent(ModelMap mm, HttpSession session) {
+        Event event = new Event();
+        Account account = (Account) session.getAttribute("current_account");
+
+        if (account == null) {
+            return "redirect_index";
+        }
+        
+        List<String> statuses = new ArrayList<String>();
+        statuses.add("active");
+        statuses.add("inactive");
+        mm.addAttribute("statuses", statuses);
+        
+        event.setAccount(account);
+        mm.addAttribute("event", event);
         return "create_event";
     }
 
     @RequestMapping(value = "/do_creation_event", method = RequestMethod.POST)
     public String doCreationEvent(@ModelAttribute("event") Event event, ModelMap mm, HttpSession session) {
-        evenController = new EventIpl();
-        evenController.insertEvent(event);
+        evenIpl = new EventIpl();
+//        event.setAccount((Account)session.getAttribute("current_account"));
+        evenIpl.insertEvent(event);
         return "redirect_index";
     }
 }

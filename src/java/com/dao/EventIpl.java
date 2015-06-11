@@ -21,7 +21,6 @@ public class EventIpl extends EventDao {
     private Session session = null;
 
     public EventIpl() {
-
         this.session = HibernateUtil.getSessionFactory().openSession();
     }
 
@@ -33,7 +32,7 @@ public class EventIpl extends EventDao {
         try {
 
             transaction = session.beginTransaction();
-            list = session.createQuery("from Event order by created_date").list();
+            list = session.createQuery("from Event order by created_date desc").list();
             transaction.commit();
 
         } catch (HibernateException e) {
@@ -83,17 +82,13 @@ public class EventIpl extends EventDao {
 
         Transaction transaction = null;
         Integer idEvent = null;
-
         try {
-
             transaction = session.beginTransaction();
             idEvent = (Integer) session.save(event);
             transaction.commit();
-
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
         return idEvent;
     }
 

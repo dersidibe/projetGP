@@ -35,7 +35,7 @@ public class AccountIpl extends AccountDao {
         try {
 
             transaction = session.beginTransaction();
-            listAccount = session.createQuery("from Account order by created_date").list();
+            listAccount = session.createQuery("from Account order by created_date desc").list();
             transaction.commit();
 
         } catch (HibernateException e) {

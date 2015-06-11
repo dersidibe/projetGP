@@ -52,9 +52,17 @@
             <div class="content_resize">
                 <div class="mainbar">
                     <div class="article">
-                        <h2><span>Create </span> an event</h2>
+                        <c:choose>
+                            <c:when test="${result == null}">
+                                <p><span>Create an offer failure</span></p>
+                            </c:when>
+                            <c:when test="${result != null}">
+                                <p><span>Create an offer successfully</span></p>
+                            </c:when>
+                        </c:choose> 
+                        <h2><span>Create </span> an offer</h2>
                         <div class="clr"></div>
-                        <form:form action="do_creation_event.htm" method="post" commandName="event">
+                        <form:form action="do_creation_offer.htm" method="post" commandName="offer">
                             <table>
                                 <tr>
                                     <td>
@@ -75,18 +83,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        Status:
-                                    </td>
-                                    <td>
-                                        <form:select path="status">
-                                            <form:option value="" label="...." />
-                                            <form:options items="${statuses}" />
-                                        </form:select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Your Message:
+                                        Your Message
                                     </td>
                                     <td>
                                         <form:textarea path="content"></form:textarea>
@@ -121,7 +118,7 @@
                                         <a href="<%=request.getContextPath()%>/signup.htm">Sign up</a>
                                     </c:when>
                                     <c:when test="${sessionScope.current_account != null}">
-                                        Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
+                                        Salut : <a href="#">${sessionScope.current_account.username}</a> <br>
                                         <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
                                         <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
                                         <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
