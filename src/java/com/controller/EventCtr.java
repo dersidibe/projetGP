@@ -9,6 +9,7 @@ import com.dao.EventIpl;
 import com.model.Account;
 import com.model.Event;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -31,17 +32,9 @@ public class EventCtr {
     public String createEvent(ModelMap mm, HttpSession session) {
         Event event = new Event();
         Account account = (Account) session.getAttribute("current_account");
-
         if (account == null) {
             return "redirect_index";
         }
-        
-        List<String> statuses = new ArrayList<String>();
-        statuses.add("active");
-        statuses.add("inactive");
-        mm.addAttribute("statuses", statuses);
-        
-        event.setAccount(account);
         mm.addAttribute("event", event);
         return "create_event";
     }
@@ -49,8 +42,12 @@ public class EventCtr {
     @RequestMapping(value = "/do_creation_event", method = RequestMethod.POST)
     public String doCreationEvent(@ModelAttribute("event") Event event, ModelMap mm, HttpSession session) {
         evenIpl = new EventIpl();
-//        event.setAccount((Account)session.getAttribute("current_account"));
-        evenIpl.insertEvent(event);
+        event.setAccount((Account) session.getAttribute("current_account"));
+        event.setCreatedDate(new Date());
+        event.setStartDate(new Date());
+        event.setEndDate(new Date());
+        Integer result = evenIpl.insertEvent(event);
+        
         return "redirect_index";
     }
 }

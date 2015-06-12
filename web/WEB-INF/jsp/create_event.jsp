@@ -20,9 +20,15 @@
         <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="../js/script.js"></script>
         <script type="text/javascript" src="../js/coin-slider.min.js"></script>
-        <link rel="stylesheet" href="http://www.formmail-maker.com/var/demo/jquery-popup-form/colorbox.css" />
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
-        <script src="http://www.formmail-maker.com/var/demo/jquery-popup-form/jquery.colorbox-min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>        
+        <script>
+            var $j = jQuery.noConflict();
+            $j(document).ready(function () {
+                $j(".datepicker").datepicker();
+            });
+        </script>
     </head>
 </head>
 <body>
@@ -31,7 +37,7 @@
             <div class="header_resize">
                 <div class="menu_nav">
                     <ul>
-                        <li><a href="index.html"><span>Home Page</span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/index.htm"><span>Accueille</span></a></li>
                         <li><a href="support.html"><span>Support</span></a></li>
                         <li><a href="about.html"><span>About Us</span></a></li>
                         <li><a href="blog.html"><span>Blog</span></a></li>
@@ -39,7 +45,7 @@
                     </ul>
                 </div>
                 <div class="logo">
-                    <h1><a href="index.html"><span>Sunlight</span>Particles <small>Company Slogan Here</small></a></h1>
+                    <h1><a href="index.html"><span>Les anciens l'IFI</span> <small>Le temp passé</small></a></h1>
                 </div>
                 <div class="clr"></div>
                 <div class="slider">
@@ -52,52 +58,40 @@
             <div class="content_resize">
                 <div class="mainbar">
                     <div class="article">
-                        <h2><span>Create </span> an event</h2>
+                        <h2><span>Créer </span> un événement</h2>
                         <div class="clr"></div>
                         <form:form action="do_creation_event.htm" method="post" commandName="event">
                             <table>
                                 <tr>
-                                    <td>
-                                        Name:
-                                    </td>
-                                    <td>
-                                        <form:input path="title"/>
-                                    </td>
+                                    <td>Titre:</td>
+                                    <td><form:input path="title"/></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Mode:
-                                    </td>
-                                    <td>
-                                        <form:radiobutton path="mode" value="1"/>Only one
-                                        <form:radiobutton path="mode" value="3"/>Public
-                                    </td>
+                                    <td>Mode:</td>
+                                    <td><form:radiobutton path="mode" value="1"/>Only one
+                                        <form:radiobutton path="mode" value="0"/>Public</td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Status:
-                                    </td>
-                                    <td>
-                                        <form:select path="status">
-                                            <form:option value="" label="...." />
-                                            <form:options items="${statuses}" />
-                                        </form:select>
-                                    </td>
+                                    <td>Statut:</td>
+                                    <td><form:radiobutton path="status" value="1"/>Active
+                                        <form:radiobutton path="status" value="0"/>Inactive</td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Your Message:
-                                    </td>
-                                    <td>
-                                        <form:textarea path="content"></form:textarea>
-                                        </td>
+                                    <td>Contenu:</td>
+                                    <td><form:textarea path="content"></form:textarea></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <input type="submit" value="create"/>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        <td>Date de début du événement:</td>
+                                        <td><form:input path="startDate" class="datepicker" value=""/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date de fin du événement:</td>
+                                    <td><form:input path="endDate" class="datepicker" value=""/></td>
+                                </tr>                                
+                                <tr>
+                                    <td><input type="submit" value="Créer"/></td>
+                                </tr>
+                            </table>
                         </form:form>
                     </div>
                 </div>
@@ -107,7 +101,7 @@
                             <span>
                                 <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
                             </span>
-                            <input name="button_search" src="images/search.gif" class="button_search" type="image" />
+                            <input name="button_search" src="../images/search.gif" class="button_search" type="image" />
                         </form>
                     </div>
                     <div class="gadget">

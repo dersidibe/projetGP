@@ -39,7 +39,7 @@
                     </ul>
                 </div>
                 <div class="logo">
-                    <h1><a href="index.html"><span>Sunlight</span>Particles <small>Company Slogan Here</small></a></h1>
+                    <h1><a href="index.html"><span>Les anciens l'IFI</span> <small>Le temp passé</small></a></h1>
                 </div>
                 <div class="clr"></div>
                 <div class="slider">

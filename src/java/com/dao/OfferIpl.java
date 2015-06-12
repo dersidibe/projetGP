@@ -90,7 +90,7 @@ public class OfferIpl extends OfferDao {
         try{
         
             transaction = session.beginTransaction();
-            idOffer = (Integer)session.save(offre);
+            idOffer = (Integer) session.save(offre);
             transaction.commit();
             
         }catch(HibernateException e){
