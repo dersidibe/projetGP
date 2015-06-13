@@ -14,15 +14,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Les anciens l'IFI</title>
         <link href="../css/style.css" rel="stylesheet" type="text/css" />
+        <link href="../js/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="../css/coin-slider.css" />
         <script type="text/javascript" src="../js/cufon-yui.js"></script>
         <script type="text/javascript" src="../js/cufon-aller.js"></script>
         <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="../js/script.js"></script>
         <script type="text/javascript" src="../js/coin-slider.min.js"></script>
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>        
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>        
         <script>
             var $j = jQuery.noConflict();
             $j(document).ready(function () {
@@ -37,19 +37,23 @@
             <div class="header_resize">
                 <div class="menu_nav">
                     <ul>
-                        <li><a href="<%=request.getContextPath()%>/index.htm"><span>Accueille</span></a></li>
-                        <li><a href="support.html"><span>Support</span></a></li>
-                        <li><a href="about.html"><span>About Us</span></a></li>
-                        <li><a href="blog.html"><span>Blog</span></a></li>
-                        <li class="active"><a href="contact.html"><span>Contact Us</span></a></li>
+                        <li class="active"><a href="<%=request.getContextPath()%>/index.htm"><span>Accueille</span></a></li>
+                        <li><a href="support.htm"><span>Annuaire</span></a></li>
+                        <li><a href="about.htm"><span>Événements</span></a></li>
+                        <li><a href="blog.htm"><span>Offres</span></a></li>
+                        <li><a href="contact.htm"><span>Nous écrire</span></a></li>
                     </ul>
                 </div>
                 <div class="logo">
-                    <h1><a href="index.html"><span>Les anciens l'IFI</span> <small>Le temp passé</small></a></h1>
+                    <h1><a href="<%=request.getContextPath()%>/index.htm"><span>Les anciens l'IFI</span> <small>Le temp passé</small></a></h1>
                 </div>
                 <div class="clr"></div>
                 <div class="slider">
-                    <div id="coin-slider"> <a href="#"><img src="images/slide1.jpg" width="940" height="271" alt="" /> </a> <a href="#"><img src="images/slide2.jpg" width="940" height="271" alt="" /> </a> <a href="#"><img src="images/slide3.jpg" width="940" height="271" alt="" /> </a> </div>
+                    <div id="coin-slider"> 
+                        <a href="#"><img src="../images/slide1.jpg" width="900" height="271" alt="" /> </a> 
+                        <a href="#"><img src="../images/slide2.jpg" width="900" height="271" alt="" /> </a> 
+                        <a href="#"><img src="../images/slide3.jpg" width="900" height="271" alt="" /> </a> 
+                    </div>
                 </div>
                 <div class="clr"></div>
             </div>

@@ -6,7 +6,9 @@
     <class name="com.model.Event" table="event" schema="public" optimistic-lock="version">
         <id name="idEvent" type="int">
             <column name="id_event" />
-            <generator class="assigned" />
+            <generator class="sequence">  
+                <param name="sequence">event_id_seq</param>  
+            </generator>  
         </id>
         <many-to-one name="account" class="com.model.Account" fetch="select">
             <column name="account_id" not-null="true" />
