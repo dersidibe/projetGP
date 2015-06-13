@@ -123,14 +123,14 @@
                                     </tr> 
                                     <tr>
                                         <td><b>Si vous êtes ancien travailleur</b></td>
-                                    </tr>  
+                                    </tr>
                                     <tr>
                                         <td>Date de début de la collaboration:</td>
-                                        <td><form:input path="jobStartTime" id="datepicker2" /></td>
-                                    </tr>      
+                                        <td><form:input path="jobStartTime" id="datepicker2" value=""/></td>
+                                    </tr>
                                     <tr>
                                         <td>Date de fin de la collaboration:</td>
-                                        <td><form:input path="jobEndTime" id="datepicker3" /></td>
+                                        <td><form:input path="jobEndTime" id="datepicker3" value=""/></td>
                                     </tr>                                
                                     <tr>
                                         <td ><input type="submit" value="Valider" /></td>
