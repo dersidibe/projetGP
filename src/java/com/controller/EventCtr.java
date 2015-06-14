@@ -8,12 +8,14 @@ package com.controller;
 import com.dao.EventIpl;
 import com.model.Account;
 import com.model.Event;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,28 +28,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/event")
 public class EventCtr {
 
-    private EventIpl evenIpl;
+    private EventIpl eventIpl;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
 
     @RequestMapping(value = "/create_event", method = RequestMethod.GET)
     public String createEvent(ModelMap mm, HttpSession session) {
         Event event = new Event();
-        Account account = (Account) session.getAttribute("current_account");
-        if (account == null) {
+        Account currentAccount = (Account) session.getAttribute("current_account");
+        if (currentAccount == null) {
             return "redirect_index";
         }
+        mm.put("result", 0);
         mm.addAttribute("event", event);
         return "create_event";
     }
 
     @RequestMapping(value = "/do_creation_event", method = RequestMethod.POST)
-    public String doCreationEvent(@ModelAttribute("event") Event event, ModelMap mm, HttpSession session) {
-        evenIpl = new EventIpl();
-        event.setAccount((Account) session.getAttribute("current_account"));
+    public String doCreationEvent(@ModelAttribute("event") Event event,
+            ModelMap mm, HttpSession session) {
+        eventIpl = new EventIpl();
+        Account currentAccount = (Account) session.getAttribute("current_account");
+        if (currentAccount == null) {
+            return "redirect_index";
+        }
+        event.setAccount(currentAccount);
         event.setCreatedDate(new Date());
-        event.setStartDate(new Date());
-        event.setEndDate(new Date());
-        Integer result = evenIpl.insertEvent(event);
-        
-        return "redirect_index";
+        Integer result = eventIpl.insertEvent(event);
+        mm.put("result", result);
+        return "create_event";
     }
 }

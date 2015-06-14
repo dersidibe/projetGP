@@ -5,10 +5,8 @@
  */
 package com.controller;
 
-import com.dao.EventIpl;
 import com.dao.OfferIpl;
 import com.model.Account;
-import com.model.Event;
 import com.model.Offer;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
@@ -35,6 +33,7 @@ public class OfferCtr {
         if (account == null) {
             return "redirect_index";
         }
+        mm.put("result", 0);
         mm.addAttribute("offer", offer);
         return "create_offer";
     }
@@ -42,7 +41,11 @@ public class OfferCtr {
     @RequestMapping(value = "/do_creation_offer", method = RequestMethod.POST)
     public String doCreationOffer(@ModelAttribute("offer") Offer offer, ModelMap mm, HttpSession session) {
         offerIpl = new OfferIpl();
-        offer.setAccount((Account) session.getAttribute("current_account"));
+        Account currentAccount = (Account) session.getAttribute("current_account");
+        if (currentAccount == null) {
+            return "redirect_index";
+        }
+        offer.setAccount(currentAccount);
         offer.setCreatedDate(new Date());
         Integer result = offerIpl.insertOffer(offer);
         mm.put("result", result);

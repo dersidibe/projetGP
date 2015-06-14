@@ -24,10 +24,57 @@
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script src="../js/jquery-ui.min.js"></script>        
         <script>
+            function validateForm() {
+                var title = document.getElementById("event_title").value;
+                if (title === null || title === "") {
+                    var para = document.createElement("span");
+                    var node = document.createTextNode("Titre est vide.");
+                    para.appendChild(node);
+                    var element = document.getElementById("empty_title");
+                    if (element.textContent === null || element.textContent === "")
+                        element.appendChild(para);
+                    return false;
+                }
+                var content = document.getElementById("offer_content").value;
+                if (content === null || content === "") {
+                    var para = document.createElement("span");
+                    var node = document.createTextNode("Contenu est vide.");
+                    para.appendChild(node);
+                    var element = document.getElementById("empty_content");
+                    if (element.textContent === null || element.textContent === "")
+                        element.appendChild(para);
+                    return false;
+                }
+                var start_date = document.getElementById("start_datepicker").value;
+                if (start_date === null || start_date === "") {
+                    var para = document.createElement("span");
+                    var node = document.createTextNode("Start date est vide.");
+                    para.appendChild(node);
+                    var element = document.getElementById("empty_startDate");
+                    if (element.textContent === null || element.textContent === "")
+                        element.appendChild(para);
+                    return false;
+                }
+                var end_date = document.getElementById("end_datepicker").value;
+                if (end_date === null || end_date === "") {
+                    var para = document.createElement("span");
+                    var node = document.createTextNode("End date est vide.");
+                    para.appendChild(node);
+                    var element = document.getElementById("empty_endDate");
+                    if (element.textContent === null || element.textContent === "")
+                        element.appendChild(para);
+                    return false;
+                }
+                return true;
+            }
+
             var $j = jQuery.noConflict();
             $j(document).ready(function () {
-                $j(".datepicker").datepicker();
-            });
+                $j("#start_datepicker").datepicker();
+                $j("#end_datepicker").datepicker();
+            }
+            );
+
         </script>
     </head>
 </head>
@@ -45,7 +92,7 @@
                     </ul>
                 </div>
                 <div class="logo">
-                    <h1><a href="<%=request.getContextPath()%>/index.htm"><span>Les anciens l'IFI</span> <small>Le temp passé</small></a></h1>
+                    <h1><a href="<%=request.getContextPath()%>/index.htm"><span>Les anciens l'IFI</span> <small></small></a></h1>
                 </div>
                 <div class="clr"></div>
                 <div class="slider">
@@ -64,11 +111,12 @@
                     <div class="article">
                         <h2><span>Créer </span> un événement</h2>
                         <div class="clr"></div>
-                        <form:form action="do_creation_event.htm" method="post" commandName="event">
+                        <form:form onsubmit="return validateForm()" action="do_creation_event.htm" method="post" commandName="event" >
                             <table>
                                 <tr>
                                     <td>Titre:</td>
-                                    <td><form:input path="title"/></td>
+                                    <td><form:input path="title" id="event_title"/></td>
+                                    <td><span id="empty_title" style="color:red"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Mode:</td>
@@ -82,18 +130,31 @@
                                 </tr>
                                 <tr>
                                     <td>Contenu:</td>
-                                    <td><form:textarea path="content"></form:textarea></td>
+                                    <td><form:textarea path="content" id="offer_content"></form:textarea></td>
+                                        <td><span id="empty_content" style="color:red"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Date de début du événement:</td>
-                                        <td><form:input path="startDate" class="datepicker" value=""/></td>
+                                        <td><form:input path="startDate" id="start_datepicker" value=""/></td>
+                                    <td><span id="empty_startDate" style="color:red"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Date de fin du événement:</td>
-                                    <td><form:input path="endDate" class="datepicker" value=""/></td>
+                                    <td><form:input path="endDate" id="end_datepicker" value=""/></td>
+                                    <td><span id="empty_endDate" style="color:red"></span></td>
                                 </tr>                                
                                 <tr>
-                                    <td><input type="submit" value="Créer"/></td>
+                                    <td><input type="submit" value="Créer"/>
+                                        <c:choose>
+                                            <c:when test="${result == null}">
+                                                <p id="failure"></p>
+                                            </c:when>
+                                            <c:when test="${result == 0}">
+                                            </c:when>
+                                            <c:when test="${result != null && result > 0}">
+                                                <p id="success"></p>
+                                            </c:when>
+                                        </c:choose> </td>
                                 </tr>
                             </table>
                         </form:form>
@@ -120,8 +181,8 @@
                                     </c:when>
                                     <c:when test="${sessionScope.current_account != null}">
                                         Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
-                                        <a href="<%=request.getContextPath()%>/event/create_event.htm">Create event</a> <br>
-                                        <a class='iframe' href="<%=request.getContextPath()%>/login.htm">Contact Us</a><br>
+                                        <a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>
+                                        <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a><br>
                                         <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
                                     </c:when>
                                 </c:choose> 
@@ -137,37 +198,43 @@
         <div class="fbg">
             <div class="fbg_resize">
                 <div class="col c1">
-                    <h2><span>Image</span> Gallery</h2>
-                    <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
+                    <h2><span>Image</span> de l'IFI</h2>
+                    <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                </div>
                 <div class="col c2">
-                    <h2><span>Services</span> Overview</h2>
-                    <p>Curabitur sed urna id nunc pulvinar semper. Nunc sit amet tortor sit amet lacus sagittis posuere cursus vitae nunc.Etiam venenatis, turpis at eleifend porta, nisl nulla bibendum justo.</p>
-                    <ul class="fbg_ul">
-                        <li><a href="#">Lorem ipsum dolor labore et dolore.</a></li>
-                        <li><a href="#">Excepteur officia deserunt.</a></li>
-                        <li><a href="#">Integer tellus ipsum tempor sed.</a></li>
-                    </ul>
+                    <h2><span>Les</span> univerisités</h2>
+                    <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
                 </div>
                 <div class="col c3">
-                    <h2><span>Contact</span> Us</h2>
-                    <p>Nullam quam lorem, tristique non vestibulum nec, consectetur in risus. Aliquam a quam vel leo gravida gravida eu porttitor dui.</p>
-                    <p class="contact_info"> <span>Address:</span> 1458 TemplateAccess, USA<br />
-                        <span>Telephone:</span> +123-1234-5678<br />
-                        <span>FAX:</span> +458-4578<br />
-                        <span>Others:</span> +301 - 0125 - 01258<br />
-                        <span>E-mail:</span> <a href="#">mail@yoursitename.com</a> </p>
+                    <h2><span>Nous contacter</span> </h2>
+                    <p></p>
+                    <p class="contact_info"> <span>Address:</span> 144 Xuan Thuy Street, Cau Giay District, Hanoi.<br />
+                        <span>Telephone:</span> +84 (04) 37450173<br />
+                        <span>Fax:</span> +84 (04) 37957937<br />
+                        <span>E-mail:</span> <a href="#">duongpb.p19@ifi.edu.vn</a> 
+                        <span>E-mail:</span> <a href="#">sylvestre@ifi.edu.vn</a> 
+                    </p>
                 </div>
                 <div class="clr"></div>
             </div>
         </div>
         <div class="footer">
             <div class="footer_resize">
-                <p class="lf">&copy; Copyright <a href="#">MyWebSite</a>.</p>
-                <p class="rf">Design by Dream <a href="http://www.dreamtemplate.com/">Web Templates</a></p>
+                <p class="lf">&copy; Copyright <a href="#">IFI</a>.</p>
+                <p class="rf">Design by Dream <a href="#">IFI</a></p>
                 <div style="clear:both;"></div>
             </div>
         </div>
     </div>
-    <div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div>
 </body>
 </html>
