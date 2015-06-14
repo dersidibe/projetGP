@@ -65,6 +65,13 @@
                         element.appendChild(para);
                     return false;
                 }
+
+                var startDate = new Date($('#start_datepicker').val()); // or Date.parse(...)
+                var endDate = new Date($('#end_datepicker').val()); // or Date.parse(...)
+                if (endDate < startDate)
+                {
+                    alert("End date < start date ");
+                }
                 return true;
             }
 
