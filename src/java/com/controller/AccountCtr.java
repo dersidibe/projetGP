@@ -46,6 +46,7 @@ public class AccountCtr {
 
             promotion.add("" + i);
         }
+        mm.put("result", 0);
         mm.addAttribute("promo", promotion);
         return "signup";
     }
@@ -56,10 +57,8 @@ public class AccountCtr {
         accountIpl = new AccountIpl();
         account.setCreatedDate(date);
         account.setModifiedDate(date);
-        Integer id = accountIpl.insertAccount(account);
-        if (id != null) {
-            return "redirect_index";
-        }
+        Integer result = accountIpl.insertAccount(account);
+        mm.put("result", result);
         return "signup";
     }
 }

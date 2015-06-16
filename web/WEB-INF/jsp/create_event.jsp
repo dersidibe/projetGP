@@ -24,6 +24,7 @@
         <script type="text/javascript" src="../js/jquery.min.js"></script>
         <script src="../js/jquery-ui.min.js"></script>        
         <script>
+
             function validateForm() {
                 var title = document.getElementById("event_title").value;
                 if (title === null || title === "") {
@@ -70,7 +71,7 @@
                 var endDate = new Date($('#end_datepicker').val()); // or Date.parse(...)
                 if (endDate < startDate)
                 {
-                    alert("End date < start date ");
+                    alert("Date de debut superieur date de fin");
                 }
                 return true;
             }
@@ -81,7 +82,30 @@
                 $j("#end_datepicker").datepicker();
             }
             );
+            function imgchange(f) {
+                var filePath = $('#file').val();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#name_img').attr('value', filePath);
+                };
+                reader.readAsDataURL(f.files[0]);
+            }
 
+            $(document).ready(function () {
+                var element = document.getElementById("success");
+                if (element !== null)
+                {
+                    alert("Événement est crée avec réussi!");
+                    return;
+                }
+
+                var element = document.getElementById("failure");
+                if (element !== null)
+                {
+                    alert("Échec!");
+                    return;
+                }
+            });
         </script>
     </head>
 </head>
@@ -141,8 +165,13 @@
                                         <td><span id="empty_content" style="color:red"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>Date de début du événement:</td>
-                                        <td><form:input path="startDate" id="start_datepicker" value=""/></td>
+                                        <td align="left"><b><label for="file">Image:</label></b></td>
+                                        <td><input type="file" name="file" id="file" onchange="imgchange(this)"></td>
+                                        <td><form:hidden path="image" id="name_img" value=""/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date de début du événement:</td>
+                                    <td><form:input path="startDate" id="start_datepicker" value=""/></td>
                                     <td><span id="empty_startDate" style="color:red"></span></td>
                                 </tr>
                                 <tr>
@@ -161,7 +190,8 @@
                                             <c:when test="${result != null && result > 0}">
                                                 <p id="success"></p>
                                             </c:when>
-                                        </c:choose> </td>
+                                        </c:choose> 
+                                    </td>
                                 </tr>
                             </table>
                         </form:form>

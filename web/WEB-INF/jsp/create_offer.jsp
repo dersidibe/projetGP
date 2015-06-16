@@ -46,6 +46,15 @@
             return true;
         }
 
+        function imgchange(f) {
+            var filePath = $('#file').val();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#name_img').attr('value', filePath);
+            };
+            reader.readAsDataURL(f.files[0]);
+        }
+
         $(document).ready(function () {
             var element = document.getElementById("success");
             if (element !== null)
@@ -130,8 +139,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <input type="submit" value="Créer"/>
+                                        <td align="left"><b><label for="file">Image:</label></b></td>
+                                        <td><input type="file" name="file" id="file" onchange="imgchange(this)"></td>
+                                        <td><form:hidden path="image" id="name_img" value=""/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" value="Créer"/>
                                         <c:choose>
                                             <c:when test="${result == null}">
                                                 <p id="failure"></p>
