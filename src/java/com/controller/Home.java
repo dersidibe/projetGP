@@ -44,9 +44,12 @@ public class Home {
     public String listMemberEvent(ModelMap mm) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
-        accounts = accounts.subList(0, Math.min(5, accounts.size()));
-        mm.put("accounts", accounts);
-        
+        if(accounts != null)
+        {
+            accounts = accounts.subList(0, Math.min(5, accounts.size()));
+            mm.put("accounts", accounts);
+        }
+        mm.put("accounts", null);
         eventIpl = new EventIpl();
         List<Event> events = eventIpl.getEvents();
         events = events.subList(0, Math.min(5, events.size()));

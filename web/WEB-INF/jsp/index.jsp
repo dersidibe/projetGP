@@ -109,11 +109,15 @@
                             <h2 class="star"><span>Les nouvaux membres</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
-                                <c:forEach var="account" items="${accounts}">
-                                    <li><a href="http://www.dreamtemplate.com/">${account.username}</a><br>
-                                        Promotion: ${account.promotion} Nationalité:${account.nationality}
-                                    </li>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${accounts != null}">
+                                        <c:forEach var="account" items="${accounts}">
+                                            <li><a href="http://www.dreamtemplate.com/">${account.username}</a><br>
+                                                Promotion: ${account.promotion} Nationalité:${account.nationality}
+                                            </li>
+                                        </c:forEach>
+                                    </c:when>
+                                </c:choose> 
                             </ul>
                         </div>
                         <div class="gadget">

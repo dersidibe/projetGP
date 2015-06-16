@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 8, 2015 4:53:35 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 15, 2015 9:16:45 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.model.Offer" table="offer" schema="public" optimistic-lock="version">
         <id name="idOffer" type="int">
@@ -30,6 +30,9 @@
         </property>
         <property name="modifiedDate" type="timestamp">
             <column name="modified_date" length="29" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" />
         </property>
     </class>
 </hibernate-mapping>

@@ -82,9 +82,9 @@ public class AccountIpl extends AccountDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-        if(account.size() > 0)
+        if(account != null && account.size() > 0)
             return account.get(0);
-        else return null;
+        return null;
     }
 
     @Override

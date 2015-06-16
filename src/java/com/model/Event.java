@@ -1,5 +1,5 @@
 package com.model;
-// Generated Jun 8, 2015 4:53:33 PM by Hibernate Tools 4.3.1
+// Generated Jun 15, 2015 9:16:44 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -32,6 +32,7 @@ public class Event implements java.io.Serializable {
     private Date createdDate;
     private String modifier;
     private Date modifiedDate;
+    private String image;
     private Set comments = new HashSet(0);
     private Set comments_1 = new HashSet(0);
 
@@ -50,7 +51,7 @@ public class Event implements java.io.Serializable {
         this.createdDate = createdDate;
     }
 
-    public Event(int idEvent, Account account, String title, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, Set comments, Set comments_1) {
+    public Event(int idEvent, Account account, String title, String content, short mode, short status, Date startDate, Date endDate, Date createdDate, String modifier, Date modifiedDate, String image, Set comments, Set comments_1) {
         this.idEvent = idEvent;
         this.account = account;
         this.title = title;
@@ -62,6 +63,7 @@ public class Event implements java.io.Serializable {
         this.createdDate = createdDate;
         this.modifier = modifier;
         this.modifiedDate = modifiedDate;
+        this.image = image;
         this.comments = comments;
         this.comments_1 = comments_1;
     }
@@ -152,6 +154,14 @@ public class Event implements java.io.Serializable {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Set getComments() {
