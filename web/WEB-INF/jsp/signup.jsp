@@ -54,7 +54,7 @@
                     return;
                 }
             });
-            
+
             function validateForm() {
                 var lastname = document.getElementById("lastname").value;
                 if (lastname === null || lastname === "") {
@@ -76,43 +76,32 @@
                         element.appendChild(para);
                     return false;
                 }
-                
+
                 var username = document.getElementById("username").value;
                 if (username === null || username === "") {
                     var para = document.createElement("span");
-                    var node = document.createTextNode("username est vide.");
+                    var node = document.createTextNode("Username est vide.");
                     para.appendChild(node);
                     var element = document.getElementById("empty_username");
                     if (element.textContent === null || element.textContent === "")
                         element.appendChild(para);
                     return false;
                 }
-                
+
                 var password = document.getElementById("password").value;
                 if (password === null || password === "") {
                     var para = document.createElement("span");
-                    var node = document.createTextNode("password est vide.");
+                    var node = document.createTextNode("Password est vide.");
                     para.appendChild(node);
                     var element = document.getElementById("empty_password");
                     if (element.textContent === null || element.textContent === "")
                         element.appendChild(para);
                     return false;
                 }
-                
-                var email = document.getElementById("email").value;
-                if (status1 === null || status1 === "") {
-                    var para = document.createElement("span");
-                    var node = document.createTextNode("email est vide.");
-                    para.appendChild(node);
-                    var element = document.getElementById("empty_email");
-                    if (element.textContent === null || element.textContent === "")
-                        element.appendChild(para);
-                    return false;
-                }
-                
-                var sexM = document.getElementById("sexM").value;
-                var sexF = document.getElementById("sexF").value;
-                if ((sexM === null || sexM === "") && (sexF === null || sexF === "")) {
+
+                var sexM = document.getElementById("sexM");
+                var sexF = document.getElementById("sexF");
+                if ((sexM.checked === false && sexF.checked === false)) {
                     var para = document.createElement("span");
                     var node = document.createTextNode("Choisir un.");
                     para.appendChild(node);
@@ -121,14 +110,27 @@
                         element.appendChild(para);
                     return false;
                 }
-                
-                var status1 = document.getElementById("status1").value;
-                var status2 = document.getElementById("status1").value;
-                if ((status1 === null || status1 === "") && (status2 === null || status2 === "")) {
+
+                var status1 = document.getElementById("status1");
+                var status2 = document.getElementById("status1");
+                if ((status1.checked === false && status1.checked === false)) {
                     var para = document.createElement("span");
                     var node = document.createTextNode("Choisir un.");
                     para.appendChild(node);
                     var element = document.getElementById("empty_status");
+                    if (element.textContent === null || element.textContent === "")
+                        element.appendChild(para);
+                    return false;
+                }
+
+                var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                var email = document.getElementById("email").value;
+                if (!re.test(email))
+                {
+                    var para = document.createElement("span");
+                    var node = document.createTextNode("Email est invalide.");
+                    para.appendChild(node);
+                    var element = document.getElementById("empty_email");
                     if (element.textContent === null || element.textContent === "")
                         element.appendChild(para);
                     return false;
@@ -143,15 +145,15 @@
                 <div class="header_resize">
                     <div class="menu_nav">
                         <ul>
-                            <li><a href="index.htm"><span>Home Page</span></a></li>
-                            <li><a href="support.htm"><span>Support</span></a></li>
-                            <li><a href="about.htm"><span>About Us</span></a></li>
-                            <li><a href="blog.htm"><span>Blog</span></a></li>
-                            <li><a href="contact.htm"><span>Contact Us</span></a></li>
+                            <li class="active"><a href="<%=request.getContextPath()%>/index.htm"><span>Accueille</span></a></li>
+                            <li><a href="support.htm"><span>Annuaire</span></a></li>
+                            <li><a href="about.htm"><span>Événements</span></a></li>
+                            <li><a href="blog.htm"><span>Offres</span></a></li>
+                            <li><a href="contact.htm"><span>Nous écrire</span></a></li>
                         </ul>
                     </div>
                     <div class="logo">
-                        <h1><a href="index.html"><span>Sunlight</span>Particles <small>Company Slogan Here</small></a></h1>
+                        <h1><a href="<%=request.getContextPath()%>/index.htm"><span>Les anciens l'IFI</a></h1>
                     </div>
                     <div class="clr"></div>
                     <div class="slider">
@@ -279,38 +281,41 @@
                                 <span>
                                     <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
                                 </span>
-                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
+                                <input name="button_search" src="../images/search.gif" class="button_search" type="image" />
                             </form>
                         </div>
                         <div class="clr"></div>
                         <div class="gadget">
-                            <h2 class="star"><span>Sidebar</span> Menu</h2>
+                            <h2 class="star"><span>Les nouvaux membres</span></h2>
                             <div class="clr"></div>
-                            <ul class="sb_menu">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">TemplateInfo</a></li>
-                                <li><a href="#">Style Demo</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Archives</a></li>
-                                <li><a href="#">Web Templates</a></li>
+                            <ul class="ex_menu">
+                                <c:forEach var="account" items="${accounts}">
+                                    <li><a href="#">${account.username}</a><br>
+                                            Promotion: ${account.promotion} Nationalité:${account.nationality}
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                         <div class="gadget">
-                            <h2 class="star"><span>Sponsors</span></h2>
+                            <h2 class="star"><span>Les nouveaux événements</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
-                                <li><a href="http://www.dreamtemplate.com/">DreamTemplate</a><br />
-                                    Over 6,000+ Premium Web Templates</li>
-                                <li><a href="http://www.templatesold.com/">TemplateSOLD</a><br />
-                                    Premium WordPress &amp; Joomla Themes</li>
-                                <li><a href="http://www.imhosted.com/">ImHosted.com</a><br />
-                                    Affordable Web Hosting Provider</li>
-                                <li><a href="http://www.megastockphotos.com/">MegaStockPhotos</a><br />
-                                    Unlimited Amazing Stock Photos</li>
-                                <li><a href="http://www.evrsoft.com/">Evrsoft</a><br />
-                                    Website Builder Software &amp; Tools</li>
-                                <li><a href="http://www.csshub.com/">CSS Hub</a><br />
-                                    Premium CSS Templates</li>
+                                <c:forEach var="event" items="${events}">
+                                    <li><a href="#">${event.title}</a><br>
+                                            ${event.content}...
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                        <div class="gadget">
+                            <h2 class="star"><span>Les nouveaux offres</span></h2>
+                            <div class="clr"></div>
+                            <ul class="ex_menu">
+                                <c:forEach var="offer" items="${offers}">
+                                    <li><a href="http://www.dreamtemplate.com/">${offer.title}</a><br>
+                                            ${offer.content}...
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -320,25 +325,32 @@
             <div class="fbg">
                 <div class="fbg_resize">
                     <div class="col c1">
-                        <h2><span>Image</span> Gallery</h2>
-                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
+                        <h2><span>Image</span> de l'IFI</h2>
+                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                    </div>
                     <div class="col c2">
-                        <h2><span>Services</span> Overview</h2>
-                        <p>Curabitur sed urna id nunc pulvinar semper. Nunc sit amet tortor sit amet lacus sagittis posuere cursus vitae nunc.Etiam venenatis, turpis at eleifend porta, nisl nulla bibendum justo.</p>
-                        <ul class="fbg_ul">
-                            <li><a href="#">Lorem ipsum dolor labore et dolore.</a></li>
-                            <li><a href="#">Excepteur officia deserunt.</a></li>
-                            <li><a href="#">Integer tellus ipsum tempor sed.</a></li>
-                        </ul>
+                        <h2><span>Les</span> univerisités</h2>
+                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
                     </div>
                     <div class="col c3">
-                        <h2><span>Contact</span> Us</h2>
-                        <p>Nullam quam lorem, tristique non vestibulum nec, consectetur in risus. Aliquam a quam vel leo gravida gravida eu porttitor dui.</p>
-                        <p class="contact_info"> <span>Address:</span> 1458 TemplateAccess, USA<br />
-                            <span>Telephone:</span> +123-1234-5678<br />
-                            <span>FAX:</span> +458-4578<br />
-                            <span>Others:</span> +301 - 0125 - 01258<br />
-                            <span>E-mail:</span> <a href="#">mail@yoursitename.com</a> </p>
+                        <h2><span>Nous contacter</span> </h2>
+                        <p></p>
+                        <p class="contact_info"> <span>Address:</span> 144 Xuan Thuy Street, Cau Giay District, Hanoi.<br />
+                            <span>Telephone:</span> +84 (04) 37450173<br />
+                            <span>Fax:</span> +84 (04) 37957937<br />
+                            <span>E-mail:</span> <a href="#">duongpb.p19@ifi.edu.vn</a> 
+                            <span>E-mail:</span> <a href="#">sylvestre@ifi.edu.vn</a> 
+                        </p>
                     </div>
                     <div class="clr"></div>
                 </div>
@@ -351,5 +363,4 @@
                 </div>
             </div>
         </div>
-        <div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div></body>
 </html>
