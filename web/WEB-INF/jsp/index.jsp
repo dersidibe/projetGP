@@ -94,7 +94,7 @@
                                             <a href="">Créer un évent</a> <br>
                                         </c:when>
                                         <c:when test="${sessionScope.current_account != null}">
-                                            Salut: <a href="#">${sessionScope.current_account.username}</a> <br>
+                                            Salut: <a href="<%=request.getContextPath()%>/account/edit_account.htm">${sessionScope.current_account.username}</a> <br>
                                             <a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>
                                             <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a> <br>
                                             <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>

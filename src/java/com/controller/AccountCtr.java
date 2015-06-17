@@ -62,11 +62,22 @@ public class AccountCtr {
         return "signup";
     }
     
-    @RequestMapping(value="/edit_account", method = RequestMethod.POST)
+    @RequestMapping(value="/edit_account", method = RequestMethod.GET)
     public String formEdit(ModelMap mm, HttpSession session)
     {
         Account current_account = (Account) session.getAttribute("current_account");
+        if(current_account == null)
+            return "redirect_index";
         mm.put("current_account", current_account);
         return "edit_account";
+    }
+    
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String doEdition(@ModelAttribute("current_account") Account current_account, ModelMap mm) {
+        accountIpl = new AccountIpl();
+        current_account.setModifiedDate(new Date());
+        Integer result = accountIpl.insertAccount(current_account);
+        mm.put("result", result);
+        return "signup";
     }
 }
