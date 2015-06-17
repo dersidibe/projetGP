@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,7 +44,6 @@ public class AccountCtr {
         mm.addAttribute("account", new Account());
         List<String> promotion = new ArrayList<String>();
         for (int i = 1; i <= 18; i++) {
-
             promotion.add("" + i);
         }
         mm.put("result", 0);
@@ -60,5 +60,13 @@ public class AccountCtr {
         Integer result = accountIpl.insertAccount(account);
         mm.put("result", result);
         return "signup";
+    }
+    
+    @RequestMapping(value="/edit_account", method = RequestMethod.POST)
+    public String formEdit(ModelMap mm, HttpSession session)
+    {
+        Account current_account = (Account) session.getAttribute("current_account");
+        mm.put("current_account", current_account);
+        return "edit_account";
     }
 }
