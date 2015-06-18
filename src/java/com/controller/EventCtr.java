@@ -66,23 +66,31 @@ public class EventCtr {
     }
 
     @RequestMapping(value = "/edit_event", method = RequestMethod.GET)
-    public String formEdit(@RequestParam("eventId") int eventId, ModelMap mm) {
+    public String formEdit(@RequestParam("eventId") int eventId, ModelMap mm, 
+            HttpSession session) {
         eventIpl = new EventIpl();
         Event current_event = eventIpl.getEvent(eventId);
         mm.put("current_event", current_event);
+        session.setAttribute("eventCreatedDate", current_event.getCreatedDate());
+        mm.put("eventId", eventId);
         mm.put("result", null);
-        return "edit_event";       
+        return "edit_event";
     }
-    
+
     @RequestMapping(value = "/do_edition", method = RequestMethod.POST)
-    public String doEdition(@ModelAttribute("current_event") Event current_event,
+    public String doEdition(@RequestParam("eventId") int eventId,
+            @ModelAttribute("current_event") Event current_event,
             ModelMap mm, HttpSession session) {
         eventIpl = new EventIpl();
         Account currentAccount = (Account) session.getAttribute("current_account");
+        Date createdDate = (Date) session.getAttribute("eventCreatedDate");
+        current_event.setIdEvent(eventId);
         current_event.setAccount(currentAccount);
-        current_event.setCreatedDate(new Date());
+        current_event.setCreatedDate(createdDate);
+        current_event.setModifier(currentAccount.getUsername());
+        current_event.setModifiedDate(new Date());
         boolean result = eventIpl.updateEvent(current_event);
         mm.put("result", result);
-        return "redirect:event/edit_event";
+        return "redirect_index";
     }
 }

@@ -6,7 +6,7 @@
     <class name="com.model.Event" table="event" schema="public" optimistic-lock="version">
         <id name="idEvent" type="int">
             <column name="id_event" />
-            <generator class="sequence">  
+            <generator class="sequence-identity">  
                 <param name="sequence">event_id_seq</param>  
             </generator>  
         </id>
