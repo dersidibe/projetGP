@@ -48,7 +48,21 @@
                         <c:forEach var="event" items="${events}">
                             <div class="article">
                                 <h2><span>${event.title}</span></h2>
-                                <p class="infopost">Posté le <span class="date">11 sep 2018</span> par <a href="#">${event.account.username}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Faire <a href="#">Edition</a> <a href="#" class="com">Comments <span>11</span></a></p>
+                                <p class="infopost">Posté le 
+                                    <span class="date">
+                                        <c:choose>
+                                            <c:when test="${event.modifiedDate != null}">
+                                                ${event.modifiedDate}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${event.createdDate}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span> 
+                                    par <a href="#">${event.account.username}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
+                                    Faire <a href="<%= request.getContextPath() %>/event/edit_event.htm?eventId=${event.idEvent}">Edition</a> 
+                                    <a href="#" class="com">Comments 
+                                    <span>11</span></a></p>
                                 <div class="clr"></div>
                                 <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
                                 <div class="post_content">

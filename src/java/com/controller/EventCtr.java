@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -62,5 +63,26 @@ public class EventCtr {
         Integer result = eventIpl.insertEvent(event);
         mm.put("result", result);
         return "create_event";
+    }
+
+    @RequestMapping(value = "/edit_event", method = RequestMethod.GET)
+    public String formEdit(@RequestParam("eventId") int eventId, ModelMap mm) {
+        eventIpl = new EventIpl();
+        Event current_event = eventIpl.getEvent(eventId);
+        mm.put("current_event", current_event);
+        mm.put("result", null);
+        return "edit_event";       
+    }
+    
+    @RequestMapping(value = "/do_edition", method = RequestMethod.POST)
+    public String doEdition(@ModelAttribute("current_event") Event current_event,
+            ModelMap mm, HttpSession session) {
+        eventIpl = new EventIpl();
+        Account currentAccount = (Account) session.getAttribute("current_account");
+        current_event.setAccount(currentAccount);
+        current_event.setCreatedDate(new Date());
+        boolean result = eventIpl.updateEvent(current_event);
+        mm.put("result", result);
+        return "redirect:event/edit_event";
     }
 }
