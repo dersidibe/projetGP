@@ -59,10 +59,14 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </span> 
-                                    par <a href="#">${event.account.username}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; 
-                                    Faire <a href="<%= request.getContextPath() %>/event/edit_event.htm?eventId=${event.idEvent}">Edition</a> 
+                                    par <a href="#">${event.account.username}</a> 
+                                    <c:choose>
+                                        <c:when test="${sessionScope.current_account != null}">
+                                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;Faire <a href="<%= request.getContextPath()%>/event/edit_event.htm?eventId=${event.idEvent}">Edition</a> 
+                                        </c:when>
+                                    </c:choose>
                                     <a href="#" class="com">Comments 
-                                    <span>11</span></a></p>
+                                        <span>11</span></a></p>
                                 <div class="clr"></div>
                                 <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
                                 <div class="post_content">
@@ -103,15 +107,30 @@
                                                 </tr>
                                             </table>
                                         </c:when>
-                                        <c:when test="${sessionScope.username != null}">
-                                            <p>Salut:</p> <a href="#">${sessionScope.username.getUsername}</a> <br>
-                                            <a href="">Créer un évent</a> <br>
-                                        </c:when>
                                         <c:when test="${sessionScope.current_account != null}">
-                                            Salut: <a href="<%=request.getContextPath()%>/account/edit_account.htm">${sessionScope.current_account.username}</a> <br>
-                                            <a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>
-                                            <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a> <br>
-                                            <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        Salut: 
+                                                        <a href="<%=request.getContextPath()%>/account/edit_account.htm">${sessionScope.current_account.username}</a> <br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a> <br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="<%=request.getContextPath()%>/logout.htm">Logout</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </c:when>
                                     </c:choose> 
                                     <span> </span>
@@ -172,13 +191,11 @@
                         <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
                     </div>
                     <div class="col c2">
-                        <h2><span>Les</span> univerisités</h2>
-                        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
+                        <h2><span>Les</span> partenaires</h2>
+                        <a href="#"><img src="images/partners/ird.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/partners/la_rochelle.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/partners/lyon.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="#"><img src="images/partners/ummisco.png" width="75" height="75" alt="" class="gal" /></a> 
                     </div>
                     <div class="col c3">
                         <h2><span>Nous contacter</span> </h2>

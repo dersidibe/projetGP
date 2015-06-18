@@ -163,8 +163,8 @@
                                     <td>Contenu:</td>
                                     <td><form:textarea path="content" id="offer_content"></form:textarea></td>
                                         <td><span id="empty_content" style="color:red"></span></td>
-                                    </tr>
-                                    <tr>
+                                </tr>
+                                <tr>
                                         <td align="left"><b><label for="file">Image:</label></b></td>
                                         <td><input type="file" name="file" id="file" onchange="imgchange(this)"></td>
                                         <td><form:hidden path="image" id="name_img" value=""/></td>
@@ -244,7 +244,7 @@
                     <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> 
                 </div>
                 <div class="col c2">
-                    <h2><span>Les</span> univerisités</h2>
+                    <h2><span>Les</span> partenaires</h2>
                     <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> 
                     <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> 
                     <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> 
