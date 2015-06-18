@@ -43,11 +43,11 @@
                 var element = document.getElementById("success");
                 if (element !== null)
                 {
-                    alert("Événement est crée avec réussi!");
+                    alert("Événement est modifié avec réussi!");
                     return;
                 }
 
-                var element = document.getElementById("failure");
+                element = document.getElementById("failure");
                 if (element !== null)
                 {
                     alert("Échec!");
@@ -112,8 +112,8 @@
                 }
 
                 var status1 = document.getElementById("status1");
-                var status2 = document.getElementById("status1");
-                if ((status1.checked === false && status1.checked === false)) {
+                var status2 = document.getElementById("status2");
+                if ((status1.checked === false && status2.checked === false)) {
                     var para = document.createElement("span");
                     var node = document.createTextNode("Choisir un.");
                     para.appendChild(node);
@@ -166,12 +166,9 @@
                 <div class="content_resize">
                     <div class="mainbar">
                         <div class="article">
-                        </div>
-                        <div class="article">
                             <h2><span>Edit account</span></h2>
                             <div class="clr"></div>
-
-                            <form:form action="register.htm" method="get" commandName="current_account" onsubmit="return validateForm()">
+                            <form:form action="edit.htm" method="post" commandName="current_account" onsubmit="return validateForm()">
                                 <table border="0">
 
                                     <tr>
@@ -259,14 +256,14 @@
                                         <td><form:input path="jobEndTime" id="datepicker3" value=""/></td>
                                     </tr>                                
                                     <tr>
-                                        <td ><input type="submit" value="Valider" /></td>
+                                        <td ><input type="submit" value="Valider" />${result} ${aaa}</td>
                                         <c:choose>
                                             <c:when test="${result == null}">
+                                            </c:when>
+                                            <c:when test="${result == false}">
                                                 <p id="failure"></p>
                                             </c:when>
-                                            <c:when test="${result == 0}">
-                                            </c:when>
-                                            <c:when test="${result != null && result > 0}">
+                                            <c:when test="${result == true}">
                                                 <p id="success"></p>
                                             </c:when>
                                         </c:choose> 

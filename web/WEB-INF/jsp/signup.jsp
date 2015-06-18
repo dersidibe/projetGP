@@ -112,8 +112,8 @@
                 }
 
                 var status1 = document.getElementById("status1");
-                var status2 = document.getElementById("status1");
-                if ((status1.checked === false && status1.checked === false)) {
+                var status2 = document.getElementById("status2");
+                if ((status1.checked === false && status2.checked === false)) {
                     var para = document.createElement("span");
                     var node = document.createTextNode("Choisir un.");
                     para.appendChild(node);

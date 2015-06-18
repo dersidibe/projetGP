@@ -50,7 +50,7 @@
                                 <h2><span>${event.title}</span></h2>
                                 <p class="infopost">Posté le <span class="date">11 sep 2018</span> par <a href="#">${event.account.username}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Faire <a href="#">Edition</a> <a href="#" class="com">Comments <span>11</span></a></p>
                                 <div class="clr"></div>
-                                <div class="img"><img src="images/img1.jpg" width="630" height="221" alt="" class="fl" /></div>
+                                <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
                                 <div class="post_content">
                                     <p>${event.content}</p>
                                     <p class="spec"><a href="#" class="rm">Savoir plus &raquo;</a></p>

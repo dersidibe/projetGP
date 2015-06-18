@@ -7,6 +7,7 @@ package com.controller;
 
 import com.dao.AccountIpl;
 import com.model.Account;
+import com.utils.Paramaters;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,13 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-
 @Controller
 @RequestMapping(value = "/account")
 public class AccountCtr {
 
     private AccountIpl accountIpl;
-    
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -43,7 +43,7 @@ public class AccountCtr {
     public String submitForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
         List<String> promotion = new ArrayList<String>();
-        for (int i = 1; i <= 18; i++) {
+        for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
             promotion.add("" + i);
         }
         mm.put("result", 0);
@@ -61,23 +61,31 @@ public class AccountCtr {
         mm.put("result", result);
         return "signup";
     }
-    
-    @RequestMapping(value="/edit_account", method = RequestMethod.GET)
-    public String formEdit(ModelMap mm, HttpSession session)
-    {
+
+    @RequestMapping(value = "/edit_account", method = RequestMethod.GET)
+    public String formEdit(ModelMap mm, HttpSession session) {
         Account current_account = (Account) session.getAttribute("current_account");
-        if(current_account == null)
+        if (current_account == null) {
             return "redirect_index";
+        }
+        List<String> promotion = new ArrayList<String>();
+        for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
+            promotion.add("" + i);
+        }
+        mm.addAttribute("promo", promotion);
         mm.put("current_account", current_account);
+        mm.put("result", null);
         return "edit_account";
     }
-    
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String doEdition(@ModelAttribute("current_account") Account current_account, ModelMap mm) {
         accountIpl = new AccountIpl();
+        current_account.setCreatedDate(new Date());
         current_account.setModifiedDate(new Date());
-        Integer result = accountIpl.insertAccount(current_account);
+        boolean result = accountIpl.updateAccount(current_account);
+        mm.put("aaa",current_account.getCreatedDate());
         mm.put("result", result);
-        return "signup";
+        return "edit_account";
     }
 }

@@ -140,9 +140,7 @@ public class AccountIpl extends AccountDao {
             session.update(account);
             transaction.commit();
             result = true;
-
         } catch (HibernateException e) {
-
             e.printStackTrace();
         }
         return result;
