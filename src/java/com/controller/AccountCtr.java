@@ -79,12 +79,14 @@ public class AccountCtr {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String doEdition(@ModelAttribute("current_account") Account current_account, ModelMap mm) {
+    public String doEdition(@ModelAttribute("current_account") Account new_account, 
+            ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
-        current_account.setCreatedDate(new Date());
-        current_account.setModifiedDate(new Date());
-        boolean result = accountIpl.updateAccount(current_account);
-        mm.put("aaa",current_account.getCreatedDate());
+        Account currentAccount =  (Account) session.getAttribute("current_account");
+        new_account.setCreatedDate(currentAccount.getCreatedDate());
+        new_account.setModifiedDate(new Date());
+        new_account.setIdAccount(currentAccount.getIdAccount());
+        boolean result = accountIpl.updateAccount(new_account);
         mm.put("result", result);
         return "edit_account";
     }
