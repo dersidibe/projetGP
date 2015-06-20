@@ -26,35 +26,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author lion
  */
 @Controller
-@RequestMapping(value = "")
 public class Home {
 
     private AccountIpl accountIpl;
     private EventIpl eventIpl;
     private OfferIpl offerIpl;
+    
+    public Home() {
+        accountIpl = new AccountIpl();
+        eventIpl = new EventIpl();
+        offerIpl = new OfferIpl();
+    }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String listMemberEvent(ModelMap mm) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
-        if (accounts != null) {
-            accounts = accounts.subList(0, Math.min(5, accounts.size()));
-            mm.put("accounts", accounts);
-        }
-        mm.put("accounts", null);
         eventIpl = new EventIpl();
         List<Event> events = eventIpl.getEvents();
-        events = events.subList(0, Math.min(Paramaters.NUMBER_EVENTS_AVAIABLE, events.size()));
-        for (int i = 0; i < events.size(); i++) {
-            events.get(i).setContent(
-                    events.get(i).getContent().substring(0,
-                            Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
+        offerIpl = new OfferIpl();
+        List<Offer> offers = offerIpl.getOffres();
+
+        if (accounts != null) {
+            List<Account> subAccounts = accounts.subList(0, Math.min(5, accounts.size()));
+            mm.put("accounts", subAccounts);
+        }
+        if (events != null) {
+            List<Event> subEvents = events.subList(0, Math.min(Paramaters.NUMBER_EVENTS_AVAIABLE, events.size()));
+            for (int i = 0; i < subEvents.size(); i++) {
+                subEvents.get(i).setContent(
+                        subEvents.get(i).getContent().substring(0,
+                                Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
+            }
         }
         mm.put("events", events);
-
-        offerIpl = new OfferIpl();
-        List<Offer> offers = new ArrayList<Offer>();
-        offers = offerIpl.getOffres();
         mm.put("offers", offers);
         return "index";
     }
@@ -83,4 +88,11 @@ public class Home {
         return "redirect_index";
     }
 
+    @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
+    public String listAccounts(ModelMap mm) {
+        accountIpl = new AccountIpl();
+        List<Account> accounts = accountIpl.getAccountsList();
+        mm.put("accounts", accounts);
+        return "lists_accounts";
+    }
 }

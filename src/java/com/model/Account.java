@@ -1,5 +1,5 @@
 package com.model;
-// Generated Jun 15, 2015 9:16:44 PM by Hibernate Tools 4.3.1
+// Generated Jun 20, 2015 9:44:15 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ public class Account implements java.io.Serializable {
     private String email;
     private Date birthday;
     private String nationality;
-    private char sex;
+    private Character sex;
     private String occupation;
     private Date createdDate;
     private Date modifiedDate;
@@ -65,7 +65,7 @@ public class Account implements java.io.Serializable {
         this.createdDate = createdDate;
     }
 
-    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, char sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set events, Set messagesForAccountId2, Set events_1, Set messagesForAccountId1, Set messagesForAccountId1_1, Set comments, Set messagesForAccountId2_1, Set comments_1, Set offers, Set offers_1) {
+    public Account(int idAccount, String firstName, String lastName, String username, String password, String image, short type, Integer promotion, short status, String email, Date birthday, String nationality, Character sex, String occupation, Date createdDate, Date modifiedDate, Date jobStartTime, Date jobEndTime, Set events, Set messagesForAccountId2, Set events_1, Set messagesForAccountId1, Set messagesForAccountId1_1, Set comments, Set messagesForAccountId2_1, Set comments_1, Set offers, Set offers_1) {
         this.idAccount = idAccount;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -192,11 +192,11 @@ public class Account implements java.io.Serializable {
         this.nationality = nationality;
     }
 
-    public char getSex() {
+    public Character getSex() {
         return this.sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(Character sex) {
         this.sex = sex;
     }
 

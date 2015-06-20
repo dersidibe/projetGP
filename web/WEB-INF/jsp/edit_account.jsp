@@ -168,7 +168,7 @@
                         <div class="article">
                             <h2><span>Edit account</span></h2>
                             <div class="clr"></div>
-                            <form:form action="edit.htm" method="post" commandName="current_account" onsubmit="return validateForm()">
+                            <form:form action="edit.htm?idAccount=${current_account.idAccount}" method="post" commandName="current_account" onsubmit="return validateForm()">
                                 <table border="0">
 
                                     <tr>

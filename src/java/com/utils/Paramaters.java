@@ -10,9 +10,7 @@ package com.utils;
  * @author lion
  */
 public class Paramaters {
-    
-    public final static int NUMBER_PROMOTIONS = 20;
-    public final static int NUMBER_EVENTS_AVAIABLE = 5;
-    public final static int LENGTH_CONTENT = 50;
-    
+    public static final int NUMBER_PROMOTIONS = 100;
+    public static final int NUMBER_EVENTS_AVAIABLE = 5;
+    public static final int LENGTH_CONTENT = 50;    
 }

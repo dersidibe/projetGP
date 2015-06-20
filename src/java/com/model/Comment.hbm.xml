@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 15, 2015 9:16:45 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 20, 2015 9:44:17 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.model.Comment" table="comment" schema="public" optimistic-lock="version">
         <id name="idComment" type="int">
             <column name="id_comment" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="account" class="com.model.Account" fetch="select">
             <column name="account_id" not-null="true" />

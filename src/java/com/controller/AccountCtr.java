@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -31,6 +32,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AccountCtr {
 
     private AccountIpl accountIpl;
+
+    public AccountCtr() {
+        accountIpl = new AccountIpl();
+    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -54,7 +59,7 @@ public class AccountCtr {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String signup(@ModelAttribute("account") Account account, ModelMap mm) {
         java.sql.Timestamp date = new java.sql.Timestamp(System.currentTimeMillis());
-        accountIpl = new AccountIpl();
+//        accountIpl = new AccountIpl();
         account.setCreatedDate(date);
         account.setModifiedDate(date);
         Integer result = accountIpl.insertAccount(account);
@@ -63,30 +68,33 @@ public class AccountCtr {
     }
 
     @RequestMapping(value = "/edit_account", method = RequestMethod.GET)
-    public String formEdit(ModelMap mm, HttpSession session) {
-        Account current_account = (Account) session.getAttribute("current_account");
-        if (current_account == null) {
+    public String formEdit(@RequestParam("idAccount") int idAccount,
+            ModelMap mm, HttpSession session) {
+        Account currentAccount;
+        currentAccount = accountIpl.getAccount(idAccount);
+        if (currentAccount == null) {
             return "redirect_index";
         }
         List<String> promotion = new ArrayList<String>();
         for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
             promotion.add("" + i);
         }
+        
         mm.addAttribute("promo", promotion);
-        mm.put("current_account", current_account);
+        mm.put("current_account", currentAccount);
+        session.setAttribute("oldAccount", currentAccount);
         mm.put("result", null);
         return "edit_account";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String doEdition(@ModelAttribute("current_account") Account new_account, 
+    public String doEdition(@ModelAttribute("current_account") Account newAccount,
             ModelMap mm, HttpSession session) {
-        accountIpl = new AccountIpl();
-        Account currentAccount =  (Account) session.getAttribute("current_account");
-        new_account.setCreatedDate(currentAccount.getCreatedDate());
-        new_account.setModifiedDate(new Date());
-        new_account.setIdAccount(currentAccount.getIdAccount());
-        boolean result = accountIpl.updateAccount(new_account);
+        Account oldAccount = (Account) session.getAttribute("oldAccount");
+        newAccount.setIdAccount(oldAccount.getIdAccount());
+        newAccount.setCreatedDate(oldAccount.getCreatedDate());
+        newAccount.setModifiedDate(new Date());
+        boolean result = accountIpl.updateAccount(newAccount);
         mm.put("result", result);
         return "edit_account";
     }

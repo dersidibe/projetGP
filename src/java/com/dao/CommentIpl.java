@@ -10,142 +10,124 @@ import com.utils.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
  */
-public class CommentIpl extends CommentDao{
-    
+public class CommentIpl extends CommentDao {
+
     private Session session = null;
-    
-    public CommentIpl(){
-    
-        this.session = HibernateUtil.getSessionFactory().openSession();
+    private SessionFactory sessionFactory = null;
+
+    public CommentIpl() {
+        this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     @Override
     public List<Comment> getComments() {
-        
+        session = sessionFactory.openSession();
         Transaction transaction = null;
         List<Comment> list = null;
-        
-        try{
-            
+        try {
             transaction.begin();
             list = session.createQuery("from Comment").list();
             transaction.commit();
-            return list;
-            
-        }catch(HibernateException e){
-            
+        } catch (HibernateException e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+            return list;
         }
-        
-        return null;
     }
 
     @Override
     public Comment getCommentById(int id) {
-        
+        session = sessionFactory.openSession();
         Transaction transaction = null;
         Comment comment = null;
-        
-        try{
-            
+        try {
             transaction = session.beginTransaction();
             comment = (Comment) session.get(Comment.class, id);
             transaction.commit();
-            
-        }catch(HibernateException e){
-            
+        } catch (HibernateException e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+            return comment;
         }
-        
-        return comment;
     }
-    
+
     @Override
     public List<Comment> getCommentsByEvent(int idEvent) {
-        
+        session = sessionFactory.openSession();
         Transaction transaction = null;
         List<Comment> list = null;
-        
-        try{
-            
-           transaction = session.beginTransaction();
-            String query = "from Comment as c where c.event.idEvent ="+idEvent;
+        try {
+            transaction = session.beginTransaction();
+            String query = "from Comment as c where c.event.idEvent =" + idEvent;
             list = session.createQuery(query).list();
             transaction.commit();
-            
-        }catch(HibernateException e){
-            
+        } catch (HibernateException e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+            return list;
         }
-        
-        return list;
     }
-    
+
     @Override
     public Integer insertComment(Comment comment) {
-        
+        session = sessionFactory.openSession();
         Transaction transaction = null;
         Integer commentId = null;
-        
         try {
-            
             transaction = session.beginTransaction();
             commentId = (Integer) session.save(comment);
             transaction.commit();
-            
         } catch (HibernateException e) {
-            
             e.printStackTrace();
+        } finally {
+            session.close();
+            return commentId;
         }
-        return commentId;
     }
 
     @Override
     public boolean deleteComment(Comment comment) {
-        
+        session = sessionFactory.openSession();
         Transaction transaction = null;
-        boolean result =  false;
-        
+        boolean result = false;
         try {
-            
             transaction = session.beginTransaction();
             session.delete(comment);
             transaction.commit();
-            result =  true;
-            
+            result = true;
         } catch (HibernateException e) {
-            
             e.printStackTrace();
+        } finally {
+            session.close();
+            return result;
         }
-        
-        return result;
     }
 
     @Override
     public boolean updateComment(Comment comment) {
-       
+        session = sessionFactory.openSession();
         Transaction transaction = null;
-        boolean result =  false;
-        
+        boolean result = false;
         try {
-            
             transaction = session.beginTransaction();
             session.update(comment);
             transaction.commit();
             result = true;
-            
         } catch (HibernateException e) {
-            
             e.printStackTrace();
+        } finally {
+            session.close();
+            return result;
         }
-        return result;
     }
-
-
 }
