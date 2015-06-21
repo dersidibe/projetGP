@@ -100,22 +100,51 @@ public class AccountCtr {
     }
     
     @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
-    public String listAccounts(ModelMap mm) {
+    public String listAccounts(ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
-        mm.put("accounts", accounts);
-        int numberPage = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
-        mm.put("numberPage", numberPage);
+        int numberPages = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
+        List<Account> sub_accounts = accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
+        
+        mm.put("accounts", sub_accounts);
+        mm.put("numberPages", numberPages);
+        mm.put("currentPage", 1);
+        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        
+        session.setAttribute("currentListAccount", accounts);
         return "lists_accounts";
     }
     
     @RequestMapping(value = "/search_accounts", method = RequestMethod.GET)
-    public String listAccounts(@RequestParam("searchInfo") String searchInfo, ModelMap mm) {
+    public String searchAccounts(@RequestParam("searchInfo") String searchInfo, 
+            ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> search_accounts = accountIpl.getAccounts(searchInfo);
-        mm.put("search_accounts", search_accounts);
-        int numberPage = (int) search_accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
-        mm.put("numberPage", numberPage);
+        List<Account> sub_accounts = search_accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
+        int numberPages = (int) search_accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
+        
+        mm.put("search_accounts", sub_accounts);
+        mm.put("numberPages", numberPages);
+        mm.put("currentPage", 1);
+        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        
+        session.setAttribute("currentListAccount", search_accounts);
+        return "search_accounts";
+    }
+    
+    @RequestMapping(value = "/next_page", method = RequestMethod.GET)
+    public String nextPage(@RequestParam("page") int page, ModelMap mm, HttpSession session) {
+        accountIpl = new AccountIpl();
+        List<Account> accounts = (List<Account>) session.getAttribute("currentListAccount");
+        List<Account> sub_accounts = accounts.subList(page * Paramaters.NUMBER_OF_ACCOUNT, 
+                page * Paramaters.NUMBER_OF_ACCOUNT + Paramaters.NUMBER_OF_ACCOUNT);
+        int numberPages = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
+        
+        mm.put("search_accounts", sub_accounts);
+        mm.put("numberPages", numberPages);
+        mm.put("currentPage", page + 1);
+        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        
         return "search_accounts";
     }
 }

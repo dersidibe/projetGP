@@ -13,6 +13,6 @@ public class Paramaters {
     public static final int NUMBER_PROMOTIONS = 100;
     public static final int NUMBER_EVENTS_AVAIABLE = 5;
     public static final int LENGTH_CONTENT = 50;    
-    public static final int NUMBER_OF_ACCOUNT = 50;    
+    public static final int NUMBER_OF_ACCOUNT = 2;    
     
 }

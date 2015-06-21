@@ -20,8 +20,15 @@
         {
             var searchInfo = $("#editbox_search").val();
             if (searchInfo === null || searchInfo === "")
-                return;
+                searchInfo = "";
             $.ajax({url: "search_accounts.htm?searchInfo=" + searchInfo, success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
+
+        function nextPage(page) {
+            $.ajax({url: "next_page.htm?page=" + page, success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
@@ -64,7 +71,7 @@
                                     <a href="#">Name : ${account.username}</a> 
                                     <a href="#">Promotion : ${account.promotion}</a> 
                                     <span class="date">Email: ${account.email}</span> 
-                                    <a href="account/edit_account.htm?idAccount=${account.idAccount}" class="com">Edit</a>
+                                    <a href="edit_account.htm?idAccount=${account.idAccount}" class="com">Edit</a>
                                 </p>
                                 <div class="clr"></div>
                                 <div class="img"><img src="images/event/${account.image}" width="630" height="221" alt="" class="fl" /></div>
@@ -73,12 +80,19 @@
                                 <div class="clr"></div>
                             </div>
                         </c:forEach>
-                        <p class="pages"><small>Page 1 de 2</small> <span>1</span>
-                            <a href="#">2</a> 
-                            <a href="#">2</a> 
-                            <a href="#">2</a> 
-                            <a href="#">2</a> 
-                            <a href="#">&raquo;</a></p>
+                        <p class="pages"><small>Page ${currentPage} de ${numberPages}</small>
+                            <c:forEach var="i" begin="1" end="${numberPages}" step="1">
+                                <c:choose>
+                                    <c:when test="${i == currentPage}">
+                                        <span>${i}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="nextPage" HREF="javascript:nextPage(${i-1})">${i}</a> 
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <a href="#">&raquo;</a>
+                        </p>
                     </div>
                     <div class="sidebar">
                         <div class="searchform">
