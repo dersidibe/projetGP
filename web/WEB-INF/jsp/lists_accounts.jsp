@@ -61,7 +61,12 @@
                                 <div class="clr"></div>
                             </div>
                         </c:forEach>
-                        <p class="pages"><small>Page 1 de 2</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>
+                        <p class="pages"><small>Page 1 de 2</small> <span>1</span>
+                            <a href="#">2</a> 
+                            <a href="#">2</a> 
+                            <a href="#">2</a> 
+                            <a href="#">2</a> 
+                            <a href="#">&raquo;</a></p>
                     </div>
                     <div class="sidebar">
                         <div class="searchform">

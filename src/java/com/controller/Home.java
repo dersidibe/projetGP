@@ -12,7 +12,6 @@ import com.model.Account;
 import com.model.Event;
 import com.model.Offer;
 import com.utils.Paramaters;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -31,7 +31,7 @@ public class Home {
     private AccountIpl accountIpl;
     private EventIpl eventIpl;
     private OfferIpl offerIpl;
-    
+
     public Home() {
         accountIpl = new AccountIpl();
         eventIpl = new EventIpl();
@@ -59,6 +59,36 @@ public class Home {
                                 Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
             }
         }
+        mm.put("events", events);
+        mm.put("offers", offers);
+        return "index";
+    }
+
+    @RequestMapping(value = "/index_page", method = RequestMethod.GET)
+    public String listMemberEventPage(@RequestParam("pageNumber") Integer pageNumber, ModelMap mm) {
+        if (pageNumber == null) {
+            pageNumber = 0;
+        }
+        accountIpl = new AccountIpl();
+        List<Account> accounts = accountIpl.getAccountsList();
+        eventIpl = new EventIpl();
+        List<Event> events = eventIpl.getEvents();
+        offerIpl = new OfferIpl();
+        List<Offer> offers = offerIpl.getOffres();
+
+        if (accounts != null) {
+            List<Account> subAccounts = accounts.subList(0, Math.min(5, accounts.size()));
+            mm.put("accounts", subAccounts);
+        }
+        if (events != null) {
+            List<Event> subEvents = events.subList(pageNumber * Paramaters.NUMBER_EVENTS_AVAIABLE, Math.min(pageNumber * Paramaters.NUMBER_EVENTS_AVAIABLE + Paramaters.NUMBER_EVENTS_AVAIABLE, events.size()));
+            for (int i = 0; i < subEvents.size(); i++) {
+                subEvents.get(i).setContent(
+                        subEvents.get(i).getContent().substring(0,
+                                Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
+            }
+        }
+        mm.put("pageNumber", ++pageNumber);
         mm.put("events", events);
         mm.put("offers", offers);
         return "index";
@@ -93,6 +123,8 @@ public class Home {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
         mm.put("accounts", accounts);
+        int numberPage = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
+        mm.put("numberPage", numberPage);
         return "lists_accounts";
     }
 }
