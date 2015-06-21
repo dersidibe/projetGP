@@ -137,7 +137,7 @@ public class AccountCtr {
         accountIpl = new AccountIpl();
         List<Account> accounts = (List<Account>) session.getAttribute("currentListAccount");
         List<Account> sub_accounts = accounts.subList(page * Paramaters.NUMBER_OF_ACCOUNT, 
-                page * Paramaters.NUMBER_OF_ACCOUNT + Paramaters.NUMBER_OF_ACCOUNT);
+                Math.min(page * Paramaters.NUMBER_OF_ACCOUNT + Paramaters.NUMBER_OF_ACCOUNT, accounts.size()));
         int numberPages = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
         
         mm.put("search_accounts", sub_accounts);
