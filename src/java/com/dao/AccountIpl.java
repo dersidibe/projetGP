@@ -85,8 +85,27 @@ public class AccountIpl extends AccountDao {
         }
     }
 
-    @Override
-    public Integer insertAccount(Account account) {
+    public List<Account> getAccounts(String searchInfo) {
+        session = sessionFactory.openSession();
+        Transaction transaction = null;
+        List<Account> accounts = null;
+        try {
+            transaction = session.beginTransaction();
+            String stringQuery = "from Account as a where lower(a.username) like lower(:searchInfo) ";
+            Query query = session.createQuery(stringQuery);
+            query.setString("searchInfo", "%" + searchInfo + "%");
+            accounts = query.list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            return accounts;
+        }
+    }
+
+@Override
+        public Integer insertAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         Integer accountId = null;
@@ -103,7 +122,7 @@ public class AccountIpl extends AccountDao {
     }
 
     @Override
-    public boolean deleteAccount(Account account) {
+        public boolean deleteAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean result = false;
@@ -122,7 +141,7 @@ public class AccountIpl extends AccountDao {
     }
 
     @Override
-    public boolean updateAccount(Account account) {
+        public boolean updateAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean result = false;

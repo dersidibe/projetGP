@@ -22,7 +22,7 @@
                     <div class="menu_nav">
                         <ul>
                             <li class="active"><a href="index.htm"><span>Accueil</span></a></li>
-                            <li><a href="lists_accounts.htm"><span>Annuaire</span></a></li>
+                            <li><a href="account/lists_accounts.htm"><span>Annuaire</span></a></li>
                             <li><a href="about.htm"><span>Événements</span></a></li>
                             <li><a href="blog.htm"><span>Offres</span></a></li>
                             <li><a href="contact.htm"><span>Nous écrire</span></a></li>

@@ -7,22 +7,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Les anciens l'IFI</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
-        <script type="text/javascript" src="js/cufon-yui.js"></script>
-        <script type="text/javascript" src="js/cufon-aller.js"></script>
-        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        <script type="text/javascript" src="js/coin-slider.min.js"></script>
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../css/coin-slider.css" />
+        <script type="text/javascript" src="../js/cufon-yui.js"></script>
+        <script type="text/javascript" src="../js/cufon-aller.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../js/script.js"></script>
+        <script type="text/javascript" src="../js/coin-slider.min.js"></script>
     </head>
+    <script>
+        function search()
+        {
+            var searchInfo = $("#editbox_search").val();
+            if (searchInfo === null || searchInfo === "")
+                return;
+            $.ajax({url: "search_accounts.htm?searchInfo=" + searchInfo, success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
+    </script>
     <body>
         <div class="main">
             <div class="header">
                 <div class="header_resize">
                     <div class="menu_nav">
                         <ul>
-                            <li class="active"><a href="index.htm"><span>Accueil</span></a></li>
-                            <li><a href="lists_accounts.htm"><span>Annuaire</span></a></li>
+                            <li><a href="index.htm"><span>Accueil</span></a></li>
+                            <li class="active"><a href="lists_accounts.htm"><span>Annuaire</span></a></li>
                             <li><a href="about.htm"><span>Événements</span></a></li>
                             <li><a href="blog.htm"><span>Offres</span></a></li>
                             <li><a href="contact.htm"><span>Nous écrire</span></a></li>
@@ -45,9 +57,9 @@
             <div class="content">
                 <div class="content_resize">
                     <div class="mainbar">
+                        <h2 align="center">Les anciens de l'IFI</h2><br><br>
                         <c:forEach var="account" items="${accounts}">
                             <div class="article">
-                                <h2><span>${account.username}</span></h2>
                                 <p class="infopost">
                                     <a href="#">Name : ${account.username}</a> 
                                     <a href="#">Promotion : ${account.promotion}</a> 
@@ -70,12 +82,13 @@
                     </div>
                     <div class="sidebar">
                         <div class="searchform">
-                            <form id="formsearch" name="formsearch" method="post" action="#">
+                            <%--<form:form id="formsearch" name="formsearch" method="post" action="lists_accounts.htm">--%>
+                            <div id="formsearch">
                                 <span>
-                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Chercher sur site:" type="text" />
+                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80px" value="" type="text" />
                                 </span>
-                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
-                            </form>
+                                <input name="button_search" src="../images/search.gif" class="button_search" type="image" onclick="javascript:search();" />
+                            </div>
                         </div>
                         <div class="gadget">
                             <h2 class="star"><span>Bienvenue</span></h2>

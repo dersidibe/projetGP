@@ -117,14 +117,4 @@ public class Home {
         session.invalidate();
         return "redirect_index";
     }
-
-    @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
-    public String listAccounts(ModelMap mm) {
-        accountIpl = new AccountIpl();
-        List<Account> accounts = accountIpl.getAccountsList();
-        mm.put("accounts", accounts);
-        int numberPage = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
-        mm.put("numberPage", numberPage);
-        return "lists_accounts";
-    }
 }

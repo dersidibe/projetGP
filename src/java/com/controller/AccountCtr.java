@@ -98,4 +98,24 @@ public class AccountCtr {
         mm.put("result", result);
         return "edit_account";
     }
+    
+    @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
+    public String listAccounts(ModelMap mm) {
+        accountIpl = new AccountIpl();
+        List<Account> accounts = accountIpl.getAccountsList();
+        mm.put("accounts", accounts);
+        int numberPage = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
+        mm.put("numberPage", numberPage);
+        return "lists_accounts";
+    }
+    
+    @RequestMapping(value = "/search_accounts", method = RequestMethod.GET)
+    public String listAccounts(@RequestParam("searchInfo") String searchInfo, ModelMap mm) {
+        accountIpl = new AccountIpl();
+        List<Account> search_accounts = accountIpl.getAccounts(searchInfo);
+        mm.put("search_accounts", search_accounts);
+        int numberPage = (int) search_accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT;
+        mm.put("numberPage", numberPage);
+        return "search_accounts";
+    }
 }

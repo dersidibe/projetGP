@@ -19,5 +19,5 @@ public abstract class OfferDao {
 
     public abstract boolean deleteOffer(Offer offre);
 
-    public abstract boolean updateOffer(Offer offre);          
+    public abstract boolean updateOffer(Offer offre);
 }
