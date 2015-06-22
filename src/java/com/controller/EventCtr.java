@@ -62,7 +62,7 @@ public class EventCtr {
         event.setCreatedDate(new Date());
         Integer result = eventIpl.insertEvent(event);
         mm.put("result", result);
-        return "create_event";
+        return "redirect_index";
     }
 
     @RequestMapping(value = "/edit_event", method = RequestMethod.GET)

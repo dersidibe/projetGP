@@ -34,6 +34,20 @@
                 }});
             return;
         }
+        function createEvent() {
+            $.ajax({url: "event/create_event.htm", success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
+        function createOffer() {
+            $.ajax({url: "offer/create_offer.htm", success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
+        
+        
     </script>
     <body>
         <div class="main">
@@ -135,17 +149,20 @@
                                                 <tr>
                                                     <td>
                                                         Salut: 
+                                                        <!--<a href="<%=request.getContextPath()%>/account/edit_account.htm">${sessionScope.current_account.username}</a> <br>-->
                                                         <a href="<%=request.getContextPath()%>/account/edit_account.htm">${sessionScope.current_account.username}</a> <br>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>
+                                                        <a href="javascript: createEvent()">Créer événement</a> <br>
+                                                        <!--<a href="<%=request.getContextPath()%>/event/create_event.htm">Créer événement</a> <br>-->
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a> <br>
+                                                        <a href="javascript:createOffer()">Créer offre</a> <br>
+                                                        <!--<a href="<%=request.getContextPath()%>/offer/create_offer.htm">Créer offre</a> <br>-->
                                                     </td>
                                                 </tr>
                                                 <tr>
