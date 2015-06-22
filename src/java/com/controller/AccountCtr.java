@@ -79,7 +79,7 @@ public class AccountCtr {
         for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
             promotion.add("" + i);
         }
-        
+
         mm.addAttribute("promo", promotion);
         mm.put("current_account", currentAccount);
         session.setAttribute("oldAccount", currentAccount);
@@ -98,53 +98,61 @@ public class AccountCtr {
         mm.put("result", result);
         return "edit_account";
     }
-    
+
     @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
     public String listAccounts(ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
-        int numberPages = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
+        int numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
+        if (accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        }
         List<Account> sub_accounts = accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
-        
+
         mm.put("accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", 1);
         mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
-        
+
         session.setAttribute("currentListAccount", accounts);
         return "lists_accounts";
     }
-    
+
     @RequestMapping(value = "/search_accounts", method = RequestMethod.GET)
-    public String searchAccounts(@RequestParam("searchInfo") String searchInfo, 
+    public String searchAccounts(@RequestParam("searchInfo") String searchInfo,
             ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> search_accounts = accountIpl.getAccounts(searchInfo);
         List<Account> sub_accounts = search_accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
-        int numberPages = (int) search_accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
-        
+        int numberPages = (int) search_accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
+        if (search_accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) search_accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        }
         mm.put("search_accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", 1);
         mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
-        
+
         session.setAttribute("currentListAccount", search_accounts);
         return "search_accounts";
     }
-    
+
     @RequestMapping(value = "/next_page", method = RequestMethod.GET)
     public String nextPage(@RequestParam("page") int page, ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = (List<Account>) session.getAttribute("currentListAccount");
-        List<Account> sub_accounts = accounts.subList(page * Paramaters.NUMBER_OF_ACCOUNT, 
+        List<Account> sub_accounts = accounts.subList(page * Paramaters.NUMBER_OF_ACCOUNT,
                 Math.min(page * Paramaters.NUMBER_OF_ACCOUNT + Paramaters.NUMBER_OF_ACCOUNT, accounts.size()));
-        int numberPages = (int) accounts.size()/ Paramaters.NUMBER_OF_ACCOUNT + 1;
-        
+        int numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
+        if (accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        }
+
         mm.put("search_accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", page + 1);
         mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
-        
+
         return "search_accounts";
     }
 }
