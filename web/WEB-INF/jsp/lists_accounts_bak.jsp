@@ -7,30 +7,29 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Les anciens l'IFI</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
-        <script type="text/javascript" src="js/cufon-yui.js"></script>
-        <script type="text/javascript" src="js/cufon-aller.js"></script>
-        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
-        <script type="text/javascript" src="js/coin-slider.min.js"></script>
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../css/coin-slider.css" />
+        <script type="text/javascript" src="../js/cufon-yui.js"></script>
+        <script type="text/javascript" src="../js/cufon-aller.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../js/script.js"></script>
+        <script type="text/javascript" src="../js/coin-slider.min.js"></script>
     </head>
     <script>
-        function login() {
-            $.ajax({url: "login.htm", success: function (result) {
+        function search()
+        {
+            var searchInfo = $("#editbox_search").val();
+            if (searchInfo === null || searchInfo === "")
+                searchInfo = "";
+            $.ajax({url: "search_accounts.htm?searchInfo=" + searchInfo, success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
         }
-        function register() {
-            $.ajax({url: "account/signup.htm", success: function (result) {
+
+        function nextPage(page) {
+            $.ajax({url: "next_page.htm?page=" + page, success: function (result) {
                     $(".mainbar").html(result);
-                }});
-            return;
-        }
-        function lists_accounts() {
-            $.ajax({url: "account/lists_accounts.htm", success: function (result) {
-                    $(".content_resize").html(result);
                 }});
             return;
         }
@@ -41,9 +40,8 @@
                 <div class="header_resize">
                     <div class="menu_nav">
                         <ul>
-                            <li class="active"><a href="index.htm"><span>Accueil</span></a></li>
-                            <!--<li><a href="account/lists_accounts.htm"><span>Annuaire</span></a></li>-->
-                            <li><a href="javascript: lists_accounts();"><span>Annuaire</span></a></li>
+                            <li><a href="index.htm"><span>Accueil</span></a></li>
+                            <li class="active"><a href="lists_accounts.htm"><span>Annuaire</span></a></li>
                             <li><a href="about.htm"><span>Événements</span></a></li>
                             <li><a href="blog.htm"><span>Offres</span></a></li>
                             <li><a href="contact.htm"><span>Nous écrire</span></a></li>
@@ -66,47 +64,45 @@
             <div class="content">
                 <div class="content_resize">
                     <div class="mainbar">
-                        <c:forEach var="event" items="${events}">
+                        <h2 align="center">Les anciens de l'IFI</h2><br><br>
+                        <c:forEach var="account" items="${accounts}">
                             <div class="article">
-                                <h2><span>${event.title}</span></h2>
-                                <p class="infopost">Posté le 
-                                    <span class="date">
-                                        <c:choose>
-                                            <c:when test="${event.modifiedDate != null}">
-                                                ${event.modifiedDate}
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${event.createdDate}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </span> 
-                                    par <a href="#">${event.account.username}</a> 
-                                    <c:choose>
-                                        <c:when test="${sessionScope.current_account != null}">
-                                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;Faire <a href="<%= request.getContextPath()%>/event/edit_event.htm?eventId=${event.idEvent}">Edition</a> 
-                                        </c:when>
-                                    </c:choose>
-                                    <a href="#" class="com">Comments 
-                                        <span>11</span></a></p>
+                                <p class="infopost">
+                                    <a href="#">Name : ${account.username}</a> 
+                                    <a href="#">Promotion : ${account.promotion}</a> 
+                                    <span class="date">Email: ${account.email}</span> 
+                                    <a href="edit_account.htm?idAccount=${account.idAccount}" class="com">Edit</a>
+                                </p>
                                 <div class="clr"></div>
-                                <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
+                                <div class="img"><img src="images/event/${account.image}" width="630" height="221" alt="" class="fl" /></div>
                                 <div class="post_content">
-                                    <p>${event.content}</p>
-                                    <p class="spec"><a href="#" class="rm">Savoir plus &raquo;</a></p>
                                 </div>
                                 <div class="clr"></div>
                             </div>
                         </c:forEach>
-                        <p class="pages"><small>Page 1 de 2</small> <span>1</span> <a href="index.htm?pageNumber=${pageNumber}">${pageNumber + 1}</a> <a href="#">&raquo;</a></p>
+                        <p class="pages"><small>Page ${currentPage} de ${numberPages}</small>
+                            <c:forEach var="i" begin="1" end="${numberPages}" step="1">
+                                <c:choose>
+                                    <c:when test="${i == currentPage}">
+                                        <span>${i}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="nextPage" HREF="javascript:nextPage(${i-1})">${i}</a> 
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <a href="#">&raquo;</a>
+                        </p>
                     </div>
                     <div class="sidebar">
                         <div class="searchform">
-                            <form id="formsearch" name="formsearch" method="post" action="#">
+                            <%--<form:form id="formsearch" name="formsearch" method="post" action="lists_accounts.htm">--%>
+                            <div id="formsearch">
                                 <span>
-                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Chercher sur site:" type="text" />
+                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80px" value="" type="text" />
                                 </span>
-                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
-                            </form>
+                                <input name="button_search" src="../images/search.gif" class="button_search" type="image" onclick="javascript:search();" />
+                            </div>
                         </div>
                         <div class="gadget">
                             <h2 class="star"><span>Bienvenue</span></h2>
@@ -118,14 +114,12 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <!--<a href="<%=request.getContextPath()%>/login.htm">Login</a>-->
-                                                        <a href="javascript: login();">Login</a>
+                                                        <a href="<%=request.getContextPath()%>/login.htm">Login</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <!--<a href="<%=request.getContextPath()%>/account/signup.htm">S'incrire</a>-->
-                                                        <a href="javascript: register()">S'incrire</a>
+                                                        <a href="<%=request.getContextPath()%>/account/signup.htm">S'incrire</a>
                                                     </td>
                                                 </tr>
                                             </table>

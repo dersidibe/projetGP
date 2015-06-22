@@ -6,8 +6,10 @@
 package com.controller;
 
 import com.dao.AccountIpl;
+import com.dao.EventIpl;
+import com.dao.OfferIpl;
 import com.model.Account;
-import com.utils.Paramaters;
+import com.utils.Settings;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,9 +34,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AccountCtr {
 
     private AccountIpl accountIpl;
+    private EventIpl eventIpl;
+    private OfferIpl offerIpl;
 
     public AccountCtr() {
         accountIpl = new AccountIpl();
+        eventIpl = new EventIpl();
+        offerIpl = new OfferIpl();
     }
 
     @InitBinder
@@ -48,7 +54,7 @@ public class AccountCtr {
     public String submitForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
         List<String> promotion = new ArrayList<String>();
-        for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
+        for (int i = 1; i <= Settings.NUMBER_PROMOTIONS; i++) {
             promotion.add("" + i);
         }
         mm.put("result", 0);
@@ -64,7 +70,7 @@ public class AccountCtr {
         account.setModifiedDate(date);
         Integer result = accountIpl.insertAccount(account);
         mm.put("result", result);
-        return "signup";
+        return "redirect_index";
     }
 
     @RequestMapping(value = "/edit_account", method = RequestMethod.GET)
@@ -76,7 +82,7 @@ public class AccountCtr {
             return "redirect_index";
         }
         List<String> promotion = new ArrayList<String>();
-        for (int i = 1; i <= Paramaters.NUMBER_PROMOTIONS; i++) {
+        for (int i = 1; i <= Settings.NUMBER_PROMOTIONS; i++) {
             promotion.add("" + i);
         }
 
@@ -103,16 +109,20 @@ public class AccountCtr {
     public String listAccounts(ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
-        int numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
-        if (accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
-            numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        int numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT;
+        if (accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
         }
-        List<Account> sub_accounts = accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
+        List<Account> subAccounts = accounts.subList(0, Settings.NUMBER_OF_ACCOUNT);
+        mm.put("subAccounts", subAccounts);
 
-        mm.put("accounts", sub_accounts);
+        if (accounts != null) {
+            subAccounts = accounts.subList(0, Math.min(Settings.NUMBER_OF_NEW_ACCOUNT, accounts.size()));
+            mm.put("accounts", subAccounts);
+        }
         mm.put("numberPages", numberPages);
         mm.put("currentPage", 1);
-        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        mm.put("numberAccounts", Settings.NUMBER_OF_ACCOUNT);
 
         session.setAttribute("currentListAccount", accounts);
         return "lists_accounts";
@@ -123,15 +133,15 @@ public class AccountCtr {
             ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> search_accounts = accountIpl.getAccounts(searchInfo);
-        List<Account> sub_accounts = search_accounts.subList(0, Paramaters.NUMBER_OF_ACCOUNT);
-        int numberPages = (int) search_accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
-        if (search_accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
-            numberPages = (int) search_accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        List<Account> sub_accounts = search_accounts.subList(0, Settings.NUMBER_OF_ACCOUNT);
+        int numberPages = (int) search_accounts.size() / Settings.NUMBER_OF_ACCOUNT;
+        if (search_accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) search_accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
         }
         mm.put("search_accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", 1);
-        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        mm.put("numberAccounts", Settings.NUMBER_OF_ACCOUNT);
 
         session.setAttribute("currentListAccount", search_accounts);
         return "search_accounts";
@@ -141,17 +151,17 @@ public class AccountCtr {
     public String nextPage(@RequestParam("page") int page, ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = (List<Account>) session.getAttribute("currentListAccount");
-        List<Account> sub_accounts = accounts.subList(page * Paramaters.NUMBER_OF_ACCOUNT,
-                Math.min(page * Paramaters.NUMBER_OF_ACCOUNT + Paramaters.NUMBER_OF_ACCOUNT, accounts.size()));
-        int numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT;
-        if (accounts.size() % Paramaters.NUMBER_OF_ACCOUNT > 0) {
-            numberPages = (int) accounts.size() / Paramaters.NUMBER_OF_ACCOUNT + 1;
+        List<Account> sub_accounts = accounts.subList(page * Settings.NUMBER_OF_ACCOUNT,
+                Math.min(page * Settings.NUMBER_OF_ACCOUNT + Settings.NUMBER_OF_ACCOUNT, accounts.size()));
+        int numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT;
+        if (accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
         }
 
         mm.put("search_accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", page + 1);
-        mm.put("numberAccounts", Paramaters.NUMBER_OF_ACCOUNT);
+        mm.put("numberAccounts", Settings.NUMBER_OF_ACCOUNT);
 
         return "search_accounts";
     }

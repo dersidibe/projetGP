@@ -11,7 +11,7 @@ import com.dao.OfferIpl;
 import com.model.Account;
 import com.model.Event;
 import com.model.Offer;
-import com.utils.Paramaters;
+import com.utils.Settings;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -48,15 +48,14 @@ public class Home {
         List<Offer> offers = offerIpl.getOffres();
 
         if (accounts != null) {
-            List<Account> subAccounts = accounts.subList(0, Math.min(5, accounts.size()));
+            List<Account> subAccounts = accounts.subList(0, Math.min(Settings.NUMBER_OF_NEW_ACCOUNT, accounts.size()));
             mm.put("accounts", subAccounts);
         }
         if (events != null) {
-            List<Event> subEvents = events.subList(0, Math.min(Paramaters.NUMBER_EVENTS_AVAIABLE, events.size()));
+            List<Event> subEvents = events.subList(0, Math.min(Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
             for (int i = 0; i < subEvents.size(); i++) {
-                subEvents.get(i).setContent(
-                        subEvents.get(i).getContent().substring(0,
-                                Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
+                subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
+                        Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
         mm.put("events", events);
@@ -81,11 +80,10 @@ public class Home {
             mm.put("accounts", subAccounts);
         }
         if (events != null) {
-            List<Event> subEvents = events.subList(pageNumber * Paramaters.NUMBER_EVENTS_AVAIABLE, Math.min(pageNumber * Paramaters.NUMBER_EVENTS_AVAIABLE + Paramaters.NUMBER_EVENTS_AVAIABLE, events.size()));
+            List<Event> subEvents = events.subList(pageNumber * Settings.NUMBER_EVENTS_AVAIABLE, Math.min(pageNumber * Settings.NUMBER_EVENTS_AVAIABLE + Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
             for (int i = 0; i < subEvents.size(); i++) {
-                subEvents.get(i).setContent(
-                        subEvents.get(i).getContent().substring(0,
-                                Math.min(events.get(i).getContent().length(), Paramaters.LENGTH_CONTENT)));
+                subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
+                        Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
         mm.put("pageNumber", ++pageNumber);
