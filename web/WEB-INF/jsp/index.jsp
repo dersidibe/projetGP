@@ -15,6 +15,14 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/coin-slider.min.js"></script>
     </head>
+    <script>
+        function login() {
+            $.ajax({url: "login.htm", success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
+    </script>
     <body>
         <div class="main">
             <div class="header">
@@ -97,7 +105,8 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <a href="<%=request.getContextPath()%>/login.htm">Login</a>
+                                                        <!--<a href="<%=request.getContextPath()%>/login.htm">Login</a>-->
+                                                        <a href="javascript: login();">Login</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
