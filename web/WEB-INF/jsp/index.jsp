@@ -22,8 +22,9 @@
                 }});
             return;
         }
+
         function register() {
-            $.ajax({url: "account/signup.htm", success: function (result) {
+            $.ajax({url: "account/create_account.htm", success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
@@ -46,9 +47,8 @@
                 }});
             return;
         }
-        
-        
     </script>
+
     <body>
         <div class="main">
             <div class="header">
@@ -114,15 +114,7 @@
                         <p class="pages"><small>Page 1 de 2</small> <span>1</span> <a href="index.htm?pageNumber=${pageNumber}">${pageNumber + 1}</a> <a href="#">&raquo;</a></p>
                     </div>
                     <div class="sidebar">
-                        <div class="searchform">
-                            <form id="formsearch" name="formsearch" method="post" action="#">
-                                <span>
-                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Chercher sur site:" type="text" />
-                                </span>
-                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
-                            </form>
-                        </div>
-                        <div class="gadget">
+                        <div class="gadget"><br>
                             <h2 class="star"><span>Bienvenue</span></h2>
                             <div class="clr"></div>
                             <ul class="ex_menu">
@@ -176,6 +168,14 @@
                                     <span> </span>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="searchform">
+                            <form id="formsearch" name="formsearch" method="post" action="#">
+                                <span>
+                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Chercher sur site:" type="text" />
+                                </span>
+                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
+                            </form>
                         </div>
                         <div class="clr"></div>
                         <div class="gadget">

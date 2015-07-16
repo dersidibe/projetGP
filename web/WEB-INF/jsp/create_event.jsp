@@ -60,6 +60,7 @@
             if (endDate < startDate)
             {
                 alert("Date de debut superieur date de fin");
+                return false;
             }
             return true;
         }
@@ -71,7 +72,8 @@
         }
         );
         function imgchange(f) {
-            var filePath = $('#file').val();
+            var filePath = $('#file').val().split('\\').pop();
+            alert(filePath);
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#name_img').attr('value', filePath);

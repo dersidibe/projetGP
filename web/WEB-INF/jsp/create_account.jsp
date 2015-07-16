@@ -88,6 +88,19 @@
                     element.appendChild(para);
                 return false;
             }
+            
+            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            var email = document.getElementById("email").value;
+            if (!re.test(email))
+            {
+                var para = document.createElement("span");
+                var node = document.createTextNode("Email est invalide.");
+                para.appendChild(node);
+                var element = document.getElementById("empty_email");
+                if (element.textContent === null || element.textContent === "")
+                    element.appendChild(para);
+                return false;
+            }
 
             var sexM = document.getElementById("sexM");
             var sexF = document.getElementById("sexF");
@@ -113,30 +126,15 @@
                 return false;
             }
 
-            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-            var email = document.getElementById("email").value;
-            if (!re.test(email))
-            {
-                var para = document.createElement("span");
-                var node = document.createTextNode("Email est invalide.");
-                para.appendChild(node);
-                var element = document.getElementById("empty_email");
-                if (element.textContent === null || element.textContent === "")
-                    element.appendChild(para);
-                return false;
-            }
             return true;
         }
     </script>
 </head>
-<div class="article"></div>
 <div class="article">
     <h2><span>Sign Up</span></h2>
     <div class="clr"></div>
-
     <form:form action="account/register.htm" method="post" commandName="account" onsubmit="return validateForm()">
         <table border="0">
-
             <tr>
                 <td class="required">Nom:</td>
                 <td><form:input path="lastName" id="lastname"/></td>

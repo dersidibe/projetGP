@@ -50,7 +50,7 @@ public class AccountCtr {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/create_account", method = RequestMethod.GET)
     public String submitForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
         List<String> promotion = new ArrayList<String>();
@@ -59,7 +59,7 @@ public class AccountCtr {
         }
         mm.put("result", 0);
         mm.addAttribute("promo", promotion);
-        return "signup";
+        return "create_account";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

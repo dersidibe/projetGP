@@ -104,10 +104,10 @@ public class Home {
         Account ac = accountIpl.getAccount(account.getUsername(), account.getPassword());
         if (ac != null) {
             session.setAttribute("current_account", ac);
-            return "redirect_index";
-
+            session.setAttribute("login", Settings.SUCCESS_STATUS);
         }
-        return "login";
+        session.setAttribute("login", Settings.FAIL_STATUS);
+        return "redirect_index";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

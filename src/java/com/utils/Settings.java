@@ -15,5 +15,7 @@ public class Settings {
     public static final int LENGTH_CONTENT = 50;    
     public static final int NUMBER_OF_ACCOUNT = 2; 
     public static final int NUMBER_OF_NEW_ACCOUNT = 5; 
+    public static final String SUCCESS_STATUS = "ok"; 
+    public static final String FAIL_STATUS = "no";
     
 }
