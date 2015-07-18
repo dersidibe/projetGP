@@ -30,8 +30,13 @@
             return;
         }
         function lists_accounts() {
+            $("#menu2").attr("class", "active");
+            $("#menu1").attr("class", "");
+            $("#menu3").attr("class", "");
+            $("#menu4").attr("class", "");
+            $("#menu5").attr("class", "");
             $.ajax({url: "account/lists_accounts.htm", success: function (result) {
-                    $(".content_resize").html(result);
+                    $(".mainbar").html(result);
                 }});
             return;
         }
@@ -47,20 +52,24 @@
                 }});
             return;
         }
+        function editEvent(id) {
+            $.ajax({url: "event/edit_event.htm?eventId=" + id, success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
     </script>
-
     <body>
         <div class="main">
             <div class="header">
                 <div class="header_resize">
                     <div class="menu_nav">
                         <ul>
-                            <li class="active"><a href="index.htm"><span>Accueil</span></a></li>
-                            <!--<li><a href="account/lists_accounts.htm"><span>Annuaire</span></a></li>-->
-                            <li><a href="javascript: lists_accounts();"><span>Annuaire</span></a></li>
-                            <li><a href="about.htm"><span>Événements</span></a></li>
-                            <li><a href="blog.htm"><span>Offres</span></a></li>
-                            <li><a href="contact.htm"><span>Nous écrire</span></a></li>
+                            <li id="menu1" class="active"><a href="index.htm"><span>Accueil</span></a></li>
+                            <li id="menu2"><a href="javascript: lists_accounts()">Annuaire</span></a></li>
+                            <li id="menu3"><a href="about.htm"><span>Événements</span></a></li>
+                            <li id="menu4"><a href="blog.htm"><span>Offres</span></a></li>
+                            <li id="menu5"><a href="contact.htm"><span>Nous écrire</span></a></li>
                         </ul>
                     </div>
                     <div class="logo">
@@ -97,7 +106,7 @@
                                     par <a href="#">${event.account.username}</a> 
                                     <c:choose>
                                         <c:when test="${sessionScope.current_account != null}">
-                                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;Faire <a href="<%= request.getContextPath()%>/event/edit_event.htm?eventId=${event.idEvent}">Edition</a> 
+                                            &nbsp;&nbsp;&bull;&nbsp;&nbsp;Faire <a href="javascript: editEvent(${event.idEvent})">Edition</a> 
                                         </c:when>
                                     </c:choose>
                                     <a href="#" class="com">Comments 
@@ -179,7 +188,7 @@
                         </div>
                         <div class="clr"></div>
                         <div class="gadget">
-                            <h2 class="star"><span>Les nouvaux membres</span></h2>
+                            <h3 class="star"><span>Nouvaux membres</span></h3>
                             <div class="clr"></div>
                             <ul class="ex_menu">
                                 <c:choose>
@@ -194,18 +203,7 @@
                             </ul>
                         </div>
                         <div class="gadget">
-                            <h2 class="star"><span>Les nouveaux événements</span></h2>
-                            <div class="clr"></div>
-                            <ul class="ex_menu">
-                                <c:forEach var="event" items="${events}">
-                                    <li><a href="http://www.dreamtemplate.com/">${event.title}</a><br>
-                                        ${event.content}...
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                        <div class="gadget">
-                            <h2 class="star"><span>Les nouveaux offres</span></h2>
+                            <h3 class="star"><span>Nouveaux offres</span></h3>
                             <div class="clr"></div>
                             <ul class="ex_menu">
                                 <c:forEach var="offer" items="${offers}">

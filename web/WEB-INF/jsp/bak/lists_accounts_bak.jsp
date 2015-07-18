@@ -237,3 +237,18 @@
         </div>
     </body>
 </html>
+
+
+
+
+
+<div class="sidebar">
+    <div class="searchform">
+        <div id="formsearch">
+            <span>
+                <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80px" value="" type="text" />
+            </span>
+            <input name="button_search" src="images/search.gif" class="button_search" type="image" onclick="javascript:search();" />
+        </div>
+    </div>
+</div>

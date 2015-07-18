@@ -102,20 +102,20 @@ public class AccountCtr {
         newAccount.setModifiedDate(new Date());
         boolean result = accountIpl.updateAccount(newAccount);
         mm.put("result", result);
-        return "edit_account";
+        return "redirect_index";
     }
 
     @RequestMapping(value = "/lists_accounts", method = RequestMethod.GET)
     public String listAccounts(ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
+        List<Account> subAccounts;
         int numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT;
-        if (accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
+        if (accounts.size() - Settings.NUMBER_OF_ACCOUNT > 0) {
             numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
         }
-        List<Account> subAccounts = accounts.subList(0, Settings.NUMBER_OF_ACCOUNT);
+        subAccounts = accounts.subList(0, Math.min(Settings.NUMBER_OF_ACCOUNT, accounts.size()));
         mm.put("subAccounts", subAccounts);
-
         if (accounts != null) {
             subAccounts = accounts.subList(0, Math.min(Settings.NUMBER_OF_NEW_ACCOUNT, accounts.size()));
             mm.put("accounts", subAccounts);
