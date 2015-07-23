@@ -58,6 +58,20 @@
                 }});
             return;
         }
+
+        function searchMember()
+        {
+            var username = $("#editbox_search").val();
+            if(username === null || username === "")
+            {
+                alert("Vous devez tapper quelque chose pour chercher");
+                return;
+            }
+            $.ajax({url: "account/searchAccount.htm?userName=" + username, success: function (result) {
+                    $("#if_search").html(result);
+                }});
+            return;
+        }
     </script>
     <body>
         <div class="main">
@@ -179,15 +193,15 @@
                             </ul>
                         </div>
                         <div class="searchform">
-                            <form id="formsearch" name="formsearch" method="post" action="#">
+                            <div id="formsearch" name="formsearch">
                                 <span>
-                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Chercher sur site:" type="text" />
+                                    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="" type="text" />
                                 </span>
-                                <input name="button_search" src="images/search.gif" class="button_search" type="image" />
-                            </form>
+                                <input name="button_search" src="images/search.gif" class="button_search" type="image" onclick="javascript: searchMember();"/>
+                            </div>
                         </div>
                         <div class="clr"></div>
-                        <div class="gadget">
+                        <div class="gadget" id="if_search">
                             <h3 class="star"><span>Nouvaux membres</span></h3>
                             <div class="clr"></div>
                             <ul class="ex_menu">
@@ -230,10 +244,11 @@
                     </div>
                     <div class="col c2">
                         <h2><span>Les</span> partenaires</h2>
-                        <a href="#"><img src="images/partners/ird.png" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/partners/la_rochelle.png" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/partners/lyon.png" width="75" height="75" alt="" class="gal" /></a> 
-                        <a href="#"><img src="images/partners/ummisco.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="http://www.vietnam.ird.fr/"><img src="images/partners/ird.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="http://www.univ-larochelle.fr/?lang=fr"><img src="images/partners/la_rochelle.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="http://www.univ-lyon1.fr/"><img src="images/partners/lyon.png" width="75" height="75" alt="" class="gal" /></a> 
+                        <a href="http://www.ummisco.ird.fr/"><img src="images/partners/ummisco.png" width="75" height="75" alt="" class="gal" /></a> 
+                    </div>
                     </div>
                     <div class="col c3">
                         <h2><span>Nous contacter</span> </h2>

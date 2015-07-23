@@ -146,7 +146,20 @@ public class AccountCtr {
         session.setAttribute("currentListAccount", search_accounts);
         return "search_accounts";
     }
-
+    
+    @RequestMapping(value = "/searchAccount", method = RequestMethod.GET)
+    public String searchMembers(@RequestParam("userName") String username,
+            ModelMap mm, HttpSession session) {
+        accountIpl = new AccountIpl();
+        List<Account> accountsFound = accountIpl.getAccounts(username);
+        int numberAccounts = Math.min(accountsFound.size(), Settings.NUMBER_OF_ACCOUNT);
+        List<Account> subAccounts = accountsFound.subList(0,  numberAccounts);
+        mm.put("membersFound", subAccounts);
+        mm.put("numberAccounts", numberAccounts);
+        
+        return "membersFound";
+    }
+    
     @RequestMapping(value = "/next_page", method = RequestMethod.GET)
     public String nextPage(@RequestParam("page") int page, ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
@@ -157,12 +170,10 @@ public class AccountCtr {
         if (accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
             numberPages = (int) accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
         }
-
         mm.put("search_accounts", sub_accounts);
         mm.put("numberPages", numberPages);
         mm.put("currentPage", page + 1);
         mm.put("numberAccounts", Settings.NUMBER_OF_ACCOUNT);
-
         return "search_accounts";
     }
 }
