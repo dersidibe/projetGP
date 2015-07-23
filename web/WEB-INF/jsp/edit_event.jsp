@@ -74,7 +74,8 @@
             }
             );
             function imgchange(f) {
-                var filePath = $('#file').val();
+                var filePath = $('#file').val().split('\\').pop();
+                alert(filePath);
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#name_img').attr('value', filePath);

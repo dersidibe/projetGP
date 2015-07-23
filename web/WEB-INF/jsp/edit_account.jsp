@@ -18,11 +18,10 @@
             });
 
             function imgchange(f) {
-                var filePath = $('#file').val().split('\\').pop();
-                alert(filePath);
+                var filePath = $j("#file").val().split('\\').pop();
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#name_img').attr('value', filePath);
+                    $j('#name_img').attr('value', filePath);
                 };
                 reader.readAsDataURL(f.files[0]);
             }

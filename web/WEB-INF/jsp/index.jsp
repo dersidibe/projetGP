@@ -64,7 +64,7 @@
             var username = $("#editbox_search").val();
             if(username === null || username === "")
             {
-                alert("Vous devez tapper quelque chose pour chercher");
+                alert("Vous devez tapper quelque chose pour faire chercher!");
                 return;
             }
             $.ajax({url: "account/searchAccount.htm?userName=" + username, success: function (result) {
@@ -193,6 +193,7 @@
                             </ul>
                         </div>
                         <div class="searchform">
+                            <p style="font-weight: bold">Chercher les membres</p>
                             <div id="formsearch" name="formsearch">
                                 <span>
                                     <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="" type="text" />
@@ -202,14 +203,14 @@
                         </div>
                         <div class="clr"></div>
                         <div class="gadget" id="if_search">
-                            <h3 class="star"><span>Nouvaux membres</span></h3>
+                            <h3 class="star" style="color: brown"><span>Nouvaux membres</span></h3>
                             <div class="clr"></div>
                             <ul class="ex_menu">
                                 <c:choose>
                                     <c:when test="${accounts != null}">
                                         <c:forEach var="account" items="${accounts}">
                                             <li><a href="http://www.dreamtemplate.com/">${account.username}</a><br>
-                                                Promotion: ${account.promotion} Nationalité:${account.nationality}
+                                                Promotion: ${account.promotion} À :${account.createdDate}
                                             </li>
                                         </c:forEach>
                                     </c:when>
@@ -217,7 +218,7 @@
                             </ul>
                         </div>
                         <div class="gadget">
-                            <h3 class="star"><span>Nouveaux offres</span></h3>
+                            <h3 class="star" style="color: brown"><span>Nouveaux offres</span></h3>
                             <div class="clr"></div>
                             <ul class="ex_menu">
                                 <c:forEach var="offer" items="${offers}">

@@ -13,10 +13,10 @@
             <a href="#">Name : ${account.username}</a> 
             <a href="#">Promotion : ${account.promotion}</a> 
             <span class="date">Email: ${account.email}</span> 
-            <a onclick="javascript: editAccount();" href="edit_account.htm?idAccount=${account.idAccount}" class="com">Edit</a>
+            <a onclick="javascript: editAccount(${account.idAccount});" class="com">Edit</a>
         </p>
         <div class="clr"></div>
-        <div class="img"><img src="images/event/${account.image}" width="630" height="221" alt="" class="fl" /></div>
+        <div class="img"><img src="images/account/${account.image}" width="100" height="100" alt="" class="fl" /></div>
         <div class="post_content">
         </div>
         <div class="clr"></div>

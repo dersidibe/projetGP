@@ -21,7 +21,7 @@
             }});
         return;
     }
-    
+
     function editAccount(idAccount) {
         $.ajax({url: "account/edit_account.htm?idAccount=" + idAccount, success: function (result) {
                 $(".mainbar").html(result);
@@ -29,31 +29,32 @@
         return;
     }
 </script>
-    <c:forEach var="account" items="${subAccounts}">
-        <div class="article">
-            <p class="infopost">
-                <a href="#">Name : ${account.username}</a> 
-                <a href="#">Promotion : ${account.promotion}</a> 
-                <span class="date">Email: ${account.email} ${account.image}</span> 
-                <a href="javascript: editAccount(${account.idAccount})" class="com">Edit</a>
-            </p>
-            <div class="clr"></div>
-            <div class="img"><img src="images/account/${account.image}" width="630" height="221" alt="" class="fl" /></div>
-            <div class="post_content">
-            </div>
-            <div class="clr"></div>
+<h2 align="center">Les anciens de l'IFI</h2>
+<c:forEach var="account" items="${subAccounts}">
+    <div class="article">
+        <p class="infopost">
+            <a href="#">Name : ${account.username}</a> 
+            <a href="#">Promotion : ${account.promotion}</a> 
+            <span class="date">Email: ${account.email} ${account.image}</span> 
+            <a href="javascript: editAccount(${account.idAccount})" class="com">Edit</a>
+        </p>
+        <div class="img"><img src="images/account/${account.image}" width="100" height="100" alt="" class="fl" /></div>
+        <div class="clr"></div>
+        <div class="post_content">
         </div>
+        <div class="clr"></div>
+    </div>
+</c:forEach>
+<p class="pages"><small>Page ${currentPage} de ${numberPages}</small>
+    <c:forEach var="i" begin="1" end="${numberPages}" step="1">
+        <c:choose>
+            <c:when test="${i == currentPage}">
+                <span>${i}</span>
+            </c:when>
+            <c:otherwise>
+                <a class="nextPage" HREF="javascript:nextPage(${i-1})">${i}</a> 
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
-    <p class="pages"><small>Page ${currentPage} de ${numberPages}</small>
-        <c:forEach var="i" begin="1" end="${numberPages}" step="1">
-            <c:choose>
-                <c:when test="${i == currentPage}">
-                    <span>${i}</span>
-                </c:when>
-                <c:otherwise>
-                    <a class="nextPage" HREF="javascript:nextPage(${i-1})">${i}</a> 
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-        <a href="#">&raquo;</a>
-    </p>
+    <a href="#">&raquo;</a>
+</p>
