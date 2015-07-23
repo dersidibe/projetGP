@@ -12,6 +12,7 @@ import com.model.Account;
 import com.model.Event;
 import com.model.Offer;
 import com.utils.Settings;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,7 @@ public class Home {
         List<Account> accounts = accountIpl.getAccountsList();
         eventIpl = new EventIpl();
         List<Event> events = eventIpl.getEvents();
+        List<Event> subEvents = new ArrayList<>();
         offerIpl = new OfferIpl();
         List<Offer> offers = offerIpl.getOffres();
 
@@ -52,44 +54,64 @@ public class Home {
             mm.put("accounts", subAccounts);
         }
         if (events != null) {
-            List<Event> subEvents = events.subList(0, Math.min(Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
+            subEvents = events.subList(0, Math.min(Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
             for (int i = 0; i < subEvents.size(); i++) {
                 subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
                         Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
-        mm.put("events", events);
+
+        int numberOfPages = events.size() <= Settings.NUMBER_EVENTS_AVAIABLE ? 1
+                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE + 1);
+        mm.put("events", subEvents);
+        mm.put("numberOfPages", numberOfPages);
+        mm.put("currentPage", 1);
         mm.put("offers", offers);
         return "index";
     }
 
-    @RequestMapping(value = "/index_page", method = RequestMethod.GET)
-    public String listMemberEventPage(@RequestParam("pageNumber") Integer pageNumber, ModelMap mm) {
-        if (pageNumber == null) {
-            pageNumber = 0;
+//    @RequestMapping(value = "/next_page", method = RequestMethod.GET)
+//    public String listNextEvents(@RequestParam("nextPage") int nextPage, ModelMap mm, HttpSession session) {
+//        eventIpl = new EventIpl();
+//        List<Event> events = eventIpl.getEvents();
+//
+//        if (events != null) {
+//            List<Event> subEvents = events.subList(0, Math.min(Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
+//            for (int i = 0; i < subEvents.size(); i++) {
+//                subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
+//                        Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
+//            }
+//        }
+//
+//        int numberOfPages = events.size() <= Settings.NUMBER_EVENTS_AVAIABLE ? 1
+//                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE);
+//        if(events.size() % Settings.NUMBER_EVENTS_AVAIABLE != 0)
+//            numberOfPages += 1;
+//        
+//        mm.put("events", events);
+//        
+//        mm.put("numberOfPages", numberOfPages);
+//        return "index";
+//    }
+
+    @RequestMapping(value = "/next_page", method = RequestMethod.GET)
+    public String listMemberEventNextPage(@RequestParam("nextPage") Integer nextNumber, ModelMap mm) {
+        if (nextNumber == null) {
+            nextNumber = 0;
         }
-        accountIpl = new AccountIpl();
-        List<Account> accounts = accountIpl.getAccountsList();
         eventIpl = new EventIpl();
         List<Event> events = eventIpl.getEvents();
-        offerIpl = new OfferIpl();
-        List<Offer> offers = offerIpl.getOffres();
-
-        if (accounts != null) {
-            List<Account> subAccounts = accounts.subList(0, Math.min(5, accounts.size()));
-            mm.put("accounts", subAccounts);
-        }
+        List<Event> subEvents = new ArrayList<>();
         if (events != null) {
-            List<Event> subEvents = events.subList(pageNumber * Settings.NUMBER_EVENTS_AVAIABLE, Math.min(pageNumber * Settings.NUMBER_EVENTS_AVAIABLE + Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
+            subEvents = events.subList((nextNumber-1) * Settings.NUMBER_EVENTS_AVAIABLE, Math.min((nextNumber-1) * Settings.NUMBER_EVENTS_AVAIABLE + Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
             for (int i = 0; i < subEvents.size(); i++) {
                 subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
                         Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
-        mm.put("pageNumber", ++pageNumber);
-        mm.put("events", events);
-        mm.put("offers", offers);
-        return "index";
+        mm.put("events", subEvents);
+        mm.put("currentPage", nextNumber);
+        return "event_next_page";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

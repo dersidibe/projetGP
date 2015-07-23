@@ -62,13 +62,21 @@
         function searchMember()
         {
             var username = $("#editbox_search").val();
-            if(username === null || username === "")
+            if (username === null || username === "")
             {
                 alert("Vous devez tapper quelque chose pour faire chercher!");
                 return;
             }
             $.ajax({url: "account/searchAccount.htm?userName=" + username, success: function (result) {
                     $("#if_search").html(result);
+                }});
+            return;
+        }
+        
+        function nextPage(currentPage)
+        {
+             $.ajax({url: "nextPage.htm?nextPage=" + (currentPage + 1), success: function (result) {
+                    $(".mainbar").html(result);
                 }});
             return;
         }
@@ -119,7 +127,7 @@
                                     </span> 
                                     par <a href="#">${event.account.username}</a> 
                                     <c:choose>
-                                        <c:when test="${sessionScope.current_account != null}">
+                                        <c:when test="${sessionScope.current_account != null && sessionScope.current_account.username == event.account.username}">
                                             &nbsp;&nbsp;&bull;&nbsp;&nbsp;Faire <a href="javascript: editEvent(${event.idEvent})">Edition</a> 
                                         </c:when>
                                     </c:choose>
@@ -134,7 +142,7 @@
                                 <div class="clr"></div>
                             </div>
                         </c:forEach>
-                        <p class="pages"><small>Page 1 de 2</small> <span>1</span> <a href="index.htm?pageNumber=${pageNumber}">${pageNumber + 1}</a> <a href="#">&raquo;</a></p>
+                        <p class="pages"><small>Page 1 de ${numberOfPages}</small> <span>${currentPage}</span> <a href="javascript: nextPage(${currentPage})">${currentPage + 1}</a> <a href="#">&raquo;</a></p>
                     </div>
                     <div class="sidebar">
                         <div class="gadget"><br>
@@ -250,27 +258,27 @@
                         <a href="http://www.univ-lyon1.fr/"><img src="images/partners/lyon.png" width="75" height="75" alt="" class="gal" /></a> 
                         <a href="http://www.ummisco.ird.fr/"><img src="images/partners/ummisco.png" width="75" height="75" alt="" class="gal" /></a> 
                     </div>
-                    </div>
-                    <div class="col c3">
-                        <h2><span>Nous contacter</span> </h2>
-                        <p></p>
-                        <p class="contact_info"> <span>Address:</span> 144 Xuan Thuy Street, Cau Giay District, Hanoi.<br />
-                            <span>Telephone:</span> +84 (04) 37450173<br />
-                            <span>Fax:</span> +84 (04) 37957937<br />
-                            <span>E-mail:</span> <a href="#">duongpb.p19@ifi.edu.vn</a> 
-                            <span>E-mail:</span> <a href="#">sylvestre@ifi.edu.vn</a> 
-                        </p>
-                    </div>
-                    <div class="clr"></div>
                 </div>
-            </div>
-            <div class="footer">
-                <div class="footer_resize">
-                    <p class="lf">&copy; Copyright <a href="#">IFI</a>.</p>
-                    <p class="rf">Design by Dream <a href="#">IFI</a></p>
-                    <div style="clear:both;"></div>
+                <div class="col c3">
+                    <h2><span>Nous contacter</span> </h2>
+                    <p></p>
+                    <p class="contact_info"> <span>Address:</span> 144 Xuan Thuy Street, Cau Giay District, Hanoi.<br />
+                        <span>Telephone:</span> +84 (04) 37450173<br />
+                        <span>Fax:</span> +84 (04) 37957937<br />
+                        <span>E-mail:</span> <a href="#">duongpb.p19@ifi.edu.vn</a> 
+                        <span>E-mail:</span> <a href="#">sylvestre@ifi.edu.vn</a> 
+                    </p>
                 </div>
+                <div class="clr"></div>
             </div>
         </div>
-    </body>
+        <div class="footer">
+            <div class="footer_resize">
+                <p class="lf">&copy; Copyright <a href="#">IFI</a>.</p>
+                <p class="rf">Design by Dream <a href="#">IFI</a></p>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

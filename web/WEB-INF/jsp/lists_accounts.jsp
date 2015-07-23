@@ -35,7 +35,7 @@
         <p class="infopost">
             <a href="#">Name : ${account.username}</a> 
             <a href="#">Promotion : ${account.promotion}</a> 
-            <span class="date">Email: ${account.email} ${account.image}</span> 
+            <span class="date">Email: ${account.email}</span> 
             <a href="javascript: editAccount(${account.idAccount})" class="com">Edit</a>
         </p>
         <div class="img"><img src="images/account/${account.image}" width="100" height="100" alt="" class="fl" /></div>
