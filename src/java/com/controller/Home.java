@@ -60,9 +60,14 @@ public class Home {
                         Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
-
-        int numberOfPages = events.size() <= Settings.NUMBER_EVENTS_AVAIABLE ? 1
-                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE + 1);
+        if (events == null) {
+            return "index";
+        }
+        int numberOfPages = events.size() < Settings.NUMBER_EVENTS_AVAIABLE ? 0
+                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE);
+        if (events.size() % Settings.NUMBER_EVENTS_AVAIABLE != 0) {
+            numberOfPages += 1;
+        }
         mm.put("events", subEvents);
         mm.put("numberOfPages", numberOfPages);
         mm.put("currentPage", 1);
@@ -70,31 +75,7 @@ public class Home {
         return "index";
     }
 
-//    @RequestMapping(value = "/next_page", method = RequestMethod.GET)
-//    public String listNextEvents(@RequestParam("nextPage") int nextPage, ModelMap mm, HttpSession session) {
-//        eventIpl = new EventIpl();
-//        List<Event> events = eventIpl.getEvents();
-//
-//        if (events != null) {
-//            List<Event> subEvents = events.subList(0, Math.min(Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
-//            for (int i = 0; i < subEvents.size(); i++) {
-//                subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
-//                        Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
-//            }
-//        }
-//
-//        int numberOfPages = events.size() <= Settings.NUMBER_EVENTS_AVAIABLE ? 1
-//                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE);
-//        if(events.size() % Settings.NUMBER_EVENTS_AVAIABLE != 0)
-//            numberOfPages += 1;
-//        
-//        mm.put("events", events);
-//        
-//        mm.put("numberOfPages", numberOfPages);
-//        return "index";
-//    }
-
-    @RequestMapping(value = "/next_page", method = RequestMethod.GET)
+    @RequestMapping(value = "/nextPage", method = RequestMethod.GET)
     public String listMemberEventNextPage(@RequestParam("nextPage") Integer nextNumber, ModelMap mm) {
         if (nextNumber == null) {
             nextNumber = 0;
@@ -103,14 +84,21 @@ public class Home {
         List<Event> events = eventIpl.getEvents();
         List<Event> subEvents = new ArrayList<>();
         if (events != null) {
-            subEvents = events.subList((nextNumber-1) * Settings.NUMBER_EVENTS_AVAIABLE, Math.min((nextNumber-1) * Settings.NUMBER_EVENTS_AVAIABLE + Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
+            subEvents = events.subList((nextNumber - 1) * Settings.NUMBER_EVENTS_AVAIABLE, Math.min((nextNumber - 1) * Settings.NUMBER_EVENTS_AVAIABLE + Settings.NUMBER_EVENTS_AVAIABLE, events.size()));
             for (int i = 0; i < subEvents.size(); i++) {
                 subEvents.get(i).setContent(subEvents.get(i).getContent().substring(0,
                         Math.min(events.get(i).getContent().length(), Settings.LENGTH_CONTENT)));
             }
         }
+        
+        int numberOfPages = events.size() < Settings.NUMBER_EVENTS_AVAIABLE ? 0
+                : (events.size() / Settings.NUMBER_EVENTS_AVAIABLE);
+        if (events.size() % Settings.NUMBER_EVENTS_AVAIABLE != 0) {
+            numberOfPages += 1;
+        }
         mm.put("events", subEvents);
         mm.put("currentPage", nextNumber);
+        mm.put("numberOfPages", numberOfPages);
         return "event_next_page";
     }
 

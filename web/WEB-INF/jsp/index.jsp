@@ -72,10 +72,10 @@
                 }});
             return;
         }
-        
-        function nextPage(currentPage)
+
+        function nextPage(nextPage)
         {
-             $.ajax({url: "nextPage.htm?nextPage=" + (currentPage + 1), success: function (result) {
+            $.ajax({url: "nextPage.htm?nextPage=" + nextPage, success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
@@ -142,7 +142,7 @@
                                 <div class="clr"></div>
                             </div>
                         </c:forEach>
-                        <p class="pages"><small>Page 1 de ${numberOfPages}</small> <span>${currentPage}</span> <a href="javascript: nextPage(${currentPage})">${currentPage + 1}</a> <a href="#">&raquo;</a></p>
+                        <p class="pages"><small>Page 1 de ${numberOfPages}</small> <span>${currentPage}</span> <a href="javascript: nextPage(${currentPage + 1})">${currentPage + 1}</a> <a href="#">&raquo;</a></p>
                     </div>
                     <div class="sidebar">
                         <div class="gadget"><br>
