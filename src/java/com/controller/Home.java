@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author lion
+ * @author Der, Duong
  */
 @Controller
 public class Home {

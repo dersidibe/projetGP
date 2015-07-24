@@ -67,7 +67,7 @@
 <div class="article">
     <h2><span>Créer </span> un offre</h2>
     <div class="clr"></div>
-    <form:form  name="create_offer" action="do_creation_offer.htm" method="post" commandName="offer" onsubmit="return validateForm()">
+    <form:form  name="create_offer" action="offer/do_creation_offer.htm" method="post" commandName="offer" onsubmit="return validateForm()">
         <table>
             <tr>
                 <td>

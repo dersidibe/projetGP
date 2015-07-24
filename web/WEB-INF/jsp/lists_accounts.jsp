@@ -15,9 +15,33 @@
         return;
     }
 
+    function searchDetail()
+    {
+        var searchInfoNom = $("#editbox_search_nom").val();
+        var searchInfoPromotion = $("#editbox_search_promotion").val();
+        var searchInfoMail = $("#editbox_search_email").val();
+        var url = "account/searchDetail.htm";
+        if (searchInfoNom === null || searchInfoNom === "")
+            url = url + "?nom=default";
+        else
+            url = url + "?nom=" + searchInfoNom;
+        if (searchInfoPromotion === null || searchInfoPromotion === "")
+            url = url + "&promotion=0";
+        else
+            url = url + "&promotion=" + searchInfoPromotion;
+        if (searchInfoMail === null || searchInfoMail === "")
+            url = url + "&mail=default";
+        else
+            url = url + "&mail=" + searchInfoMail;
+        $.ajax({url: url, success: function (result) {
+                $("#results").html(result);
+            }});
+        return;
+    }
+
     function nextPage(page) {
         $.ajax({url: "account/next_page.htm?page=" + page, success: function (result) {
-                $(".mainbar").html(result);
+                $("#results").html(result);
             }});
         return;
     }
@@ -29,6 +53,32 @@
         return;
     }
 </script>
+<h2 align="center">Faire la recherche</h2>
+<div class="searchform">
+    <div id="formsearch" name="formsearch" style="float: left; margin-right:10px">
+        <p>Nom</p>
+        <span style="width: 170px">
+            <input name="editbox_search" class="editbox_search" id="editbox_search_nom"  value="" type="text" />
+        </span>
+        <input name="button_search" src="images/search.gif" class="button_search" type="image" maxlength="10" onclick="javascript: searchDetail();"/>
+    </div>
+    <div id="formsearch" name="formsearch" style="float: left; margin-right:10px">
+        <p>Promotion</p>
+        <span style="width: 170px">
+            <input name="editbox_search" class="editbox_search" id="editbox_search_promotion" value="" type="text" />
+        </span>
+        <input name="button_search" src="images/search.gif" class="button_search" type="image" onclick="javascript: searchDetail();"/>
+    </div>
+    <div id="formsearch" name="formsearch" style="float: right">
+        <p>Email</p>
+        <span style="width: 170px">
+            <input name="editbox_search" class="editbox_search" id="editbox_search_email" value="" type="text" />
+        </span>
+        <input name="button_search" src="images/search.gif" class="button_search" type="image" onclick="javascript: searchDetail();"/>
+    </div>
+</div> <br><br><br><br><br><br><br>
+
+<div id="results">
 <h2 align="center">Les anciens de l'IFI</h2>
 <c:forEach var="account" items="${subAccounts}">
     <div class="article">
@@ -58,3 +108,5 @@
     </c:forEach>
     <a href="#">&raquo;</a>
 </p>
+<p class="spec"><a href="account/exportToExcel.htm" class="rm">Export to Excel &raquo;</a></p>
+</div>

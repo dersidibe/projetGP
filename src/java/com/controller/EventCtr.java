@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author lion
+ * @author Der, Duong
  */
 @Controller
 @RequestMapping(value = "/event")
@@ -92,5 +92,14 @@ public class EventCtr {
         boolean result = eventIpl.updateEvent(current_event);
         mm.put("result", result);
         return "redirect_index";
+    }
+    
+    @RequestMapping(value = "/showDetail", method = RequestMethod.GET)
+    public String doEdition(@RequestParam("eventId") int eventId,
+            ModelMap mm, HttpSession session) {
+        eventIpl = new EventIpl();
+        Event event = eventIpl.getEvent(eventId);
+        mm.put("event", event);
+        return "eventDetail";
     }
 }

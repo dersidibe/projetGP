@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.utils.HibernateUtil;
+import java.util.ArrayList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
@@ -103,9 +104,35 @@ public class AccountIpl extends AccountDao {
             return accounts;
         }
     }
+    
+    public List<Account> getAccountsSearchDetail(String nom, int promotion, String mail) {
+        session = sessionFactory.openSession();
+        Transaction transaction = null;
+        List<Account> accounts = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            
+            String stringQuery = "from Account as a where 1=1";
+            if(nom != null && !nom.equals(""))
+                stringQuery = stringQuery + " and lower(a.username) like lower('%" + nom + "%')";
+            if(promotion > 0)
+                stringQuery = stringQuery + " and a.promotion = " + promotion;
+            if(mail != null && !mail.equals(""))
+                stringQuery = stringQuery + " and lower(a.email) like lower('%" + mail+ "%')";
+            Query query = session.createQuery(stringQuery);
+            System.out.print("bbbbbbbbbbbbbbbbb" + stringQuery);
+            accounts = query.list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            return accounts;
+        }
+    }
 
-@Override
-        public Integer insertAccount(Account account) {
+    @Override
+    public Integer insertAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         Integer accountId = null;
@@ -122,7 +149,7 @@ public class AccountIpl extends AccountDao {
     }
 
     @Override
-        public boolean deleteAccount(Account account) {
+    public boolean deleteAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean result = false;
@@ -141,7 +168,7 @@ public class AccountIpl extends AccountDao {
     }
 
     @Override
-        public boolean updateAccount(Account account) {
+    public boolean updateAccount(Account account) {
         session = sessionFactory.openSession();
         Transaction transaction = null;
         boolean result = false;

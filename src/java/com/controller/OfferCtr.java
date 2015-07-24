@@ -49,6 +49,6 @@ public class OfferCtr {
         offer.setCreatedDate(new Date());
         Integer result = offerIpl.insertOffer(offer);
         mm.put("result", result);
-        return "create_offer";
+        return "redirect_index";
     }
 }

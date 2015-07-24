@@ -80,6 +80,14 @@
                 }});
             return;
         }
+        
+        function showDetail(eventId)
+        {
+            $.ajax({url: "event/showDetail.htm?eventId=" + eventId, success: function (result) {
+                    $(".mainbar").html(result);
+                }});
+            return;
+        }
     </script>
     <body>
         <div class="main">
@@ -136,8 +144,8 @@
                                 <div class="clr"></div>
                                 <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
                                 <div class="post_content">
-                                    <p>${event.content}</p>
-                                    <p class="spec"><a href="#" class="rm">Savoir plus &raquo;</a></p>
+                                    <p>${event.content}...</p>
+                                    <p class="spec"><a href="javascript: showDetail(${event.idEvent})" class="rm")>Savoir plus &raquo;</a></p>
                                 </div>
                                 <div class="clr"></div>
                             </div>

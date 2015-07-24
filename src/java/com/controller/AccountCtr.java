@@ -24,10 +24,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
- * @author SIDIBE Der (dersidibe@gmail.com)
+ * @author Der, Duong
  */
 @Controller
 @RequestMapping(value = "/account")
@@ -146,20 +147,45 @@ public class AccountCtr {
         session.setAttribute("currentListAccount", search_accounts);
         return "search_accounts";
     }
-    
+
     @RequestMapping(value = "/searchAccount", method = RequestMethod.GET)
     public String searchMembers(@RequestParam("userName") String username,
             ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
         List<Account> accountsFound = accountIpl.getAccounts(username);
         int numberAccounts = Math.min(accountsFound.size(), Settings.NUMBER_OF_ACCOUNT);
-        List<Account> subAccounts = accountsFound.subList(0,  numberAccounts);
+        List<Account> subAccounts = accountsFound.subList(0, numberAccounts);
         mm.put("membersFound", subAccounts);
         mm.put("numberAccounts", numberAccounts);
-        
+
         return "membersFound";
     }
-    
+
+    @RequestMapping(value = "/searchDetail", method = RequestMethod.GET)
+    public String searchDetail(@RequestParam("nom") String username,
+            @RequestParam("promotion") int promotion, @RequestParam("mail") String mail,
+            ModelMap mm, HttpSession session) {
+        accountIpl = new AccountIpl();
+        if(username.equalsIgnoreCase("default"))
+            username = null;
+        if(mail.equalsIgnoreCase("default"))
+            mail = null;
+        List<Account> accountsFound = accountIpl.getAccountsSearchDetail(username, promotion, mail);
+        int numberAccounts = Math.min(accountsFound.size(), Settings.NUMBER_OF_ACCOUNT);
+        List<Account> search_accounts = accountsFound.subList(0, numberAccounts);
+        
+        int numberPages = (int) search_accounts.size() / Settings.NUMBER_OF_ACCOUNT;
+        if (search_accounts.size() % Settings.NUMBER_OF_ACCOUNT > 0) {
+            numberPages = (int) search_accounts.size() / Settings.NUMBER_OF_ACCOUNT + 1;
+        }
+        mm.put("numberPages", numberPages);
+        mm.put("currentPage", 1);
+//        session.setAttribute("currentListAccount", search_accounts);
+        mm.put("search_accounts", search_accounts);
+        mm.put("numberAccounts", numberAccounts);
+        return "search_accounts";
+    }
+
     @RequestMapping(value = "/next_page", method = RequestMethod.GET)
     public String nextPage(@RequestParam("page") int page, ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
@@ -176,4 +202,11 @@ public class AccountCtr {
         mm.put("numberAccounts", Settings.NUMBER_OF_ACCOUNT);
         return "search_accounts";
     }
+
+    @RequestMapping(value = "/exportToExcel", method = RequestMethod.GET)
+    public ModelAndView getExcel() {
+        List<Account> accounts = accountIpl.getAccountsList();
+        return new ModelAndView("Accounts", "accounts", accounts);
+    }
+
 }
