@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author lion
+ * @author Phu Ba Duong
  */
 @Controller
 @RequestMapping(value = "/offer")
@@ -26,8 +26,8 @@ public class OfferCtr {
 
     private OfferIpl offerIpl;
 
-    @RequestMapping(value = "/create_offer", method = RequestMethod.GET)
-    public String createOffer(ModelMap mm, HttpSession session) {
+    @RequestMapping(value = "/create_offer_form", method = RequestMethod.GET)
+    public String createOfferForm(ModelMap mm, HttpSession session) {
         Offer offer = new Offer();
         Account account = (Account) session.getAttribute("current_account");
         if (account == null) {
@@ -35,11 +35,11 @@ public class OfferCtr {
         }
         mm.put("result", 0);
         mm.addAttribute("offer", offer);
-        return "create_offer";
+        return "create_offer_form";
     }
 
-    @RequestMapping(value = "/do_creation_offer", method = RequestMethod.POST)
-    public String doCreationOffer(@ModelAttribute("offer") Offer offer, ModelMap mm, HttpSession session) {
+    @RequestMapping(value = "/create_offer", method = RequestMethod.POST)
+    public String createOffer(@ModelAttribute("offer") Offer offer, ModelMap mm, HttpSession session) {
         offerIpl = new OfferIpl();
         Account currentAccount = (Account) session.getAttribute("current_account");
         if (currentAccount == null) {

@@ -14,7 +14,7 @@
         <c:when test="${membersFound != null}">
             <c:forEach var="member" items="${membersFound}">
                 <li><a href="http://www.dreamtemplate.com/">${member.username}</a><br>
-                    Promotion: ${member.promotion} Nationalité:${member.nationality}
+                    Promotion: ${member.promotion} Email:${member.nationality}
                 </li>
             </c:forEach>
         </c:when>

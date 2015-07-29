@@ -28,7 +28,7 @@ import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
- * @author Der, Duong
+ * @author Phu Ba Duong, Sylvestre
  */
 @Controller
 @RequestMapping(value = "/account")
@@ -51,8 +51,8 @@ public class AccountCtr {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    @RequestMapping(value = "/create_account", method = RequestMethod.GET)
-    public String submitForm(ModelMap mm) {
+    @RequestMapping(value = "/create_account_form", method = RequestMethod.GET)
+    public String createAccountForm(ModelMap mm) {
         mm.addAttribute("account", new Account());
         List<String> promotion = new ArrayList<String>();
         for (int i = 1; i <= Settings.NUMBER_PROMOTIONS; i++) {
@@ -60,13 +60,12 @@ public class AccountCtr {
         }
         mm.put("result", 0);
         mm.addAttribute("promo", promotion);
-        return "create_account";
+        return "create_account_form";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String signup(@ModelAttribute("account") Account account, ModelMap mm) {
         java.sql.Timestamp date = new java.sql.Timestamp(System.currentTimeMillis());
-//        accountIpl = new AccountIpl();
         account.setCreatedDate(date);
         account.setModifiedDate(date);
         Integer result = accountIpl.insertAccount(account);
@@ -74,8 +73,8 @@ public class AccountCtr {
         return "redirect_index";
     }
 
-    @RequestMapping(value = "/edit_account", method = RequestMethod.GET)
-    public String formEdit(@RequestParam("idAccount") int idAccount,
+    @RequestMapping(value = "/edit_account_form", method = RequestMethod.GET)
+    public String editAccountForm(@RequestParam("idAccount") int idAccount,
             ModelMap mm, HttpSession session) {
         Account currentAccount;
         currentAccount = accountIpl.getAccount(idAccount);
@@ -91,11 +90,11 @@ public class AccountCtr {
         mm.put("current_account", currentAccount);
         session.setAttribute("oldAccount", currentAccount);
         mm.put("result", null);
-        return "edit_account";
+        return "edit_account_form";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String doEdition(@ModelAttribute("current_account") Account newAccount,
+    @RequestMapping(value = "/edit_account", method = RequestMethod.POST)
+    public String editAccount(@ModelAttribute("current_account") Account newAccount,
             ModelMap mm, HttpSession session) {
         Account oldAccount = (Account) session.getAttribute("oldAccount");
         newAccount.setIdAccount(oldAccount.getIdAccount());
@@ -148,7 +147,7 @@ public class AccountCtr {
         return "search_accounts";
     }
 
-    @RequestMapping(value = "/searchAccount", method = RequestMethod.GET)
+    @RequestMapping(value = "/search_members", method = RequestMethod.GET)
     public String searchMembers(@RequestParam("userName") String username,
             ModelMap mm, HttpSession session) {
         accountIpl = new AccountIpl();
@@ -157,8 +156,7 @@ public class AccountCtr {
         List<Account> subAccounts = accountsFound.subList(0, numberAccounts);
         mm.put("membersFound", subAccounts);
         mm.put("numberAccounts", numberAccounts);
-
-        return "membersFound";
+        return "members_found";
     }
 
     @RequestMapping(value = "/searchDetail", method = RequestMethod.GET)
@@ -180,7 +178,6 @@ public class AccountCtr {
         }
         mm.put("numberPages", numberPages);
         mm.put("currentPage", 1);
-//        session.setAttribute("currentListAccount", search_accounts);
         mm.put("search_accounts", search_accounts);
         mm.put("numberAccounts", numberAccounts);
         return "search_accounts";
@@ -208,5 +205,4 @@ public class AccountCtr {
         List<Account> accounts = accountIpl.getAccountsList();
         return new ModelAndView("Accounts", "accounts", accounts);
     }
-
 }

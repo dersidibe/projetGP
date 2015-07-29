@@ -17,14 +17,14 @@
     </head>
     <script>
         function login() {
-            $.ajax({url: "login.htm", success: function (result) {
+            $.ajax({url: "login_form.htm", success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
         }
 
         function register() {
-            $.ajax({url: "account/create_account.htm", success: function (result) {
+            $.ajax({url: "account/create_account_form.htm", success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
@@ -41,19 +41,19 @@
             return;
         }
         function createEvent() {
-            $.ajax({url: "event/create_event.htm", success: function (result) {
+            $.ajax({url: "event/create_event_form.htm", success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
         }
         function createOffer() {
-            $.ajax({url: "offer/create_offer.htm", success: function (result) {
+            $.ajax({url: "offer/create_offer_form.htm", success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
         }
         function editEvent(id) {
-            $.ajax({url: "event/edit_event.htm?eventId=" + id, success: function (result) {
+            $.ajax({url: "event/edit_event_form.htm?eventId=" + id, success: function (result) {
                     $(".mainbar").html(result);
                 }});
             return;
@@ -67,7 +67,7 @@
                 alert("Vous devez tapper quelque chose pour faire chercher!");
                 return;
             }
-            $.ajax({url: "account/searchAccount.htm?userName=" + username, success: function (result) {
+            $.ajax({url: "account/search_members.htm?userName=" + username, success: function (result) {
                     $("#if_search").html(result);
                 }});
             return;

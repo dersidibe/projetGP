@@ -104,7 +104,7 @@
 <div class="article">
     <h2><span>Modifier </span> un événement</h2>
     <div class="clr"></div>
-    <form:form onsubmit="return validateForm()" action="event/do_edition.htm?eventId=${eventId}" method="post" commandName="current_event" >
+    <form:form onsubmit="return validateForm()" action="event/edit_event.htm?eventId=${eventId}" method="post" commandName="current_event" >
         <table>
             <tr>
                 <td>Titre:</td>

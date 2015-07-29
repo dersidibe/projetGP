@@ -100,7 +100,8 @@
 <div class="article">
     <h2><span>Créer </span> un événement</h2>
     <div class="clr"></div>
-    <form:form onsubmit="return validateForm()" action="event/do_creation_event.htm" method="post" commandName="event" >
+    <form:form onsubmit="return validateForm()" action="event/create_event.htm" 
+               method="post" commandName="event" >
         <table>
             <tr>
                 <td>Titre:</td>

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author Der, Duong
+ * @author Phu Ba Duong
  */
 @Controller
 @RequestMapping(value = "/event")
@@ -38,8 +38,8 @@ public class EventCtr {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    @RequestMapping(value = "/create_event", method = RequestMethod.GET)
-    public String createEvent(ModelMap mm, HttpSession session) {
+    @RequestMapping(value = "/create_event_form", method = RequestMethod.GET)
+    public String createEventForm(ModelMap mm, HttpSession session) {
         Event event = new Event();
         Account currentAccount = (Account) session.getAttribute("current_account");
         if (currentAccount == null) {
@@ -47,11 +47,11 @@ public class EventCtr {
         }
         mm.put("result", 0);
         mm.addAttribute("event", event);
-        return "create_event";
+        return "create_event_form";
     }
 
-    @RequestMapping(value = "/do_creation_event", method = RequestMethod.POST)
-    public String doCreationEvent(@ModelAttribute("event") Event event,
+    @RequestMapping(value = "/create_event", method = RequestMethod.POST)
+    public String createEvent(@ModelAttribute("event") Event event,
             ModelMap mm, HttpSession session) {
         eventIpl = new EventIpl();
         Account currentAccount = (Account) session.getAttribute("current_account");
@@ -65,8 +65,8 @@ public class EventCtr {
         return "redirect_index";
     }
 
-    @RequestMapping(value = "/edit_event", method = RequestMethod.GET)
-    public String formEdit(@RequestParam("eventId") int eventId, ModelMap mm, 
+    @RequestMapping(value = "/edit_event_form", method = RequestMethod.GET)
+    public String editEventForm(@RequestParam("eventId") int eventId, ModelMap mm, 
             HttpSession session) {
         eventIpl = new EventIpl();
         Event current_event = eventIpl.getEvent(eventId);
@@ -74,11 +74,11 @@ public class EventCtr {
         session.setAttribute("eventCreatedDate", current_event.getCreatedDate());
         mm.put("eventId", eventId);
         mm.put("result", null);
-        return "edit_event";
+        return "edit_event_form";
     }
 
-    @RequestMapping(value = "/do_edition", method = RequestMethod.POST)
-    public String doEdition(@RequestParam("eventId") int eventId,
+    @RequestMapping(value = "/edit_event", method = RequestMethod.POST)
+    public String editEvent(@RequestParam("eventId") int eventId,
             @ModelAttribute("current_event") Event current_event,
             ModelMap mm, HttpSession session) {
         eventIpl = new EventIpl();
@@ -95,11 +95,11 @@ public class EventCtr {
     }
     
     @RequestMapping(value = "/showDetail", method = RequestMethod.GET)
-    public String doEdition(@RequestParam("eventId") int eventId,
+    public String showDetail(@RequestParam("eventId") int eventId,
             ModelMap mm, HttpSession session) {
         eventIpl = new EventIpl();
         Event event = eventIpl.getEvent(eventId);
         mm.put("event", event);
-        return "eventDetail";
+        return "event_detail";
     }
 }

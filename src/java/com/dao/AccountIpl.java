@@ -18,6 +18,7 @@ import org.hibernate.SessionFactory;
 /**
  *
  * @author Der
+ * @author Duong ameliorer
  */
 public class AccountIpl extends AccountDao {
 

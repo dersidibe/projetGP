@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 /**
  *
  * @author SIDIBE Der (dersidibe@gmail.com)
+ * @author Duong ameliorer
  */
 public class CommentIpl extends CommentDao {
 

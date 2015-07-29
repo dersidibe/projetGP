@@ -88,7 +88,7 @@
                     element.appendChild(para);
                 return false;
             }
-            
+
             var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
             var email = document.getElementById("email").value;
             if (!re.test(email))
@@ -123,6 +123,14 @@
                 var element = document.getElementById("empty_status");
                 if (element.textContent === null || element.textContent === "")
                     element.appendChild(para);
+                return false;
+            }
+
+            var startDate = new Date($('#datepicker2').val()); // or Date.parse(...)
+            var endDate = new Date($('#datepicker3').val()); // or Date.parse(...)
+            if (endDate < startDate)
+            {
+                alert("Date de debut superieur date de fin");
                 return false;
             }
 
