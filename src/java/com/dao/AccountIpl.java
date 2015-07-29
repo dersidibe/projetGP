@@ -112,7 +112,6 @@ public class AccountIpl extends AccountDao {
         List<Account> accounts = new ArrayList<>();
         try {
             transaction = session.beginTransaction();
-            
             String stringQuery = "from Account as a where 1=1";
             if(nom != null && !nom.equals(""))
                 stringQuery = stringQuery + " and lower(a.username) like lower('%" + nom + "%')";
@@ -121,7 +120,6 @@ public class AccountIpl extends AccountDao {
             if(mail != null && !mail.equals(""))
                 stringQuery = stringQuery + " and lower(a.email) like lower('%" + mail+ "%')";
             Query query = session.createQuery(stringQuery);
-            System.out.print("bbbbbbbbbbbbbbbbb" + stringQuery);
             accounts = query.list();
             transaction.commit();
         } catch (HibernateException e) {

@@ -7,6 +7,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script>
+    function showDetail(eventId)
+    {
+        $.ajax({url: "event/showDetail.htm?eventId=" + eventId, success: function (result) {
+                $(".mainbar").html(result);
+            }});
+        return;
+    }
+</script>
 <c:forEach var="event" items="${events}">
     <div class="article">
         <h2><span>${event.title}</span></h2>
@@ -33,7 +42,7 @@
         <div class="img"><img src="images/event/${event.image}" width="630" height="221" alt="" class="fl" /></div>
         <div class="post_content">
             <p>${event.content}</p>
-            <p class="spec"><a href="#" class="rm">Savoir plus &raquo;</a></p>
+            <p class="spec"><a href="javascript: showDetail(${event.idEvent})" class="rm">Savoir plus &raquo;</a></p>
         </div>
         <div class="clr"></div>
     </div>

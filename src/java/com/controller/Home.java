@@ -40,7 +40,7 @@ public class Home {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String listMemberEvent(ModelMap mm) {
+    public String listInformation(ModelMap mm) {
         accountIpl = new AccountIpl();
         List<Account> accounts = accountIpl.getAccountsList();
         eventIpl = new EventIpl();
@@ -78,7 +78,7 @@ public class Home {
     }
 
     @RequestMapping(value = "/nextPage", method = RequestMethod.GET)
-    public String listMemberEventNextPage(
+    public String listEventNextPage(
             @RequestParam("nextPage") Integer nextNumber, ModelMap mm) {
         if (nextNumber == null) {
             nextNumber = 0;

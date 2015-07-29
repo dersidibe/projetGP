@@ -141,7 +141,8 @@
 <div class="article">
     <h2><span>Sign Up</span></h2>
     <div class="clr"></div>
-    <form:form action="account/register.htm" method="post" commandName="account" onsubmit="return validateForm()">
+    <form:form action="account/register.htm" method="post" commandName="account"
+               onsubmit="return validateForm()" enctype="multipart/form-data">
         <table border="0">
             <tr>
                 <td class="required">Nom:</td>

@@ -10,10 +10,14 @@ import com.dao.EventIpl;
 import com.dao.OfferIpl;
 import com.model.Account;
 import com.utils.Settings;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -24,11 +28,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
- * @author Phu Ba Duong, Sylvestre
+ * @author Phu Ba Duong, Der
  */
 @Controller
 @RequestMapping(value = "/account")
@@ -64,7 +69,17 @@ public class AccountCtr {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String signup(@ModelAttribute("account") Account account, ModelMap mm) {
+    public String signup(@ModelAttribute("account") Account account, ModelMap mm,
+            @RequestParam("file") MultipartFile file) throws Exception {
+        
+        if (!file.isEmpty()) {
+            BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+            File destination = new File("/home/lion/Documents/Dropbox/Gestion "
+                    + "de projet/Projet/Practice/projetGP/web/images/account/" 
+                    + account.getImage());
+            ImageIO.write(src, "jpg", destination);
+        }
+        
         java.sql.Timestamp date = new java.sql.Timestamp(System.currentTimeMillis());
         account.setCreatedDate(date);
         account.setModifiedDate(date);
@@ -95,7 +110,17 @@ public class AccountCtr {
 
     @RequestMapping(value = "/edit_account", method = RequestMethod.POST)
     public String editAccount(@ModelAttribute("current_account") Account newAccount,
-            ModelMap mm, HttpSession session) {
+            ModelMap mm, HttpSession session, 
+            @RequestParam("file") MultipartFile file) throws Exception{
+        
+        if (!file.isEmpty()) {
+            BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+            File destination = new File("/home/lion/Documents/Dropbox/Gestion "
+                    + "de projet/Projet/Practice/projetGP/web/images/account/" 
+                    + newAccount.getImage());
+            ImageIO.write(src, "jpg", destination);
+        }
+        
         Account oldAccount = (Account) session.getAttribute("oldAccount");
         newAccount.setIdAccount(oldAccount.getIdAccount());
         newAccount.setCreatedDate(oldAccount.getCreatedDate());

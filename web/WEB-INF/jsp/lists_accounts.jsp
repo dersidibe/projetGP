@@ -47,7 +47,7 @@
     }
 
     function editAccount(idAccount) {
-        $.ajax({url: "account/edit_account.htm?idAccount=" + idAccount, success: function (result) {
+        $.ajax({url: "account/edit_account_form.htm?idAccount=" + idAccount, success: function (result) {
                 $(".mainbar").html(result);
             }});
         return;

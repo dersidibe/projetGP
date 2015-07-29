@@ -8,13 +8,19 @@ package com.controller;
 import com.dao.OfferIpl;
 import com.model.Account;
 import com.model.Offer;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,7 +45,15 @@ public class OfferCtr {
     }
 
     @RequestMapping(value = "/create_offer", method = RequestMethod.POST)
-    public String createOffer(@ModelAttribute("offer") Offer offer, ModelMap mm, HttpSession session) {
+    public String createOffer(@ModelAttribute("offer") Offer offer, ModelMap mm,
+            HttpSession session, @RequestParam("file") MultipartFile file) throws Exception {
+
+        if (!file.isEmpty()) {
+            BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+            File destination = new File("/home/lion/Documents/Dropbox/Gestion "
+                    + "de projet/Projet/Practice/projetGP/web/images/offer/" + offer.getImage());
+            ImageIO.write(src, "jpg", destination);
+        }
         offerIpl = new OfferIpl();
         Account currentAccount = (Account) session.getAttribute("current_account");
         if (currentAccount == null) {
